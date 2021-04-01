@@ -4,6 +4,8 @@ from fastapi import HTTPException, Security
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
+from bson import json_util
+import json
 
 
 class AuthHandler():
@@ -26,9 +28,14 @@ class AuthHandler():
     """ ENCODE TOKEN  """
 
     def enconde_token(self, user_id):
+        datetime_utcnow = json.dumps(
+            datetime.utcnow(), default=json_util.default)
+        print(datetime_utcnow)
         payload = {
-            'expiration':  datetime.utcnow() + timedelta(days=0, minutes=5),
-            'iat': datetime.utcnow(),
+            # 'expiration':  datetime.utcnow() + timedelta(days=0, minutes=5),
+            'expiration':  datetime_utcnow + str(timedelta(days=0, minutes=5)),
+            # 'iat': datetime.utcnow(),
+            'iat': datetime_utcnow,
             'sub': user_id
         }
 
