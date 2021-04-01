@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from .db.users.database import auth_handler
 """ import router """
-from .routes.authentication_users_routes import router as AuthRouter
+from .routes.users.authentication_users_routes import router as AuthRouter
 
 app = FastAPI()
 

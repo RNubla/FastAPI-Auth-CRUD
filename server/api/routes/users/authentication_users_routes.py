@@ -7,7 +7,7 @@ from api.db.users.database import(
     # access_protected
 )
 
-from api.models.authentication_details import(
+from api.models.users.authentication_details import(
     ErrorResponseModel,
     ResponseModel,
     UpdateUserModel,
