@@ -44,15 +44,15 @@ class AuthHandler():
     def decode_token(self, token):
         try:
             payload = jwt.decode(token, self.secret, algorithms=['HS256'])
-            print(payload)
+            # print(payload)
             # return payload['sub']
             return payload
         except jwt.ExpiredSignatureError:
-            # IF TOKEN PASSED 5 MIN, IT WILL RAISE AN EXCEPTION
+            """ IF TOKEN PASSED 5 MIN, IT WILL RAISE AN EXCEPTION """
             raise HTTPException(
                 status_code=401, detail='Signature has expired')
         except jwt.InvalidTokenError as e:
-            # IF PASSWORD DOESNT MATCH THE HASHED PASSWORD, IT WILL RAISE AN EXCEPTION
+            """ IF PASSWORD DOESNT MATCH THE HASHED PASSWORD, IT WILL RAISE AN EXCEPTION """
             raise HTTPException(
                 status_code=401, detail='Invalid token'
             )
