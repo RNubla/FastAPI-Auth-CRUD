@@ -1,6 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-
+from .database import auth_handler
 """ import router """
 from .routes.authentication_users_routes import router as AuthRouter
 
@@ -24,4 +24,8 @@ app.add_middleware(
 )
 
 app.include_router(AuthRouter, tags=['Authentication'], prefix='/auth')
-# @app.post('/users/register', status_code=201, )
+
+
+@app.get('/protected')
+async def protected(username=Depends(auth_handler.auth_wrapper)):
+    return {'user_data': username}

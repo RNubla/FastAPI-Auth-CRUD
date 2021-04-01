@@ -4,8 +4,6 @@ from fastapi import HTTPException, Security
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
-from bson import json_util
-import json
 
 
 class AuthHandler():
@@ -27,16 +25,12 @@ class AuthHandler():
 
     """ ENCODE TOKEN  """
 
-    def enconde_token(self, user_id):
-        datetime_utcnow = json.dumps(
-            datetime.utcnow(), default=json_util.default)
-        print(datetime_utcnow)
+    def enconde_token(self, user_id, user_email):
         payload = {
-            # 'expiration':  datetime.utcnow() + timedelta(days=0, minutes=5),
-            'expiration':  datetime_utcnow + str(timedelta(days=0, minutes=5)),
-            # 'iat': datetime.utcnow(),
-            'iat': datetime_utcnow,
-            'sub': user_id
+            'exp':  datetime.utcnow() + timedelta(days=0, minutes=5),
+            'iat': datetime.utcnow(),
+            'username': user_id,
+            'email': user_email
         }
 
         return jwt.encode(
@@ -50,8 +44,10 @@ class AuthHandler():
     def decode_token(self, token):
         try:
             payload = jwt.decode(token, self.secret, algorithms=['HS256'])
-            return payload['sub']
-        except jwt.ExpiredSignature:
+            print(payload)
+            # return payload['sub']
+            return payload
+        except jwt.ExpiredSignatureError:
             # IF TOKEN PASSED 5 MIN, IT WILL RAISE AN EXCEPTION
             raise HTTPException(
                 status_code=401, detail='Signature has expired')

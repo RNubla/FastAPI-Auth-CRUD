@@ -1,9 +1,10 @@
-from fastapi import APIRouter, Body
+from fastapi import APIRouter, Body, Depends
 from fastapi.encoders import jsonable_encoder
 
 from api.database import(
     register_user,
-    login_user
+    login_user,
+    # access_protected
 )
 
 from api.models.authentication_details import(

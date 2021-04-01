@@ -37,7 +37,7 @@ async def register_user(user_data: dict) -> dict:
     existing_user = await user_collection.find_one({'user_name': user_data['user_name']})
     if existing_user:
         raise HTTPException(status_code=400, detail='Username is taken')
-    """ 
+    """
     HASH THE PASSWORD AND IT WILL GET STORED IN THE DATABASE
     """
     hashed_password = auth_handler.get_hashed_password(user_data['password'])
@@ -49,13 +49,11 @@ async def register_user(user_data: dict) -> dict:
 
 async def login_user(user_data: dict) -> dict:
     user = await user_collection.find_one({'user_name': user_data['user_name']})
-    # print(user['password'])
-    _user = user_helper(user)
-    # print(_user)
+    # _user = user_helper(user)
 
     if (user is None) or (not auth_handler.get_verify_password(user_data['password'], user['password'])):
         raise HTTPException(
             status_code=401, detail='Invalid username and/or password')
 
-    token = auth_handler.enconde_token(user['user_name'])
+    token = auth_handler.enconde_token(user['user_name'], user['email'])
     return {'token', token}
