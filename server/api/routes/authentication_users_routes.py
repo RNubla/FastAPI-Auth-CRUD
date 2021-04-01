@@ -2,7 +2,8 @@ from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
 
 from api.database import(
-    register_user
+    register_user,
+    login_user
 )
 
 from api.models.authentication_details import(
@@ -13,8 +14,15 @@ from api.models.authentication_details import(
 router = APIRouter()
 
 
-@router.post('/', response_description='User registration', status_code=201)
+@router.post('/register', response_description='User registration', status_code=201)
 async def register(user: UserAuthDetails = Body(...)):
     _user = jsonable_encoder(user)
     new_user = await register_user(_user)
     return ResponseModel(new_user, 'New User Registered Successfully')
+
+
+@router.post('/login', response_description='User Login', status_code=201)
+async def login(user: UserAuthDetails):
+    _user = jsonable_encoder(user)
+    _login_user = await login_user(_user)
+    return ResponseModel(_login_user, 'User logged In Successfully')
