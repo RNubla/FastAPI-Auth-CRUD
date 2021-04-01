@@ -3,7 +3,7 @@ import jwt
 from fastapi import HTTPException, Security
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from passlib.context import CryptContext
-from datetime import datatime, timedelta
+from datetime import datetime, timedelta
 
 
 class AuthHandler():
@@ -27,8 +27,8 @@ class AuthHandler():
 
     def enconde_token(self, user_id):
         payload = {
-            'expiration':  datatime.utcnow() + timedelta(days=0, minutes=5),
-            'iat': datatime.utcnow(),
+            'expiration':  datetime.utcnow() + timedelta(days=0, minutes=5),
+            'iat': datetime.utcnow(),
             'sub': user_id
         }
 
