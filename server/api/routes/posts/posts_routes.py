@@ -5,13 +5,16 @@ from api.db.users.database import auth_handler
 
 from api.db.posts.database import (
     puslish_post,
-    retrieve_posts
+    retrieve_post,
+    retrieve_posts,
+    update_post
 )
 
 from api.models.posts.posts_model import(
     ErrorResponseModel,
     ResponseModel,
-    PostSchema
+    PostSchema,
+    UpdatePostModel
 )
 post_router = APIRouter()
 
@@ -23,11 +26,39 @@ async def get_posts():
         return ResponseModel(posts, 'Posts data has been retrieved successfully')
     return ResponseModel(posts, 'Empy list returned')
 
+""" GET SPECIFIC POST """
+
+
+@post_router.get('/{id}', response_description='Post Data Retrieved')
+async def get_post_data(id):
+    post = await retrieve_post(id)
+    if post:
+        return ResponseModel(post, 'Post data retrieved successfully')
+    return ErrorResponseModel('An error occurred', 404, 'Post Does not exist')
+
 
 @post_router.post('/', response_description='Add Post', status_code=201)
 async def add_post(user=Depends(auth_handler.auth_wrapper), post: PostSchema = Body(...)):
     post = jsonable_encoder(post)
     # print('from router: ', post)
-    print(user)
+    # print(user)
     new_post = await puslish_post(post, user['user_id'], user['user_fullname'])
     return ResponseModel(new_post, 'New Post Added Successfully')
+
+""" UPDATE POST """
+
+
+@post_router.put('/{id}', response_description='Update Post')
+async def update_post_data(id: str, user=Depends(auth_handler.auth_wrapper), req: UpdatePostModel = Body(...)):
+    req = {k: v for k, v in req.dict().items() if v is not None}
+    updated_post = await update_post(id=id, data=req)
+    if updated_post:
+        return ResponseModel(
+            f'Post with ID:{id} update is successful',
+            'Post updated successfully'
+        )
+    return ErrorResponseModel(
+        'An error occurred',
+        404,
+        'There was an error updating the post data'
+    )

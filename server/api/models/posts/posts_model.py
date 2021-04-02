@@ -24,6 +24,25 @@ class PostSchema(BaseModel):
         }
 
 
+class UpdatePostModel(BaseModel):
+    title: Optional[str]
+    body: Optional[str]
+    # author: str = Field(...)
+    post_img: Optional[str]
+    published_on: Optional[str]
+
+    class Config:
+        schema_extra = {
+            'example': {
+                'title': 'Hello World',
+                'body': 'Lorem something .....',
+                # 'author': 'John Smith',
+                'post_img': 'img_url',
+                'published_on': f'{datetime.utcnow()}'
+            }
+        }
+
+
 def ResponseModel(data, message):
     return {
         'data': data,
