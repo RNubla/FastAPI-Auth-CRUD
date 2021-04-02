@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field
 
 class UserAuthDetails(BaseModel):
     user_name: str = Field(...)
+    user_fullname: str = Field(...)
     email: str = Field(...)
     password: str = Field(...)
 
@@ -16,6 +17,7 @@ class UserAuthDetails(BaseModel):
         schema_extra = {
             'example': {
                 'user_name': 'johnsmith1776',
+                'user_fullname': 'John Smith',
                 'email': 'johnsmith1776@example.com',
                 'password': 'secretpassword'
             }
@@ -29,6 +31,7 @@ class UserAuthDetails(BaseModel):
 
 class UpdateUserModel(BaseModel):
     user_name: Optional[str]
+    user_fullname: Optional[str]
     email: Optional[str]
     password: Optional[str]
 
@@ -36,6 +39,7 @@ class UpdateUserModel(BaseModel):
         schema_extra = {
             'example': {
                 'user_name': 'johnsmith1776',
+                'user_fullname': 'John Smith',
                 'email': 'johnsmith1776@example.com',
                 'password': 'secretpassword'
             }

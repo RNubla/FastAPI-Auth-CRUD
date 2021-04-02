@@ -25,11 +25,14 @@ class AuthHandler():
 
     """ ENCODE TOKEN  """
 
-    def enconde_token(self, user_id, user_email):
+    def enconde_token(self, user_id, user_fullname, username, user_email):
+        # def enconde_token(self, username, user_email):
         payload = {
             'exp':  datetime.utcnow() + timedelta(days=0, minutes=5),
             'iat': datetime.utcnow(),
-            'username': user_id,
+            'user_id': user_id,
+            'username': username,
+            'user_fullname': user_fullname,
             'email': user_email
         }
 

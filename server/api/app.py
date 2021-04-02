@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from .db.users.database import auth_handler
+from api.db.users.database import auth_handler
 """ import router """
 from .routes.users.authentication_users_routes import router as AuthRouter
-
+from api.routes.posts.posts_routes import post_router as PostRouter
 app = FastAPI()
 
 origins = [
@@ -24,6 +24,7 @@ app.add_middleware(
 )
 
 app.include_router(AuthRouter, tags=['Authentication'], prefix='/auth')
+app.include_router(PostRouter, tags=['Posts'], prefix='/posts')
 
 
 @app.get('/protected')

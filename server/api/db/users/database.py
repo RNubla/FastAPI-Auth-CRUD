@@ -19,6 +19,7 @@ def user_helper(user) -> dict:
     return{
         'id': str(user['_id']),
         'user_name': user['user_name'],
+        'user_fullname': user['user_fullname'],
         'email': user['email'],
         'password': user['password']
     }
@@ -49,11 +50,17 @@ async def register_user(user_data: dict) -> dict:
 
 async def login_user(user_data: dict) -> dict:
     user = await user_collection.find_one({'user_name': user_data['user_name']})
+    print(str(user['_id']))
     # _user = user_helper(user)
 
     if (user is None) or (not auth_handler.get_verify_password(user_data['password'], user['password'])):
         raise HTTPException(
             status_code=401, detail='Invalid username and/or password')
 
-    token = auth_handler.enconde_token(user['user_name'], user['email'])
-    return {'token', token}
+    token = auth_handler.enconde_token(
+        user_id=str(user['_id']),
+        username=user['user_name'],
+        user_fullname=user['user_fullname'],
+        user_email=user['email'])
+    # return {'token', token}
+    return token
