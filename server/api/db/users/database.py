@@ -50,7 +50,7 @@ async def register_user(user_data: dict) -> dict:
 
 async def login_user(user_data: dict) -> dict:
     user = await user_collection.find_one({'user_name': user_data['user_name']})
-    print(str(user['_id']))
+    # print(str(user['_id']))
     # _user = user_helper(user)
 
     if (user is None) or (not auth_handler.get_verify_password(user_data['password'], user['password'])):
