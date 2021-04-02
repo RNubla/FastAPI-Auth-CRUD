@@ -7,7 +7,8 @@ from api.db.posts.database import (
     puslish_post,
     retrieve_post,
     retrieve_posts,
-    update_post
+    update_post,
+    delete_post
 )
 
 from api.models.posts.posts_model import(
@@ -61,4 +62,19 @@ async def update_post_data(id: str, user=Depends(auth_handler.auth_wrapper), req
         'An error occurred',
         404,
         'There was an error updating the post data'
+    )
+
+
+@post_router.delete('/{id}', response_description='Delete Post from Database')
+async def delete_posts_data(id: str, user=Depends(auth_handler.auth_wrapper)):
+    deleted_post = await delete_post(id)
+    if deleted_post:
+        return ResponseModel(
+            f'Post with ID:{id} removed',
+            'Successfully delete post'
+        )
+    return ErrorResponseModel(
+        'An error occurred',
+        404,
+        f'Post with ID:{id} does not exist'
     )

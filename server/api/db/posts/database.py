@@ -62,3 +62,10 @@ async def update_post(id: str, data: dict):
         if updated_post:
             return True
         return False
+
+
+async def delete_post(id: str):
+    post = await posts_collection.find_one({'_id': ObjectId(id)})
+    if post:
+        await posts_collection.delete_one({'_id': ObjectId(id)})
+        return True
