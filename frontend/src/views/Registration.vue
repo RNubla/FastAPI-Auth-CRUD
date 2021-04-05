@@ -59,7 +59,6 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-// const axios = require("axios");
 export default {
   data() {
     return {
