@@ -17,14 +17,14 @@
   <p>
     <label >Full Name</label>
     <input
-      v-model="fullname"
+      v-model="newUser.user_fullname"
       type="text"
     >
   </p>
   <p>
     <label >Username</label>
     <input
-      v-model="username"
+      v-model="newUser.user_name"
       type="text"
     >
   </p>
@@ -32,14 +32,14 @@
   <p>
     <label>Email</label>
     <input
-      v-model="email"
+      v-model="newUser.email"
     >
   </p>
 
   <p>
     <label >Password</label>
     <input 
-      v-model="password"
+      v-model="newUser.password"
       type="password"
       minlength="3"
     >
@@ -58,7 +58,8 @@
 </template>
 
 <script>
-const { mapActions } = require("vuex");
+// const { mapActions } = require("vuex");
+const axios = require("axios");
 export default {
   data() {
     return {
@@ -72,9 +73,28 @@ export default {
     };
   },
   methods: {
-    ...mapActions({
-      registerNewUser: "registerUser",
-    }),
+    async registerUser(payload_data) {
+      // await axios(`${SERVER_URL}/auth/register`, payload_data)
+      await axios
+        .post("http://localhost:8000/auth/register", payload_data, {
+          headers: {
+            "Content-Type": "Content-Type: application/x-www-form-urlencoded",
+          },
+        })
+        .then((res) => {
+          // commit("REGISTER_USER", res.data.data);
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log("vuex: ", e.response.data);
+        });
+    },
+    // ...mapActions({
+    //   registerNewUser: "registerUser",
+    // }),
+    convertToJson(data) {
+      return JSON.parse(JSON.stringify(data));
+    },
     checkForm() {
       if (this.name && this.age) {
         return true;
@@ -82,21 +102,26 @@ export default {
 
       this.errors = [];
 
-      if (!this.username) {
+      if (!this.newUser.user_name) {
         this.errors.push("Username required.");
       }
-      if (!this.fullname) {
+      if (!this.newUser.user_fullname) {
         this.errors.push("Fullname required.");
       }
-      if (!this.password) {
+      if (!this.newUser.password) {
         this.errors.push("password required.");
       }
-      if (!this.email) {
+      if (!this.newUser.email) {
         this.errors.push("Email required.");
       }
       if (this.errors.length === 0) {
         // console.log("Error is empty");
-        this.registerNewUser(this.newUser);
+        // console.log(this.newUser);
+        // console.log(JSON.parse(JSON.stringify(this.newUser)));
+        console.log(this.convertToJson(this.newUser));
+        this.registerUser(this.newUser);
+        // this.$store.dispatch("registerUser", this.convertToJson(this.newUser));
+        // this.registerNewUser(this.convertToJson(this.newUser));
       }
     },
   },

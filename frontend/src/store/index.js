@@ -32,21 +32,28 @@ export default createStore({
     // async registerUser({ commit }, payload_data) {
     async registerUser(payload_data) {
       // await axios(`${SERVER_URL}/auth/register`, payload_data)
-      await axios("http://localhost:8000/auth/register", payload_data)
+      await axios
+        .post("http://localhost:8000/auth/register", payload_data, {
+          headers: {
+            "Content-Type": "Content-Type: application/x-www-form-urlencoded",
+          },
+        })
         .then((res) => {
           // commit("REGISTER_USER", res.data.data);
           console.log(res);
         })
         .catch((e) => {
-          console.log(e);
+          console.log("vuex: ", e.response.data);
         });
     },
     async fetchPosts({ commit }) {
       await axios
         // .get(`${SERVER_URL}/posts`)
-        .get("http://localhost:8000/posts")
+        .get("http://localhost:8000/posts/")
         .then((res) => {
-          commit("SET_POST_STATE", res.data.data);
+          commit("SET_POSTS_STATE", res.data.data);
+          console.log("fetchPost vuex");
+          console.log(res.data.data);
         })
         .catch((e) => {
           console.log(e);
