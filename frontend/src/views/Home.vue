@@ -6,7 +6,7 @@
     <!-- {{ posts }} -->
     <ul>
       <li v-for="post in posts" :key="post">
-        {{ post.title }}
+        {{ post.title }} : {{ post.author }}
       </li>
     </ul>
     <!-- <button @click.prevent="fetchPosts">HI</button> -->
@@ -39,22 +39,5 @@ export default {
   created() {
     this.getPost();
   },
-  /* setup() {
-    const data = ref(null);
-    const loading = ref(true);
-    const error = ref(null);
-
-    function fetchData() {
-      this.$store.dispatch("fetchPosts");
-    }
-    onMounted(() => {
-      fetchData();
-    });
-    return {
-      data,
-      loading,
-      error,
-    };
-  }, */
 };
 </script>
