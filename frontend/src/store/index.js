@@ -9,7 +9,7 @@ export default createStore({
       user_name: null,
       email: null,
       password: null,
-      fullname: null,
+      user_fullname: null,
     },
   },
   getters: {
@@ -21,26 +21,14 @@ export default createStore({
     SET_POSTS_STATE(state, payload) {
       state.posts = payload;
     },
-    REGISTER_USER(state, payload) {
-      state.newUser.user_name = payload.user_name;
-      state.newUser.email = payload.email;
-      state.newUser.fullname = payload.user_fullname;
-      state.newUser.password = payload.password;
-    },
   },
   actions: {
-    // async registerUser({ commit }, payload_data) {
-    async registerUser(payload_data) {
-      // await axios(`${SERVER_URL}/auth/register`, payload_data)
+    async registerUser({ state }) {
       await axios
-        .post("http://localhost:8000/auth/register", payload_data, {
+        .post("http://localhost:8000/auth/register", state.newUser, {
           headers: {
-            "Content-Type": "Content-Type: application/x-www-form-urlencoded",
+            "content-type": "application/json",
           },
-        })
-        .then((res) => {
-          // commit("REGISTER_USER", res.data.data);
-          console.log(res);
         })
         .catch((e) => {
           console.log("vuex: ", e.response.data);
@@ -53,7 +41,7 @@ export default createStore({
         .then((res) => {
           commit("SET_POSTS_STATE", res.data.data);
           console.log("fetchPost vuex");
-          console.log(res.data.data);
+          console.log(res.data);
         })
         .catch((e) => {
           console.log(e);

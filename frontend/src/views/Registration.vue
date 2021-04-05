@@ -58,43 +58,23 @@
 </template>
 
 <script>
-// const { mapActions } = require("vuex");
-const axios = require("axios");
+import { mapActions, mapState } from "vuex";
+// const axios = require("axios");
 export default {
   data() {
     return {
       errors: [],
-      newUser: {
-        user_name: null,
-        user_fullname: null,
-        email: null,
-        password: null,
-      },
     };
   },
+  computed: {
+    ...mapState({
+      newUser: "newUser",
+    }),
+  },
   methods: {
-    async registerUser(payload_data) {
-      // await axios(`${SERVER_URL}/auth/register`, payload_data)
-      await axios
-        .post("http://localhost:8000/auth/register", payload_data, {
-          headers: {
-            "Content-Type": "Content-Type: application/x-www-form-urlencoded",
-          },
-        })
-        .then((res) => {
-          // commit("REGISTER_USER", res.data.data);
-          console.log(res);
-        })
-        .catch((e) => {
-          console.log("vuex: ", e.response.data);
-        });
-    },
-    // ...mapActions({
-    //   registerNewUser: "registerUser",
-    // }),
-    convertToJson(data) {
-      return JSON.parse(JSON.stringify(data));
-    },
+    ...mapActions({
+      registerUser: "registerUser",
+    }),
     checkForm() {
       if (this.name && this.age) {
         return true;
@@ -116,12 +96,7 @@ export default {
       }
       if (this.errors.length === 0) {
         // console.log("Error is empty");
-        // console.log(this.newUser);
-        // console.log(JSON.parse(JSON.stringify(this.newUser)));
-        console.log(this.convertToJson(this.newUser));
-        this.registerUser(this.newUser);
-        // this.$store.dispatch("registerUser", this.convertToJson(this.newUser));
-        // this.registerNewUser(this.convertToJson(this.newUser));
+        this.registerUser();
       }
     },
   },
