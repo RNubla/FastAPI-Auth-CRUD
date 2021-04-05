@@ -40,8 +40,6 @@ export default createStore({
         .get("http://localhost:8000/posts/")
         .then((res) => {
           commit("SET_POSTS_STATE", res.data.data);
-          console.log("fetchPost vuex");
-          console.log(res.data);
         })
         .catch((e) => {
           console.log(e);
