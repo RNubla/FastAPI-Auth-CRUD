@@ -58,17 +58,23 @@
 </template>
 
 <script>
+const { mapActions } = require("vuex");
 export default {
   data() {
     return {
       errors: [],
-      username: null,
-      fullname: null,
-      email: null,
-      password: null,
+      newUser: {
+        user_name: null,
+        user_fullname: null,
+        email: null,
+        password: null,
+      },
     };
   },
   methods: {
+    ...mapActions({
+      registerNewUser: "registerUser",
+    }),
     checkForm() {
       if (this.name && this.age) {
         return true;
@@ -87,6 +93,10 @@ export default {
       }
       if (!this.email) {
         this.errors.push("Email required.");
+      }
+      if (this.errors.length === 0) {
+        // console.log("Error is empty");
+        this.registerNewUser(this.newUser);
       }
     },
   },
