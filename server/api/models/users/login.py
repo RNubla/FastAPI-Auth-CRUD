@@ -9,14 +9,12 @@ from pydantic import BaseModel, Field
 
 class UserLoginAuthDetails(BaseModel):
     user_name: str = Field(...)
-    email: str = Field(...)
     password: str = Field(...)
 
     class Config:
         schema_extra = {
             'example': {
                 'user_name': 'johnsmith1776',
-                'email': 'johnsmith1776@example.com',
                 'password': 'secretpassword'
             }
         }
