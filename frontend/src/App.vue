@@ -1,5 +1,7 @@
 <template>
   <div id="nav">
+    <div>{{ currentUser.user_name }}</div>
+    <div>{{ token }}</div>
     <router-link to="/">Home</router-link> |
     <router-link to="/register">Register</router-link> |
     <router-link to="/login">Login</router-link> |
@@ -8,6 +10,17 @@
   <router-view />
 </template>
 
+<script>
+import { mapState } from "vuex";
+export default {
+  computed: {
+    ...mapState({
+      currentUser: "currentUser",
+      token: "loginUserInputsToken",
+    }),
+  },
+};
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

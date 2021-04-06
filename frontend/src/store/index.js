@@ -5,7 +5,21 @@ const axios = require("axios");
 
 export default createStore({
   state: {
-    posts: null,
+    inputPost: {
+      title: null,
+      body: null,
+      post_img: "something here",
+      published_on: new Date().toUTCString,
+    },
+    posts: [],
+    currentUser: {
+      user_name: null,
+    },
+    loginUserInputs: {
+      user_name: null,
+      password: null,
+    },
+    loginUserInputsToken: null,
     newUser: {
       user_name: null,
       email: null,
@@ -17,10 +31,25 @@ export default createStore({
     getAllPosts: (state) => {
       return state.posts;
     },
+    getloginUserInputsToken: (state) => {
+      return state.loginUserInputsToken;
+    },
+    getUsername: (state) => {
+      return state.loginUserInputs.user_name;
+    },
   },
   mutations: {
     SET_POSTS_STATE(state, payload) {
       state.posts = payload;
+    },
+    SET_USER_AUTH_TOKEN(state, payload) {
+      state.loginUserInputsToken = payload;
+    },
+    SET_USERNAME(state, getters) {
+      state.currentUser = getters.getUsername;
+    },
+    ADD_POST(state, payload) {
+      state.posts.push(payload);
     },
   },
   actions: {
@@ -33,6 +62,33 @@ export default createStore({
         })
         .catch((e) => {
           console.log("vuex: ", e.response.data);
+        });
+    },
+    async loginUser({ state, commit }) {
+      await axios
+        .post("http://localhost:8000/auth/login", state.loginUserInputs)
+        .then((res) => {
+          commit("SET_USER_AUTH_TOKEN", res.data.data);
+          // commit("SET_USERNAME");
+          console.log(res.data.data);
+        })
+        .catch((e) => {
+          console.log(e.response.data);
+        });
+    },
+    async addPost({ state, commit }) {
+      await axios
+        .post("http://localhost:8000/posts", state.inputPost, {
+          headers: {
+            Authorization: `Bearer ${state.loginUserInputsToken}`,
+          },
+        })
+        .then((res) => {
+          commit("ADD_POST", res.data.data);
+          console.log(res.data);
+        })
+        .catch((e) => {
+          console.log(e.response.data);
         });
     },
     async fetchPosts({ commit }) {

@@ -30,3 +30,6 @@ async def login(user: UserLoginAuthDetails):
     _user = jsonable_encoder(user)
     _login_user = await login_user(_user)
     return ResponseModel(_login_user, 'User logged In Successfully')
+
+# @router.post('/refresh', response_description='Refresh Token', status_code=201)
+# async def refresh()
