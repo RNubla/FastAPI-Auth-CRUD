@@ -1,6 +1,7 @@
 <template>
   <div id="nav">
-    <div>{{ currentUser.user_name }}</div>
+    <!-- <div>{{ currentUser.user_name }}</div> -->
+    <div>{{ getStoredUser.user_name }}</div>
     <div>{{ token }}</div>
     <router-link to="/">Home</router-link> |
     <router-link to="/register">Register</router-link> |
@@ -11,13 +12,24 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 export default {
   computed: {
     ...mapState({
       currentUser: "currentUser",
       token: "loginUserInputsToken",
     }),
+    ...mapGetters({
+      getStoredUser: "getStoredUser",
+    }),
+  },
+  methods: {
+    ...mapActions({
+      refreshTokens: "refreshToken",
+    }),
+    async autoRefresh() {
+      await setInterval(this.refreshTokens(this.getStoredUser), 5000);
+    },
   },
 };
 </script>
