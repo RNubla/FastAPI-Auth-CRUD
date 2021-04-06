@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 const axios = require("axios");
 // const SERVER_URL = "http:localhost:8000";
+// const registerModule = {};
 
 export default createStore({
   state: {
