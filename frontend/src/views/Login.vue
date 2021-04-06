@@ -68,7 +68,7 @@ export default {
         // console.log("Error is empty");
         // this.storedUser = this.loginUserInputs;
         await this.loginUser();
-        this.autoRefreshToken();
+        // this.autoRefreshToken();
         // setTimeout(this.loginUser(), 3000);
         // setInterval(this.refreshToken(), 3000);
         // this.refreshToken()

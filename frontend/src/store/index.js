@@ -37,6 +37,7 @@ export default createStore({
     },
     /* implement refresh token */
     tokenTimeout: null,
+    loggedIn: false,
   },
   getters: {
     getAllPosts: (state) => {
@@ -51,6 +52,9 @@ export default createStore({
     getStoredUser: (state) => {
       return state.storedUser;
     },
+    getIfLoggedIn: (state) => {
+      return state.loggedIn;
+    },
   },
   mutations: {
     SET_POSTS_STATE(state, payload) {
@@ -64,6 +68,12 @@ export default createStore({
     },
     SET_STORED_USER(state, payload) {
       state.storedUser = payload;
+    },
+    SET_LOGGED_IN(state) {
+      state.loggedIn = true;
+    },
+    SET_LOGGED_OFF(state) {
+      state.loggedIn = false;
     },
     ADD_POST(state, payload) {
       state.posts.push(payload);
@@ -87,7 +97,13 @@ export default createStore({
         .then((res) => {
           commit("SET_STORED_USER", state.loginUserInputs);
           commit("SET_USER_AUTH_TOKEN", res.data.data);
-          console.log("getters:", getters.getStoredUser);
+          // console.log("getters:", getters.getStoredUser);
+          if (getters.getloginUserInputsToken != null) {
+            commit("SET_LOGGED_IN");
+          } else {
+            commit("SET_LOGGED_OFF");
+          }
+          // setInterval(console.log("interval", getters.getStoredUser), 2000);
           // setInterval(dispatch("refreshToken", getters.getStoredUser), 5000);
           // setInterval(dispatch("refreshToken"), 3000);
           // commit("SET_USERNAME");
@@ -101,7 +117,7 @@ export default createStore({
       await axios
         .post("http://localhost:8000/auth/refresh", payload)
         .then((res) => {
-          console.log(payload);
+          // console.log(payload);
           commit("SET_USER_AUTH_TOKEN", res.data.data);
           // commit("SET_USERNAME");
           console.log(res.data.data);

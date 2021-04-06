@@ -18,18 +18,25 @@ export default {
     ...mapState({
       currentUser: "currentUser",
       token: "loginUserInputsToken",
+      loggedIn: "loggedIn",
     }),
     ...mapGetters({
       getStoredUser: "getStoredUser",
+      getIfLoggedIn: "getIfLoggedIn",
     }),
   },
   methods: {
     ...mapActions({
       refreshTokens: "refreshToken",
     }),
-    async autoRefresh() {
-      await setInterval(this.refreshTokens(this.getStoredUser), 5000);
+    autoRefresh() {
+      setInterval(this.refreshTokens(this.getStoredUser), 5000);
     },
+  },
+  mounted() {
+    if (this.getIfLoggedIn) {
+      this.autoRefresh();
+    }
   },
 };
 </script>
