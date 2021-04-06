@@ -26,23 +26,37 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 export default {
   data() {
     return {
       errors: [],
+      storedUser: null,
     };
   },
   computed: {
     ...mapState({
       loginUserInputs: "loginUserInputs",
+      // storedUser: "storedUser",
+    }),
+    ...mapGetters({
+      getStoredUser: "getStoredUser",
     }),
   },
   methods: {
     ...mapActions({
       loginUser: "loginUser",
+      refreshToken: "refreshToken",
     }),
-    login() {
+
+    autoRefreshToken() {
+      // await setInterval(this.refreshToken(this.getStoredUser), 5000);
+      setInterval(console.log(this.getStoredUser), 5000);
+    },
+
+    async login() {
+      this.storedUser = this.loginUserInputs;
+
       this.errors = [];
       if (!this.loginUserInputs.user_name) {
         this.errors.push("Username required.");
@@ -52,7 +66,12 @@ export default {
       }
       if (this.errors.length === 0) {
         // console.log("Error is empty");
-        this.loginUser();
+        // this.storedUser = this.loginUserInputs;
+        await this.loginUser();
+        this.autoRefreshToken();
+        // setTimeout(this.loginUser(), 3000);
+        // setInterval(this.refreshToken(), 3000);
+        // this.refreshToken()
         this.loginUserInputs.user_name = null;
         this.loginUserInputs.password = null;
       }
