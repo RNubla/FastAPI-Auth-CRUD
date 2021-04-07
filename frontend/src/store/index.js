@@ -47,7 +47,8 @@ export default createStore({
       return state.loginUserInputsToken;
     },
     getUsername: (state) => {
-      return state.loginUserInputs.user_name;
+      // return state.loginUserInputs.user_name;
+      return state.storedUser.user_name;
     },
     getStoredUser: (state) => {
       return state.storedUser;
@@ -63,8 +64,9 @@ export default createStore({
     SET_USER_AUTH_TOKEN(state, payload) {
       state.loginUserInputsToken = payload;
     },
-    SET_USERNAME(state, getters) {
-      state.currentUser = getters.getUsername;
+    SET_USERNAME(state) {
+      // state.currentUser = getters.getUsername;
+      state.currentUser.user_name = state.storedUser.user_name;
     },
     SET_STORED_USER(state, payload) {
       state.storedUser = payload;
@@ -97,20 +99,20 @@ export default createStore({
         .then((res) => {
           commit("SET_STORED_USER", state.loginUserInputs);
           commit("SET_USER_AUTH_TOKEN", res.data.data);
-          // console.log("getters:", getters.getStoredUser);
+          console.log("getters:", getters.getStoredUser);
           if (getters.getloginUserInputsToken != null) {
             commit("SET_LOGGED_IN");
+            commit("SET_USERNAME");
           } else {
             commit("SET_LOGGED_OFF");
           }
           // setInterval(console.log("interval", getters.getStoredUser), 2000);
           // setInterval(dispatch("refreshToken", getters.getStoredUser), 5000);
           // setInterval(dispatch("refreshToken"), 3000);
-          // commit("SET_USERNAME");
           // console.log(res.data.data);
         })
         .catch((e) => {
-          console.log(e.response.data);
+          console.log(e);
         });
     },
     async refreshToken({ commit }, payload) {
@@ -119,7 +121,7 @@ export default createStore({
         .then((res) => {
           // console.log(payload);
           commit("SET_USER_AUTH_TOKEN", res.data.data);
-          // commit("SET_USERNAME");
+          commit("SET_USERNAME");
           console.log(res.data.data);
         })
         .catch((e) => {

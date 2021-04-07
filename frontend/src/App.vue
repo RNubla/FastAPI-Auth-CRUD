@@ -1,8 +1,10 @@
 <template>
   <div id="nav">
     <!-- <div>{{ currentUser.user_name }}</div> -->
-    <div>{{ getStoredUser.user_name }}</div>
-    <div>{{ token }}</div>
+    <!-- <div>{{ getStoredUser.user_name }}</div> -->
+    <div>{{ currentUser.user_name }}</div>
+    <!-- <div>{{ this.$store.getters.getStoredUser }}</div> -->
+    <!-- <div>{{ token }}</div> -->
     <router-link to="/">Home</router-link> |
     <router-link to="/register">Register</router-link> |
     <router-link to="/login">Login</router-link> |
@@ -18,10 +20,12 @@ export default {
     ...mapState({
       currentUser: "currentUser",
       token: "loginUserInputsToken",
-      loggedIn: "loggedIn",
+      // loggedIn: "loggedIn",
+      // storedUser: "storedUser",
     }),
     ...mapGetters({
-      getStoredUser: "getStoredUser",
+      // getStoredUser: "getStoredUser",
+      // getUsername: "getUsername",
       getIfLoggedIn: "getIfLoggedIn",
     }),
   },
@@ -33,11 +37,11 @@ export default {
       setInterval(this.refreshTokens(this.getStoredUser), 5000);
     },
   },
-  mounted() {
-    if (this.getIfLoggedIn) {
-      this.autoRefresh();
-    }
-  },
+  // mounted() {
+  //   if (this.getIfLoggedIn) {
+  //     this.autoRefresh();
+  //   }
+  // },
 };
 </script>
 <style lang="scss">
