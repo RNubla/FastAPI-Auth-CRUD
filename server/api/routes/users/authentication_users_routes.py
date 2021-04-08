@@ -45,10 +45,8 @@ async def login(user: UserLoginAuthDetails, Authorize: AuthJWT = Depends()):
 
 
 @router.post('/refresh', response_description='User Token Refresh', status_code=201)
-async def refresh_token(user: UserLoginAuthDetails):
-    _user = jsonable_encoder(user)
-    _login_user = await login_user(_user)
-    return ResponseModel(_login_user, 'User logged In Successfully')
-
-# @router.post('/refresh', response_description='Refresh Token', status_code=201)
-# async def refresh()
+async def refresh_token(Authorize: AuthJWT = Depends()):
+    Authorize.jwt_refresh_token_required()
+    current_user = Authorize.get_jwt_subject()
+    new_access_token = Authorize.create_access_token(subject=current_user)
+    return ResponseModel(new_access_token, 'Created new access token')
