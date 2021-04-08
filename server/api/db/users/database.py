@@ -1,7 +1,8 @@
 from api.auth.auth import AuthHandler
 import motor.motor_asyncio
 from bson.objectid import ObjectId
-from fastapi import HTTPException, Depends
+from fastapi import HTTPException
+from fastapi_jwt_auth import AuthJWT
 
 MONGO_DETAILS = 'mongodb://localhost:27017'
 
@@ -48,8 +49,25 @@ async def register_user(user_data: dict) -> dict:
     return user_helper(new_user)
 
 
-async def login_user(user_data: dict) -> dict:
+# async def login_user(user_data: dict) -> dict:
+#     user = await user_collection.find_one({'user_name': user_data['user_name']})
+#     # print(str(user['_id']))
+#     # _user = user_helper(user)
+
+#     if (user is None) or (not auth_handler.get_verify_password(user_data['password'], user['password'])):
+#         raise HTTPException(
+#             status_code=401, detail='Invalid username and/or password')
+
+#     token = auth_handler.enconde_token(
+#         user_id=str(user['_id']),
+#         username=user['user_name'],
+#         user_fullname=user['user_fullname'],
+#         user_email=user['email'])
+#     # return {'token', token}
+#     return token
+async def login_user(user_data: dict, Authorize: AuthJWT) -> dict:
     user = await user_collection.find_one({'user_name': user_data['user_name']})
+    # print(user['user_name'])
     # print(str(user['_id']))
     # _user = user_helper(user)
 
@@ -57,10 +75,7 @@ async def login_user(user_data: dict) -> dict:
         raise HTTPException(
             status_code=401, detail='Invalid username and/or password')
 
-    token = auth_handler.enconde_token(
-        user_id=str(user['_id']),
-        username=user['user_name'],
-        user_fullname=user['user_fullname'],
-        user_email=user['email'])
+    access_token = Authorize.create_access_token(subject=user['user_name'])
+    refresh_token = Authorize.create_refresh_token(subject=user['user_name'])
     # return {'token', token}
-    return token
+    return {'access_token': access_token, 'refresh_token': refresh_token}
