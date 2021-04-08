@@ -75,6 +75,10 @@ async def get_user_data(username: str) -> dict:
 #     return token
 async def login_user(user_data: dict, Authorize: AuthJWT) -> dict:
     user = await user_collection.find_one({'user_name': user_data['user_name']})
+    user_id = user['_id']
+    user_name = user['user_name']
+    # print(user_id)
+    # print(user_name)
     # expiratiom of tokens
     access_token_expire = datetime.timedelta(minutes=1)
     refresh_token_expire = datetime.timedelta(days=1)
@@ -86,4 +90,7 @@ async def login_user(user_data: dict, Authorize: AuthJWT) -> dict:
         subject=user['user_name'], expires_time=access_token_expire)
     refresh_token = Authorize.create_refresh_token(
         subject=user['user_name'], expires_time=refresh_token_expire)
-    return {'access_token': access_token, 'refresh_token': refresh_token}
+    return {'access_token': access_token,
+            'refresh_token': refresh_token,
+            'user_name': str(user_name),
+            '_id': str(user_id)}
