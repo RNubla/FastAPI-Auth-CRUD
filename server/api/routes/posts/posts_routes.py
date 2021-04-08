@@ -44,7 +44,9 @@ async def add_post(user=Depends(auth_handler.auth_wrapper), post: PostSchema = B
     # print('from router: ', post)
     # print(user)
     new_post = await puslish_post(post, user['user_id'], user['user_fullname'])
-    return ResponseModel(new_post, 'New Post Added Successfully')
+    if user:
+        return ResponseModel(new_post, 'New Post Added Successfully')
+    return ErrorResponseModel('An error occurred', 401, 'User not authenticated')
 
 """ UPDATE POST """
 

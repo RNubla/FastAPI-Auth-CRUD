@@ -10,12 +10,14 @@
   </p>
       <p>
         <label>Username</label>
-        <input type="text" v-model="loginUserInputs.user_name" />
+        <!-- <input type="text" v-model="loginUserInputs.user_name" /> -->
+        <input type="text" v-model="loginInputs.user_name" />
       </p>
 
       <p>
         <label>Password</label>
-        <input type="password" minlength="3" v-model="loginUserInputs.password" />
+        <!-- <input type="password" minlength="3" v-model="loginUserInputs.password" /> -->
+        <input type="password" minlength="3" v-model="loginInputs.password" />
       </p>
 
       <p>
@@ -32,6 +34,10 @@ export default {
     return {
       errors: [],
       storedUser: null,
+      loginInputs: {
+        user_name: null,
+        password: null,
+      },
     };
   },
   computed: {
@@ -58,22 +64,26 @@ export default {
       this.storedUser = this.loginUserInputs;
 
       this.errors = [];
-      if (!this.loginUserInputs.user_name) {
+      // if (!this.loginUserInputs.user_name) {
+      if (!this.loginInputs.user_name) {
         this.errors.push("Username required.");
       }
-      if (!this.loginUserInputs.password) {
+      // if (!this.loginUserInputs.password) {
+      if (!this.loginInputs.password) {
         this.errors.push("Password required.");
       }
       if (this.errors.length === 0) {
         // console.log("Error is empty");
         // this.storedUser = this.loginUserInputs;
-        await this.loginUser();
+        await this.loginUser(this.loginInputs);
         // this.autoRefreshToken();
         // setTimeout(this.loginUser(), 3000);
         // setInterval(this.refreshToken(), 3000);
         // this.refreshToken()
-        this.loginUserInputs.user_name = null;
-        this.loginUserInputs.password = null;
+        // this.loginUserInputs.user_name = null;
+        // this.loginInputs.user_name = null;
+        // this.loginUserInputs.password = null;
+        // this.loginInputs.password = null;
       }
     },
   },

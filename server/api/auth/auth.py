@@ -28,7 +28,7 @@ class AuthHandler():
     def enconde_token(self, user_id, user_fullname, username, user_email):
         # def enconde_token(self, username, user_email):
         payload = {
-            'exp':  datetime.utcnow() + timedelta(days=0, minutes=5),
+            'exp':  datetime.utcnow() + timedelta(days=0, minutes=0.5),
             'iat': datetime.utcnow(),
             'user_id': user_id,
             'username': username,

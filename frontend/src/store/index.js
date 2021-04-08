@@ -13,6 +13,7 @@ export default createStore({
       published_on: new Date().toUTCString,
     },
     posts: [],
+    inputPostData: null,
     currentUser: {
       user_name: null,
     },
@@ -23,10 +24,7 @@ export default createStore({
       password: null,
     },
     loginUserInputsToken: null,
-    storedUser: {
-      user_name: null,
-      password: null,
-    },
+    storedUser: null,
     /* *** END OF LOGGING IN *** */
     /* FOR REGISTERING */
     newUser: {
@@ -42,6 +40,9 @@ export default createStore({
   getters: {
     getAllPosts: (state) => {
       return state.posts;
+    },
+    getInputPostData: (state) => {
+      return state.inputPostData;
     },
     getloginUserInputsToken: (state) => {
       return state.loginUserInputsToken;
@@ -80,6 +81,12 @@ export default createStore({
     ADD_POST(state, payload) {
       state.posts.push(payload);
     },
+    SET_INPUT_POST_DATA(state, payload) {
+      state.inputPostData = payload;
+    },
+    SET_INPUT_POST_DATA_TO_INPUT_POST(state, payload) {
+      state.inputPost = payload;
+    },
   },
   actions: {
     async registerUser({ state }) {
@@ -93,13 +100,17 @@ export default createStore({
           console.log("vuex: ", e.response.data);
         });
     },
-    async loginUser({ state, commit, getters }) {
+    // async loginUser({ state, commit, getters }) {
+    async loginUser({ commit, getters }, payload) {
       await axios
-        .post("http://localhost:8000/auth/login", state.loginUserInputs)
+        // .post("http://localhost:8000/auth/login", state.loginUserInputs)
+        .post("http://localhost:8000/auth/login", payload)
         .then((res) => {
-          commit("SET_STORED_USER", state.loginUserInputs);
+          // commit("SET_STORED_USER", state.loginUserInputs);
+          console.log("payload", payload);
+          commit("SET_STORED_USER", payload);
           commit("SET_USER_AUTH_TOKEN", res.data.data);
-          console.log("getters:", getters.getStoredUser);
+          // console.log("getters:", getters.getStoredUser);
           if (getters.getloginUserInputsToken != null) {
             commit("SET_LOGGED_IN");
             commit("SET_USERNAME");
@@ -128,7 +139,8 @@ export default createStore({
           console.log(e.response.data);
         });
     },
-    async addPost({ state, commit }) {
+    async addPost({ state, commit, dispatch, getters }) {
+      let tempPayload = state.inputPost;
       await axios
         .post("http://localhost:8000/posts", state.inputPost, {
           headers: {
@@ -137,10 +149,21 @@ export default createStore({
         })
         .then((res) => {
           commit("ADD_POST", res.data.data);
+          commit("SET_INPUT_POST_DATA", tempPayload);
           console.log(res.data);
         })
         .catch((e) => {
-          console.log(e.response.data);
+          // console.log(e.response.data);
+          // console.log(e.response.status);
+          if (e.response.status === 401) {
+            // console.log("error:", e);
+            dispatch("refreshToken", getters.getStoredUser);
+            commit(
+              "SET_INPUT_POST_DATA_TO_INPUT_POST",
+              getters.getInputPostData
+            );
+            console.log(getters.getInputPostData);
+          }
         });
     },
     async fetchPosts({ commit }) {

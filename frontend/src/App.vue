@@ -4,7 +4,7 @@
     <!-- <div>{{ getStoredUser.user_name }}</div> -->
     <div>{{ currentUser.user_name }}</div>
     <!-- <div>{{ this.$store.getters.getStoredUser }}</div> -->
-    <!-- <div>{{ token }}</div> -->
+    <div>{{ token }}</div>
     <router-link to="/">Home</router-link> |
     <router-link to="/register">Register</router-link> |
     <router-link to="/login">Login</router-link> |
@@ -16,11 +16,18 @@
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
 export default {
+  data() {
+    return {
+      timer: null,
+      // a_loggedIn: this.loggedIn,
+    };
+  },
   computed: {
     ...mapState({
       currentUser: "currentUser",
       token: "loginUserInputsToken",
-      // loggedIn: "loggedIn",
+      storedUser: "storedUser",
+      loggedIn: "loggedIn",
       // storedUser: "storedUser",
     }),
     ...mapGetters({
@@ -34,14 +41,32 @@ export default {
       refreshTokens: "refreshToken",
     }),
     autoRefresh() {
-      setInterval(this.refreshTokens(this.getStoredUser), 5000);
+      // setInterval(this.refreshTokens(this.storedUser), 5000);
+      this.refreshTokens(this.storedUser);
+      console.log("refreshed tokens");
+    },
+    interval() {
+      if (this.loggedIn == true) {
+        console.log("created: getIfLoggedIn", this.getIfLoggedIn);
+        // console.log("running auto refresh token");
+        // this.timer = setInterval(this.autoRefresh(), 270000);
+        // this.timer = setInterval(this.autoRefresh(), 100);
+        this.autoRefresh();
+      }
+    },
+    mounted() {
+      // console.log("created: getIfLoggedIn", this.loggedIn);
+      // if (this.loggedIn == true) {
+      //   console.log("created: getIfLoggedIn", this.getIfLoggedIn);
+      //   // console.log("running auto refresh token");
+      //   this.timer = setInterval(this.autoRefresh(), 270000);
+      // setInterval(this.autoRefresh(), 2000);
+      // this.autoRefresh();
     },
   },
-  // mounted() {
-  //   if (this.getIfLoggedIn) {
-  //     this.autoRefresh();
-  //   }
-  // },
+  beforeUnmount() {
+    clearInterval(this.timer);
+  },
 };
 </script>
 <style lang="scss">
