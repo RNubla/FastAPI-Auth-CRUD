@@ -3,13 +3,14 @@
     <button
       @click.prevent="togglePost"
       :class="{ active: isActive }"
-      v-if="isLoggedIn"
+      v-if="getLoginStatus"
     >
       Add Posts
     </button>
     <post-entry v-if="isActive" />
     <ul>
-      <li v-for="post in posts.slice().reverse()" :key="post">
+      <!-- <li v-for="post in getAllPosts.slice().reverse()" :key="post"> -->
+      <li v-for="post in gettersAllPosts" :key="post">
         <post-card
           :title="post.title"
           :author="post.author"
@@ -17,14 +18,13 @@
         >
           {{ post.body.substring(0, 200) + "..." }}
         </post-card>
-        <!-- {{ post.title }} : {{ post.author }} {{ post.published_on }} -->
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import PostCard from "../components/PostCard.vue";
 import PostEntry from "../components/PostEntry.vue";
 export default {
@@ -41,19 +41,27 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      posts: "posts",
-      isLoggedIn: "loggedIn",
+    ...mapGetters("posts", {
+      gettersAllPosts: "getAllPosts",
+    }),
+    ...mapGetters("auth", {
+      getLoginStatus: "getLoginStatus",
     }),
   },
+  // computed: {
+  //   ...mapState({
+  //     posts: "posts",
+  //     isLoggedIn: "loggedIn",
+  //   }),
+  // },
   methods: {
-    ...mapActions({ getPost: "fetchPosts" }),
+    ...mapActions("posts", { getAllPosts: "getAllPosts" }),
     togglePost() {
       this.isActive = !this.isActive;
     },
   },
   created() {
-    this.getPost();
+    this.getAllPosts();
   },
 };
 </script>

@@ -101,26 +101,26 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
       errors: [],
-      //   inputPost: {
-      //     title: null,
-      //     body: null,
-      //     post_img: "string",
-      //     published_on: null,
-      //   },
+      inputPost: {
+        title: null,
+        body: null,
+        post_img: "string",
+        published_on: new Date().toUTCString(),
+      },
     };
   },
   computed: {
-    ...mapState({
-      inputPost: "inputPost",
-    }),
+    // ...mapState({
+    //   inputPost: "inputPost",
+    // }),
   },
   methods: {
-    ...mapActions({
+    ...mapActions("posts", {
       addPost: "addPost",
     }),
     submitPost() {
@@ -133,7 +133,8 @@ export default {
       }
       if (this.errors.length === 0) {
         // console.log("Error is empty");
-        this.addPost();
+        console.log(this.inputPost);
+        this.addPost(this.inputPost);
         this.inputPost.title = null;
         this.inputPost.body = null;
       }

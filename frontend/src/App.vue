@@ -2,9 +2,11 @@
   <div id="nav">
     <!-- <div>{{ currentUser.user_name }}</div> -->
     <!-- <div>{{ getStoredUser.user_name }}</div> -->
-    <div>{{ currentUser.user_name }}</div>
+    <!-- <div>{{ currentUser.user_name }}</div> -->
     <!-- <div>{{ this.$store.getters.getStoredUser }}</div> -->
-    <div>{{ token }}</div>
+    <!-- <div>{{ token }}</div> -->
+    <!-- {{ getNewUserData }} -->
+    {{ getAuthData.user_name }}
     <router-link to="/">Home</router-link> |
     <router-link to="/register">Register</router-link> |
     <router-link to="/login">Login</router-link> |
@@ -14,7 +16,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -23,18 +25,22 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      currentUser: "currentUser",
-      token: "loginUserInputsToken",
-      storedUser: "storedUser",
-      loggedIn: "loggedIn",
-      // storedUser: "storedUser",
+    ...mapGetters("auth", {
+      getAuthData: "getAuthData",
     }),
-    ...mapGetters({
-      // getStoredUser: "getStoredUser",
-      // getUsername: "getUsername",
-      getIfLoggedIn: "getIfLoggedIn",
-    }),
+    // ...mapState({
+    //   currentUser: "currentUser",
+    //   token: "loginUserInputsToken",
+    //   storedUser: "storedUser",
+    //   loggedIn: "loggedIn",
+    // storedUser: "storedUser",
+    // }),
+    // ...mapGetters("register", {
+    // getNewUserData: "getNewUserData",
+    // getStoredUser: "getStoredUser",
+    // getUsername: "getUsername",
+    // getIfLoggedIn: "getIfLoggedIn",
+    // }),
   },
   methods: {
     ...mapActions({

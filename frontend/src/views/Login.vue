@@ -42,23 +42,19 @@ export default {
   },
   computed: {
     ...mapState({
-      loginUserInputs: "loginUserInputs",
+      // loginUserInputs: "loginUserInputs",
       // storedUser: "storedUser",
     }),
-    ...mapGetters({
-      getStoredUser: "getStoredUser",
+    ...mapGetters("auth", {
+      // getStoredUser: "getStoredUser",
+      getLoginStatus: "getLoginStatus",
     }),
   },
   methods: {
-    ...mapActions({
+    ...mapActions("auth", {
       loginUser: "loginUser",
-      refreshToken: "refreshToken",
+      // refreshToken: "refreshToken",
     }),
-
-    autoRefreshToken() {
-      // await setInterval(this.refreshToken(this.getStoredUser), 5000);
-      setInterval(console.log(this.getStoredUser), 5000);
-    },
 
     async login() {
       this.storedUser = this.loginUserInputs;
@@ -76,6 +72,11 @@ export default {
         // console.log("Error is empty");
         // this.storedUser = this.loginUserInputs;
         await this.loginUser(this.loginInputs);
+        if (this.getLoginStatus === true) {
+          this.$router.push("/");
+        } else {
+          alert("Login failed");
+        }
         // this.autoRefreshToken();
         // setTimeout(this.loginUser(), 3000);
         // setInterval(this.refreshToken(), 3000);

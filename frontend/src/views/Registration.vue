@@ -58,17 +58,23 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
       errors: [],
+      newUser: {
+        user_name: null,
+        email: null,
+        password: null,
+        user_fullname: null,
+      },
     };
   },
   computed: {
-    ...mapState("register", {
-      newUser: "newUser",
-    }),
+    // ...mapState("register", {
+    //   newUser: "newUser",
+    // }),
   },
   methods: {
     ...mapActions("register", {
@@ -95,7 +101,8 @@ export default {
       }
       if (this.errors.length === 0) {
         // console.log("Error is empty");
-        this.registerUser();
+        this.registerUser(this.newUser);
+        this.newUser = "";
       }
     },
   },
