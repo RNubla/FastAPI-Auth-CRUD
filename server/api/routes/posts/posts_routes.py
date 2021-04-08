@@ -2,13 +2,15 @@
 from fastapi import APIRouter, Body, Depends
 from fastapi.encoders import jsonable_encoder
 from api.db.users.database import auth_handler
+from fastapi_jwt_auth import AuthJWT
+
 
 from api.db.posts.database import (
     puslish_post,
     retrieve_post,
     retrieve_posts,
     update_post,
-    delete_post
+    delete_post,
 )
 
 from api.models.posts.posts_model import(
@@ -17,6 +19,17 @@ from api.models.posts.posts_model import(
     PostSchema,
     UpdatePostModel
 )
+from api.models.users.login import(
+    Settings,
+)
+from api.db.users.database import get_user_data
+
+
+@AuthJWT.load_config
+def get_config():
+    return Settings()
+
+
 post_router = APIRouter()
 
 
@@ -38,13 +51,23 @@ async def get_post_data(id):
     return ErrorResponseModel('An error occurred', 404, 'Post Does not exist')
 
 
+# @post_router.post('/', response_description='Add Post', status_code=201)
+# async def add_post(user=Depends(auth_handler.auth_wrapper), post: PostSchema = Body(...)):
+#     post = jsonable_encoder(post)
+#     # print('from router: ', post)
+#     # print(user)
+#     new_post = await puslish_post(post, user['user_id'], user['user_fullname'])
+#     if user:
+#         return ResponseModel(new_post, 'New Post Added Successfully')
+#     return ErrorResponseModel('An error occurred', 401, 'User not authenticated')
 @post_router.post('/', response_description='Add Post', status_code=201)
-async def add_post(user=Depends(auth_handler.auth_wrapper), post: PostSchema = Body(...)):
+async def add_post(Authorize: AuthJWT = Depends(), post: PostSchema = Body(...)):
+    Authorize.jwt_required()
+    current_user = Authorize.get_jwt_subject()
+    user = await get_user_data(current_user)
     post = jsonable_encoder(post)
-    # print('from router: ', post)
-    # print(user)
-    new_post = await puslish_post(post, user['user_id'], user['user_fullname'])
-    if user:
+    new_post = await puslish_post(post, user['_id'], user['user_fullname'])
+    if current_user:
         return ResponseModel(new_post, 'New Post Added Successfully')
     return ErrorResponseModel('An error occurred', 401, 'User not authenticated')
 

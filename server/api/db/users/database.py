@@ -3,6 +3,7 @@ import motor.motor_asyncio
 from bson.objectid import ObjectId
 from fastapi import HTTPException
 from fastapi_jwt_auth import AuthJWT
+import datetime
 
 MONGO_DETAILS = 'mongodb://localhost:27017'
 
@@ -49,6 +50,13 @@ async def register_user(user_data: dict) -> dict:
     return user_helper(new_user)
 
 
+async def get_user_data(username: str) -> dict:
+    existing_user = await user_collection.find_one({'user_name': username})
+    if not existing_user:
+        raise HTTPException(status_code=404, detail="User does not exist")
+    return existing_user
+
+
 # async def login_user(user_data: dict) -> dict:
 #     user = await user_collection.find_one({'user_name': user_data['user_name']})
 #     # print(str(user['_id']))
@@ -67,15 +75,14 @@ async def register_user(user_data: dict) -> dict:
 #     return token
 async def login_user(user_data: dict, Authorize: AuthJWT) -> dict:
     user = await user_collection.find_one({'user_name': user_data['user_name']})
-    # print(user['user_name'])
-    # print(str(user['_id']))
-    # _user = user_helper(user)
-
+    access_token_expire = datetime.timedelta(minutes=15)
+    refresh_token_expire = datetime.timedelta(days=1)
     if (user is None) or (not auth_handler.get_verify_password(user_data['password'], user['password'])):
         raise HTTPException(
             status_code=401, detail='Invalid username and/or password')
 
-    access_token = Authorize.create_access_token(subject=user['user_name'])
-    refresh_token = Authorize.create_refresh_token(subject=user['user_name'])
-    # return {'token', token}
+    access_token = Authorize.create_access_token(
+        subject=user['user_name'], expires_time=access_token_expire)
+    refresh_token = Authorize.create_refresh_token(
+        subject=user['user_name'], expires_time=refresh_token_expire)
     return {'access_token': access_token, 'refresh_token': refresh_token}
