@@ -66,12 +66,12 @@ export default {
     };
   },
   computed: {
-    ...mapState({
+    ...mapState("register", {
       newUser: "newUser",
     }),
   },
   methods: {
-    ...mapActions({
+    ...mapActions("register", {
       registerUser: "registerUser",
     }),
     checkForm() {
