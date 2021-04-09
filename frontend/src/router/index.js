@@ -53,7 +53,7 @@ router.beforeEach(async (to, from, next) => {
       "getItem:access_token",
       localStorage.getItem("access_token") == ""
     );
-    if (localStorage.getItem("access_token") == "") {
+    if (localStorage.getItem("access_token") == null || localStorage.getItem("access_token") == "" ) {
       next({
         name: "Login",
       });
