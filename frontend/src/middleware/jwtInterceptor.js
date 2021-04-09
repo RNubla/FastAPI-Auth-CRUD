@@ -24,14 +24,15 @@ jwtInterceptor.interceptors.response.use(
         refresh_token: authData.refresh_token,
       };
       var response = await axios
-        .post("http://localhost:8000/auth/refresh", payload)
+        .post("http://localhost:8000/auth/refresh", payload.access_token)
         .catch((e) => {
           console.log(e);
         });
-      await store.dispatch("auth/SAVE_TOKEN_DATA", response.data.data);
+      console.log("jwtinterceptor response", response);
+      await store.dispatch("auth/SAVE_TOKEN_DATA", response.data);
       error.config.headers[
         "Authorization"
-      ] = `bearer ${response.data.data.access_token}`;
+      ] = `bearer ${response.data.access_token}`;
       return axios(error.config);
     } else {
       return Promise.reject(error);

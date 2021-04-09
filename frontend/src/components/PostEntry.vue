@@ -110,7 +110,7 @@ export default {
         title: null,
         body: null,
         post_img: "string",
-        published_on: new Date().toUTCString(),
+        published_on: new Date(),
       },
     };
   },
@@ -123,7 +123,7 @@ export default {
     ...mapActions("posts", {
       addPost: "addPost",
     }),
-    submitPost() {
+    async submitPost() {
       this.errors = [];
       if (!this.inputPost.title) {
         this.errors.push("Title required.");
@@ -134,7 +134,7 @@ export default {
       if (this.errors.length === 0) {
         // console.log("Error is empty");
         console.log(this.inputPost);
-        this.addPost(this.inputPost);
+        await this.addPost(this.inputPost);
         this.inputPost.title = null;
         this.inputPost.body = null;
       }

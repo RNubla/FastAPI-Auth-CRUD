@@ -2,10 +2,10 @@ import axios from "axios";
 import { jwtDecrypt, tokenAlive } from "../../middleware/jwtHelper";
 const state = () => ({
   authData: {
-    access_token: null,
-    refresh_token: null,
-    tokenExp: null,
-    user_name: null,
+    access_token: "",
+    refresh_token: "",
+    tokenExp: "",
+    user_name: "",
   },
   loginStatus: null,
 });
@@ -57,6 +57,10 @@ const mutations = {
   },
   SET_LOGIN_STATUS(state, value) {
     state.loginStatus = value;
+  },
+  REMOVE_TOKEN_DATA() {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
   },
 };
 export default {

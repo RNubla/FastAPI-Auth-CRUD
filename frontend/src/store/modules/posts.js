@@ -1,3 +1,4 @@
+import store from "..";
 import jwtInterceptor from "../../middleware/jwtInterceptor";
 const state = () => ({
   posts: [],
@@ -22,12 +23,18 @@ const actions = {
       commit("SET_POSTS", response.data.data);
     }
   },
-  async addPost({ commit }, payload) {
+  async addPost({ commit, state }, payload) {
+    console.log("addpost payload", payload);
+    commit("SET_INPUT_POST", payload);
     var response = await jwtInterceptor.post(
       "http://localhost:8000/posts",
-      payload
+      state.inputPost,
+      {
+        headers: {
+          Authorization: `Bearer ${store.getters["auth/getAuthData"].access_token}`,
+        },
+      }
     );
-    console.log("addpost payload", payload);
     if (response && response.data) {
       console.log("post_module, addPost:", response.data.data);
       commit("ADD_POST", response.data.data);
@@ -39,8 +46,11 @@ const mutations = {
   SET_POSTS(state, payload) {
     state.posts = payload;
   },
+  SET_INPUT_POST(state, payload) {
+    state.inputPost = payload;
+  },
   ADD_POST(state, payload) {
-    state.post.push(payload);
+    state.posts.push(payload);
   },
 };
 
