@@ -5,6 +5,8 @@ import Login from "../views/Login";
 import Logout from "../views/Logout";
 import NewPost from "../views/NewPost";
 import store from "../store/index";
+import axios from "axios";
+// import { from } from "core-js/core/array";
 // import axios from "axios";
 
 const routes = [
@@ -45,20 +47,105 @@ const router = createRouter({
   routes: routes,
 });
 export default router;
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.requiredAuth)) {
-    // if (localStorage.getItem("access_token") == null) {
-    if (!store.getters["auth/getAuthData"].access_token) {
+    console.log(
+      "getItem:access_token",
+      localStorage.getItem("access_token") == ""
+    );
+    if (localStorage.getItem("access_token") == "") {
       next({
         name: "Login",
       });
     } else {
+      if (!store.getters["auth/getAuthData"].access_token) {
+        console.log('!store.getters[auth/getAuthData]', !store.getters['auth/getAuthData'] )
+        const access_token = localStorage.getItem("access_token");
+        const refresh_token = localStorage.getItem("refresh_token");
+        if (access_token) {
+          const data = {
+            access_token: access_token,
+            refresh_token: refresh_token,
+          };
+          console.log("data", data);
+          store.commit("auth/SAVE_TOKEN_DATA", data);
+        }
+      }
+      let auth = store.getters["auth/isTokenActive"];
+      if (!auth) {
+        const authData = store.getters["auth/getAuthData"];
+        if (authData.access_token) {
+          const payload = {
+            refresh_token: authData.refresh_token,
+          };
+          const refreshResponse = await axios
+            .post("http://localhost:8000/auth/refresh", "", {
+              headers: {
+                Authorization: `Bearer ${payload.refresh_token}`,
+              },
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+          console.log("refreshRespone.data", refreshResponse.data);
+          store.commit("auth/SAVE_NEW_ACCESS_TOKEN_DATA", refreshResponse.data);
+          auth = true;
+        }
+      }
       next();
     }
   } else {
     next();
   }
 });
+/* router.beforeEach(async(to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiredAuth)) {
+    // if (localStorage.getItem("access_token") == null) {
+    if (!store.getters["auth/getAuthData"].access_token) {
+      next({
+        name: "Login",
+      });
+    }else {
+      if (!store.getters["auth/getAuthData"].access_token) {
+      const access_token = localStorage.getItem("access_token");
+      const refresh_token = localStorage.getItem("refresh_token");
+      if (access_token) {
+        const data = {
+          access_token: access_token,
+          refresh_token: refresh_token,
+        };
+        console.log("data", data);
+        store.commit("auth/SAVE_TOKEN_DATA", data);
+      }
+    }
+      let auth = store.getters['auth/isTokenActive']
+      if (!auth){
+        const authData = store.getters['auth/getAuthData']
+        if (authData.access_token){
+          const payload = {
+            refresh_token : authData.refresh_token
+          };
+          console.log(payload)
+          const refreshResponse = await axios
+          .post('http://localhost:8000/auth/refresh', "", {
+            headers:{
+
+              Authorization: `Bearer ${payload.refresh_token}`
+            }
+          })
+          .catch((e) => {
+            console.log(e)
+          })
+          store.commit('auth/SAVE_TOKEN_DATA', refreshResponse.data)
+          auth = true
+        }
+      }
+      next();
+    }
+  } else {
+    next();
+  }
+}); */
 /* router.beforeEach(async (to, from, next) => {
   console.log(
     "getAuthData is undefined:",

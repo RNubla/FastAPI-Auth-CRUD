@@ -71,6 +71,18 @@ const mutations = {
       state.authData = newTokenData;
     }
   },
+  SAVE_NEW_ACCESS_TOKEN_DATA(state, data){
+    console.log(data.access_token)
+    localStorage.setItem('access_token', data.access_token)
+    const decodedJWTValues = jwtDecrypt(data.access_token);
+      const newTokenData = {
+        access_token: data.access_token,
+        refresh_token: localStorage.getItem('refresh_token'),
+        tokenExp: decodedJWTValues.exp,
+        user_name: decodedJWTValues.sub,
+      };
+      state.authData = newTokenData;
+  },
   SET_LOGIN_STATUS(state, value) {
     state.loginStatus = value;
   },
