@@ -2,9 +2,10 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Registration from "../views/Registration";
 import Login from "../views/Login";
+import Logout from "../views/Logout";
 import NewPost from "../views/NewPost";
 import store from "../store/index";
-import axios from "axios";
+// import axios from "axios";
 
 const routes = [
   {
@@ -35,22 +36,7 @@ const routes = [
     path: "/logout",
     name: "Logout",
     meta: { requiredAuth: false },
-    component: {
-      beforeRouteEnter(to, from, next) {
-        console.log({ from });
-        const destination = {
-          path: from.path || "/",
-          // query: from.query,
-          // params: from.params,
-        };
-        if (!from) {
-          console.log("no from");
-        }
-        console.log("running before hook");
-        store.commit("auth/REMOVE_TOKEN_DATA");
-        next(destination);
-      },
-    },
+    component: Logout,
   },
 ];
 
@@ -59,7 +45,21 @@ const router = createRouter({
   routes: routes,
 });
 export default router;
-router.beforeEach(async (to, from, next) => {
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiredAuth)) {
+    // if (localStorage.getItem("access_token") == null) {
+    if (!store.getters["auth/getAuthData"].access_token) {
+      next({
+        name: "Login",
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+/* router.beforeEach(async (to, from, next) => {
   console.log(
     "getAuthData is undefined:",
     !store.getters["auth/getAuthData"].access_token
@@ -109,3 +109,4 @@ router.beforeEach(async (to, from, next) => {
 
   return next();
 });
+ */

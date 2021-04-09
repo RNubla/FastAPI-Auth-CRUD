@@ -39,21 +39,37 @@ const actions = {
         commit("SET_LOGIN_STATUS", false);
       });
   },
+  logoutUser({ commit }) {
+    commit("SAVE_TOKEN_DATA", null);
+    commit("SET_LOGIN_STATUS", false);
+  },
 };
 
 const mutations = {
   SAVE_TOKEN_DATA(state, data) {
-    localStorage.setItem("access_token", data.access_token);
-    localStorage.setItem("refresh_token", data.refresh_token);
+    if (data == null) {
+      localStorage.setItem("access_token", "");
+      localStorage.setItem("refresh_token", "");
+      const newTokenData = {
+        access_token: "",
+        refresh_token: "",
+        tokenExp: "",
+        user_name: "",
+      };
+      state.authData = newTokenData;
+    } else {
+      localStorage.setItem("access_token", data.access_token);
+      localStorage.setItem("refresh_token", data.refresh_token);
 
-    const decodedJWTValues = jwtDecrypt(data.access_token);
-    const newTokenData = {
-      access_token: data.access_token,
-      refresh_token: data.refresh_token,
-      tokenExp: decodedJWTValues.exp,
-      user_name: decodedJWTValues.sub,
-    };
-    state.authData = newTokenData;
+      const decodedJWTValues = jwtDecrypt(data.access_token);
+      const newTokenData = {
+        access_token: data.access_token,
+        refresh_token: data.refresh_token,
+        tokenExp: decodedJWTValues.exp,
+        user_name: decodedJWTValues.sub,
+      };
+      state.authData = newTokenData;
+    }
   },
   SET_LOGIN_STATUS(state, value) {
     state.loginStatus = value;
@@ -61,6 +77,7 @@ const mutations = {
   REMOVE_TOKEN_DATA() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
+    // commit("SET_LOGIN_STATUS", false);
   },
 };
 export default {
