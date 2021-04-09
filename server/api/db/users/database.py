@@ -1,3 +1,4 @@
+# from api.routes.users.authentication_users_routes import refresh_token
 from api.auth.auth import AuthHandler
 import motor.motor_asyncio
 from bson.objectid import ObjectId
@@ -31,7 +32,6 @@ def user_helper(user) -> dict:
 
 """ REGISTER USER """
 auth_handler = AuthHandler()
-
 
 async def register_user(user_data: dict) -> dict:
     """
@@ -73,6 +73,7 @@ async def get_user_data(username: str) -> dict:
 #         user_email=user['email'])
 #     # return {'token', token}
 #     return token
+
 async def login_user(user_data: dict, Authorize: AuthJWT) -> dict:
     user = await user_collection.find_one({'user_name': user_data['user_name']})
     user_id = user['_id']
@@ -90,7 +91,9 @@ async def login_user(user_data: dict, Authorize: AuthJWT) -> dict:
         subject=user['user_name'], expires_time=access_token_expire)
     refresh_token = Authorize.create_refresh_token(
         subject=user['user_name'], expires_time=refresh_token_expire)
+
     return {'access_token': access_token,
             'refresh_token': refresh_token,
             'user_name': str(user_name),
             '_id': str(user_id)}
+

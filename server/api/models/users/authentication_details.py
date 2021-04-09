@@ -58,7 +58,13 @@ def ResponseModel(data, message):
         'code': 200,
         'message': message
     }
-
+def TokenResponseModel( new_access_token, message):
+    return{
+        # 'access_token': access_token,
+        'access_token' : new_access_token,
+        'code' : 200,
+        'message' : message
+    }
 
 """ Function similarly to ResponseModel Method """
 

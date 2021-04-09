@@ -12,6 +12,7 @@ from api.db.users.database import(
 from api.models.users.authentication_details import(
     ErrorResponseModel,
     ResponseModel,
+    TokenResponseModel,
     UpdateUserModel,
     UserAuthDetails)
 from api.models.users.login import(
@@ -48,5 +49,6 @@ async def login(user: UserLoginAuthDetails, Authorize: AuthJWT = Depends()):
 async def refresh_token(Authorize: AuthJWT = Depends()):
     Authorize.jwt_refresh_token_required()
     current_user = Authorize.get_jwt_subject()
+    # print(refresh_token_)
     new_access_token = Authorize.create_access_token(subject=current_user)
-    return ResponseModel(new_access_token, 'Created new access token')
+    return TokenResponseModel(new_access_token,'Created new access token')
