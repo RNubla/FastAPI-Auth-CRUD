@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 export default {
   data() {
     return {
@@ -29,6 +29,9 @@ export default {
     ...mapGetters("auth", {
       getAuthData: "getAuthData",
     }),
+    ...mapState('auth',{
+      loginStatus : 'loginStatus'
+    })
     // ...mapState({
     //   currentUser: "currentUser",
     //   token: "loginUserInputsToken",
