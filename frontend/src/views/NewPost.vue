@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import PostEntry from "../components/PostEntry.vue";
+import PostEntry from "../components/Post/PostEntry.vue";
 export default {
   components: { PostEntry },
 };

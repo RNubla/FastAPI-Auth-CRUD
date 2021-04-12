@@ -43,7 +43,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import PostCard from "../components/PostCard.vue";
+import PostCard from "../components/Post/PostCard.vue";
 // import PostEntry from "../components/PostEntry.vue";
 export default {
   name: "Home",
