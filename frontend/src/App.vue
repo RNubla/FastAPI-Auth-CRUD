@@ -1,13 +1,6 @@
 <template>
   <div id="nav">
-    <header-nav/>
-    <!-- <div>{{ currentUser.user_name }}</div> -->
-    <!-- <div>{{ getStoredUser.user_name }}</div> -->
-    <!-- <div>{{ currentUser.user_name }}</div> -->
-    <!-- <div>{{ this.$store.getters.getStoredUser }}</div> -->
-    <!-- <div>{{ token }}</div> -->
-    <!-- {{ getNewUserData }} -->
-    {{ getAuthData.user_name }}
+    <header-nav />
     <!-- <router-link to="/">Home</router-link> |
     <router-link to="/new-post">New Post</router-link> |
     <router-link to="/register">Register</router-link> |
@@ -18,11 +11,11 @@
 </template>
 
 <script>
-import HeaderNav from './components/HeaderNav/HeaderNav'
-import { mapActions, mapGetters, mapState } from "vuex";
+import HeaderNav from "./components/HeaderNav/HeaderNav";
+import { mapActions, mapState } from "vuex";
 export default {
-  components:{
-    HeaderNav
+  components: {
+    HeaderNav,
   },
   data() {
     return {
@@ -31,9 +24,6 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("auth", {
-      getAuthData: "getAuthData",
-    }),
     ...mapState("auth", {
       loginStatus: "loginStatus",
     }),
