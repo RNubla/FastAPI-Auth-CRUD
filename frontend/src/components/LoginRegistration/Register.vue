@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-flow-col shadow-lg">
+  <div class="grid grid-flow-row shadow-lg sm:grid-flow-col">
       <div class="grid grid-flow-row">
           <div class="m-4 pt-8">
               <p class="text-center font-extrabold text-3xl ">Register</p>
@@ -36,9 +36,9 @@
         </div>
       </div>
     <div class="bg-gradient-to-r from-green-400 to-green-500 flex justify-center">
-        <div class="flex items-center  ">
+        <div class="flex items-center my-8 ">
             <div>
-                <p class="text-3xl uppercase font-semibold overflow-clip text-white">Create an account today!</p>
+                <p class="px-4 text-3xl uppercase font-semibold overflow-clip text-white">Create an account today!</p>
                 <p class="font-thin text-white">Join now</p>
             </div>
         </div>

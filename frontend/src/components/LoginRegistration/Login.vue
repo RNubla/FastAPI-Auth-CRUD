@@ -1,11 +1,11 @@
 <template>
-  <div class="grid grid-flow-col shadow-lg">
+  <div class="grid grid-flow-row shadow-lg sm:grid-flow-col">
       <div class="grid grid-flow-row">
           <div class="m-4 pt-8">
               <p class="text-center font-extrabold text-3xl ">Login</p>
             </div>
 
-        <div class="m-4">
+        <div class="m-2">
             <form id="app" @submit.prevent="login" method="post">
                 <p class="mb-8" v-if="errors.length">
                     <b>Please correct the following error(s):</b>
@@ -28,7 +28,7 @@
         </div>
       </div>
     <div class="bg-gradient-to-r from-green-400 to-green-500 flex justify-center">
-        <div class="flex items-center  ">
+        <div class="flex items-center my-8  ">
             <div class="px-8">
                 <p class="text-3xl uppercase font-semibold overflow-clip text-white">Log In into your account!</p>
                 <p class="font-thin text-white">Post anything you want</p>

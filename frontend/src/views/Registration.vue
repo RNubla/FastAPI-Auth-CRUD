@@ -1,6 +1,8 @@
 <template>
-  <div class="container mx-auto px-24 rounded-lg">
-    <register />
+  <div class="flex mx-auto px-24 mt-1 rounded-lg justify-center">
+    <div class="flex items-center">
+      <register />
+    </div>
   </div>
 </template>
 
