@@ -22,7 +22,7 @@
           <!-- Ille enim occurrentia nescio quae comminiscebatur; Eadem nunc mea
           adversum te oratio est. Sit sane ista voluptas. Omnes enim iucundum
           motum, quo sensus hilaretur. -->
-          <slot></slot>
+          <slot class="truncate overflow-ellipsis overflow-hidden">...</slot>
         </p>
       </div>
       <div class="flex justify-between items-center mt-4">
