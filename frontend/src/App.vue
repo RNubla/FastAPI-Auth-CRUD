@@ -1,5 +1,6 @@
 <template>
   <div id="nav">
+    <header-nav/>
     <!-- <div>{{ currentUser.user_name }}</div> -->
     <!-- <div>{{ getStoredUser.user_name }}</div> -->
     <!-- <div>{{ currentUser.user_name }}</div> -->
@@ -7,18 +8,22 @@
     <!-- <div>{{ token }}</div> -->
     <!-- {{ getNewUserData }} -->
     {{ getAuthData.user_name }}
-    <router-link to="/">Home</router-link> |
+    <!-- <router-link to="/">Home</router-link> |
     <router-link to="/new-post">New Post</router-link> |
     <router-link to="/register">Register</router-link> |
     <router-link to="/login">Login</router-link> |
-    <router-link to="/logout">Logout</router-link> |
+    <router-link to="/logout">Logout</router-link> | -->
   </div>
   <router-view />
 </template>
 
 <script>
+import HeaderNav from './components/HeaderNav/HeaderNav'
 import { mapActions, mapGetters, mapState } from "vuex";
 export default {
+  components:{
+    HeaderNav
+  },
   data() {
     return {
       timer: null,
@@ -29,50 +34,25 @@ export default {
     ...mapGetters("auth", {
       getAuthData: "getAuthData",
     }),
-    ...mapState('auth',{
-      loginStatus : 'loginStatus'
-    })
-    // ...mapState({
-    //   currentUser: "currentUser",
-    //   token: "loginUserInputsToken",
-    //   storedUser: "storedUser",
-    //   loggedIn: "loggedIn",
-    // storedUser: "storedUser",
-    // }),
-    // ...mapGetters("register", {
-    // getNewUserData: "getNewUserData",
-    // getStoredUser: "getStoredUser",
-    // getUsername: "getUsername",
-    // getIfLoggedIn: "getIfLoggedIn",
-    // }),
+    ...mapState("auth", {
+      loginStatus: "loginStatus",
+    }),
+  },
+  created() {
+    //  document.addEventListener('beforeunload', this.clearLocalStorage())
   },
   methods: {
     ...mapActions({
       refreshTokens: "refreshToken",
     }),
-    autoRefresh() {
-      // setInterval(this.refreshTokens(this.storedUser), 5000);
-      this.refreshTokens(this.storedUser);
-      console.log("refreshed tokens");
+    clearLocalStorage() {
+      console.log("clear local storage");
+      let storage = window.localStorage;
+      storage.clear();
     },
-    interval() {
-      if (this.loggedIn == true) {
-        console.log("created: getIfLoggedIn", this.getIfLoggedIn);
-        // console.log("running auto refresh token");
-        // this.timer = setInterval(this.autoRefresh(), 270000);
-        // this.timer = setInterval(this.autoRefresh(), 100);
-        this.autoRefresh();
-      }
-    },
-    mounted() {
-      // console.log("created: getIfLoggedIn", this.loggedIn);
-      // if (this.loggedIn == true) {
-      //   console.log("created: getIfLoggedIn", this.getIfLoggedIn);
-      //   // console.log("running auto refresh token");
-      //   this.timer = setInterval(this.autoRefresh(), 270000);
-      // setInterval(this.autoRefresh(), 2000);
-      // this.autoRefresh();
-    },
+  },
+  mounted() {
+    // document.addEventListener("beforeunload", this.clearLocalStorage());
   },
   beforeUnmount() {
     clearInterval(this.timer);

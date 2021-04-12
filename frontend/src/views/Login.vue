@@ -1,6 +1,6 @@
 <template>
   <!-- <div></div> -->
-  <div class="">
+  <!-- <div class="">
     <form id="app" @submit.prevent="login" method="post">
       <p v-if="errors.length">
     <b>Please correct the following error(s):</b>
@@ -10,13 +10,11 @@
   </p>
       <p>
         <label>Username</label>
-        <!-- <input type="text" v-model="loginUserInputs.user_name" /> -->
         <input type="text" v-model="loginInputs.user_name" />
       </p>
 
       <p>
         <label>Password</label>
-        <!-- <input type="password" minlength="3" v-model="loginUserInputs.password" /> -->
         <input type="password" minlength="3" v-model="loginInputs.password" />
       </p>
 
@@ -24,12 +22,18 @@
         <input type="submit" value="Login" />
       </p>
     </form>
-  </div>
+  </div> -->
+
+  <div class="container mx-auto px-24 rounded-lg"><login /></div>
 </template>
 
 <script>
+import Login from "../components/LoginRegistration/Login";
 import { mapActions, mapGetters, mapState } from "vuex";
 export default {
+  components: {
+    Login,
+  },
   data() {
     return {
       errors: [],
