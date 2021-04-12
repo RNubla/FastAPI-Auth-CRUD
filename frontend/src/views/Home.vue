@@ -22,7 +22,7 @@
     </ul>
   </div> -->
   <div>
-    <router-link to="/new-post">Add New Post</router-link>
+    <router-link v-if="getLoginStatus == true" to="/new-post">Add New Post</router-link>
     <div>
       <ul>
       <!-- <li v-for="post in getAllPosts.slice().reverse()" :key="post"> -->
@@ -32,7 +32,8 @@
           :author="post.author"
           :published_on="post.published_on"
         >
-          {{ post.body.substring(0, 200) + "..." }}
+          <!-- {{ post.body.substring(0, 200) + "..." }} -->
+          {{post.body}}
         </post-card>
       </li>
     </ul>
