@@ -90,7 +90,9 @@ async def login_user(user_data: dict, Authorize: AuthJWT) -> dict:
     access_token = Authorize.create_access_token(
         subject=user['user_name'], expires_time=access_token_expire)
     refresh_token = Authorize.create_refresh_token(
-        subject=user['user_name'], expires_time=refresh_token_expire)
+        subject=user['user_name'])
+    # refresh_token = Authorize.create_refresh_token(
+    #     subject=user['user_name'], expires_time=refresh_token_expire)
 
     return {'access_token': access_token,
             'refresh_token': refresh_token,
