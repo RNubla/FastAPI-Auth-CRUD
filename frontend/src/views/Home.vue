@@ -34,6 +34,7 @@
             :author="post.author"
             :published_on="post.published_on"
             :post_id="post.id"
+            :user_id="post.user_id"
           >
             <!-- {{ post.body.substring(0, 200) + "..." }} -->
             <!-- {{ post.id }} -->

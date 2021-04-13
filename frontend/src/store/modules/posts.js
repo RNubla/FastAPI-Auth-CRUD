@@ -43,6 +43,10 @@ const actions = {
       commit("SET_SINGLE_POST", response.data.data);
     }
   },
+  // TODO:Edit post if current user matches with the post user_id
+  // async editAPost({ commit, state }, payload) {
+  //   commit("")
+  // },
   async addPost({ commit, state }, payload) {
     console.log("addpost payload", payload);
     commit("SET_INPUT_POST", payload);

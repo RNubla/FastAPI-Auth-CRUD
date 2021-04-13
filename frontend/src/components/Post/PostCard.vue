@@ -5,6 +5,7 @@
       class="px-10 md:px-3 my-4 py-6 rounded shadow-xl bg-white w-4/5 mx-auto min-h-full"
     >
       <div class="flex md:justify-center">
+        <span v-if="getUserId === user_id">Edit</span>
         <!-- <span class="font-light text-gray-600">March 28, 2021</span> -->
         <span class="font-light text-gray-600">{{ formatedDate }}</span>
         <!-- <a
@@ -42,7 +43,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   props: {
     title: String,
@@ -50,11 +51,17 @@ export default {
     author: String,
     published_on: String,
     post_id: String,
+    user_id: String,
   },
   data() {
     return {
       formatedDate: null,
     };
+  },
+  computed: {
+    ...mapGetters("auth", {
+      getUserId: "getUserId",
+    }),
   },
   methods: {
     ...mapActions("posts", {

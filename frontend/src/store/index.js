@@ -5,7 +5,12 @@ import registerModule from "./modules/register";
 import createPersistedState from "vuex-persistedstate";
 
 const dataState = createPersistedState({
-  paths: ["auth.authData", "auth.loginStatus", "posts.singlePost"],
+  paths: [
+    "auth.authData",
+    "auth.loginStatus",
+    // "auth.user_id",
+    "posts.singlePost",
+  ],
 });
 
 const store = createStore({
