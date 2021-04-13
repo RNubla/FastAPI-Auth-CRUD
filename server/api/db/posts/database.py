@@ -50,11 +50,11 @@ async def retrieve_post(id: str) -> dict:
         return post_helper(post)
 
 
-async def update_post(id: str, data: dict):
+async def update_post(id: str, user: str, data: dict):
     if len(data) < 1:
         return False
     post = await posts_collection.find_one({'_id': ObjectId(id)})
-    if post:
+    if post and post['user_id'] == user:
         updated_post = await posts_collection.update_one(
             {'_id': ObjectId(id)},
             {"$set": data}
@@ -62,6 +62,8 @@ async def update_post(id: str, data: dict):
         if updated_post:
             return True
         return False
+
+    return False
 
 
 async def delete_post(id: str):

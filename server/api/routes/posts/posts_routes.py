@@ -79,9 +79,15 @@ async def add_post(Authorize: AuthJWT = Depends(), post: PostSchema = Body(...))
 
 
 @post_router.put('/{id}', response_description='Update Post')
-async def update_post_data(id: str, user=Depends(auth_handler.auth_wrapper), req: UpdatePostModel = Body(...)):
+# async def update_post_data(id: str, user=Depends(auth_handler.auth_wrapper), req: UpdatePostModel = Body(...)):
+async def update_post_data(id: str, Authorize: AuthJWT = Depends(), req: UpdatePostModel = Body(...)):
+    Authorize.jwt_required()
+    current_user = Authorize.get_jwt_subject()
     req = {k: v for k, v in req.dict().items() if v is not None}
-    updated_post = await update_post(id=id, data=req)
+    user = await get_user_data(current_user)
+    # print(req)
+    # if user['_id'] ==
+    updated_post = await update_post(id=id, user=user['_id'], data=req)
     if updated_post:
         return ResponseModel(
             f'Post with ID:{id} update is successful',
@@ -89,7 +95,7 @@ async def update_post_data(id: str, user=Depends(auth_handler.auth_wrapper), req
         )
     return ErrorResponseModel(
         'An error occurred',
-        404,
+        403,
         'There was an error updating the post data'
     )
 
