@@ -2,11 +2,11 @@ import { createStore } from "vuex";
 import authModule from "./modules/auth";
 import postModule from "./modules/posts";
 import registerModule from "./modules/register";
-import createPersistedState from 'vuex-persistedstate'
+import createPersistedState from "vuex-persistedstate";
 
-const authDataState = createPersistedState({
-  paths: ['auth.authData', 'auth.loginStatus']
-})
+const dataState = createPersistedState({
+  paths: ["auth.authData", "auth.loginStatus", "posts.singlePost"],
+});
 
 const store = createStore({
   modules: {
@@ -14,8 +14,7 @@ const store = createStore({
     posts: postModule,
     register: registerModule,
   },
-  plugins:[authDataState]
-  // plugins:[createPersistedState()]
+  plugins: [dataState],
 });
 
 export default store;
