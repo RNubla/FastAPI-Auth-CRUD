@@ -92,6 +92,7 @@ export default {
         // console.log("Error is empty");
         this.registerUser(this.newUser);
         this.newUser = "";
+        this.$router.push({ name: "Login" });
       }
     },
   },
