@@ -54,6 +54,7 @@ async def update_post(id: str, user: str, data: dict):
     if len(data) < 1:
         return False
     post = await posts_collection.find_one({'_id': ObjectId(id)})
+    """ IF POST EXISTS AND POST USER_ID MATCHES THE USERS THEN WE CAN UPDATE THE POST """
     if post and post['user_id'] == user:
         updated_post = await posts_collection.update_one(
             {'_id': ObjectId(id)},
