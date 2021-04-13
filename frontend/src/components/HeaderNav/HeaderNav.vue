@@ -1,7 +1,9 @@
 <template>
-  <div class="grid grid-flow-row sm:grid-flow-col ">
+  <div class="grid grid-flow-row sm:grid-flow-col">
     <div class="flex justify-center items-center sm:justify-start">
-      <div class="m-2"><router-link to="/">Website Name</router-link></div>
+      <div class="m-2">
+        <button @click.prevent="goToHomePage">Website Name</button>
+      </div>
     </div>
     <div v-if="getLoginStatus == false">
       <div class="flex justify-center items-center sm:justify-end">
@@ -47,6 +49,9 @@ export default {
     ...mapActions("auth", {
       logoutUser: "logoutUser",
     }),
+    goToHomePage() {
+      this.$router.push({ name: "Home" });
+    },
   },
 };
 </script>

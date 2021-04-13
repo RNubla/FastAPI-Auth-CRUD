@@ -2,8 +2,8 @@ import store from "..";
 import jwtInterceptor from "../../middleware/jwtInterceptor";
 const state = () => ({
   posts: [],
-  singlePostId: null,
-  singlePost: null,
+  singlePostId: "",
+  singlePost: {},
   inputPost: {
     title: null,
     body: null,
