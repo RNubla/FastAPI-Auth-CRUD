@@ -2,6 +2,8 @@ import store from "..";
 import jwtInterceptor from "../../middleware/jwtInterceptor";
 const state = () => ({
   posts: [],
+  singlePostId: null,
+  singlePost: null,
   inputPost: {
     title: null,
     body: null,
@@ -13,6 +15,12 @@ const getters = {
   getAllPosts(state) {
     return state.posts;
   },
+  getPostID(state) {
+    return state.singlePostId;
+  },
+  getSinglePost(state) {
+    return state.singlePost;
+  },
 };
 
 const actions = {
@@ -21,6 +29,18 @@ const actions = {
     if (response && response.data) {
       console.log("post_module", response.data.data);
       commit("SET_POSTS", response.data.data);
+    }
+  },
+  async getAPost({ commit, state }, payload) {
+    console.log("get a single post", payload);
+    commit("SET_SINGLE_POST_ID", payload);
+    var response = await jwtInterceptor.get(
+      `http://localhost:8000/posts/${state.singlePostId}`
+      // state.singlePostId
+    );
+    if (response && response.data) {
+      console.log("post module: get single post", response.data.data);
+      commit("SET_SINGLE_POST", response.data.data);
     }
   },
   async addPost({ commit, state }, payload) {
@@ -51,6 +71,12 @@ const mutations = {
   },
   ADD_POST(state, payload) {
     state.posts.push(payload);
+  },
+  SET_SINGLE_POST_ID(state, payload) {
+    state.singlePostId = payload;
+  },
+  SET_SINGLE_POST(state, payload) {
+    state.singlePost = payload;
   },
 };
 

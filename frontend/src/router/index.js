@@ -4,6 +4,7 @@ import Registration from "../views/Registration";
 import Login from "../views/Login";
 import Logout from "../views/Logout";
 import NewPost from "../views/NewPost";
+import Post from "../views/Post";
 import store from "../store/index";
 import axios from "axios";
 // import { from } from "core-js/core/array";
@@ -40,6 +41,12 @@ const routes = [
     meta: { requiredAuth: false },
     component: Logout,
   },
+  {
+    path: "/posts/:title",
+    name: "post",
+    meta: { requiredAuth: false },
+    component: Post,
+  },
 ];
 
 const router = createRouter({
@@ -54,13 +61,16 @@ router.beforeEach(async (to, from, next) => {
       localStorage.getItem("access_token") == ""
     );
     // if (localStorage.getItem("access_token") == null || localStorage.getItem("access_token") == "" ) {
-      if(!store.getters['auth/getLoginStatus']){
+    if (!store.getters["auth/getLoginStatus"]) {
       next({
         name: "Login",
       });
     } else {
       if (!store.getters["auth/getAuthData"].access_token) {
-        console.log('!store.getters[auth/getAuthData]', !store.getters['auth/getAuthData'] )
+        console.log(
+          "!store.getters[auth/getAuthData]",
+          !store.getters["auth/getAuthData"]
+        );
         const access_token = localStorage.getItem("access_token");
         const refresh_token = localStorage.getItem("refresh_token");
         if (access_token) {
