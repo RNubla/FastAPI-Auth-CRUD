@@ -9,8 +9,8 @@
     </button>
     <post-entry v-if="isActive" />
     <ul> -->
-      <!-- <li v-for="post in getAllPosts.slice().reverse()" :key="post"> -->
-      <!-- <li v-for="post in gettersAllPosts" :key="post">
+  <!-- <li v-for="post in getAllPosts.slice().reverse()" :key="post"> -->
+  <!-- <li v-for="post in gettersAllPosts" :key="post">
         <post-card
           :title="post.title"
           :author="post.author"
@@ -22,21 +22,25 @@
     </ul>
   </div> -->
   <div>
-    <router-link v-if="getLoginStatus == true" to="/new-post">Add New Post</router-link>
-    <div>
-      <ul>
-      <!-- <li v-for="post in getAllPosts.slice().reverse()" :key="post"> -->
-      <li v-for="post in gettersAllPosts" :key="post">
-        <post-card
-          :title="post.title"
-          :author="post.author"
-          :published_on="post.published_on"
-        >
-          <!-- {{ post.body.substring(0, 200) + "..." }} -->
-          {{post.body}}
-        </post-card>
-      </li>
-    </ul>
+    <router-link v-if="getLoginStatus == true" to="/new-post"
+      >Add New Post</router-link
+    >
+    <div class="container mx-auto">
+      <ul class="grid md:grid-cols-3">
+        <!-- <li v-for="post in getAllPosts.slice().reverse()" :key="post"> -->
+        <li v-for="post in gettersAllPosts" :key="post" class="object-contain">
+          <post-card
+            :title="post.title"
+            :author="post.author"
+            :published_on="post.published_on"
+            :post_id="post.id"
+          >
+            <!-- {{ post.body.substring(0, 200) + "..." }} -->
+            <!-- {{ post.id }} -->
+            {{ post.body }}
+          </post-card>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -61,6 +65,8 @@ export default {
   computed: {
     ...mapGetters("posts", {
       gettersAllPosts: "getAllPosts",
+      getSinglePost: "getSinglePost",
+      getPostID: "getPostID",
     }),
     ...mapGetters("auth", {
       getLoginStatus: "getLoginStatus",
@@ -77,7 +83,6 @@ export default {
     togglePost() {
       this.isActive = !this.isActive;
     },
-
   },
   created() {
     this.getAllPosts();
