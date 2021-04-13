@@ -1,5 +1,10 @@
 <template>
-  <post :title="getSingPost.title" />
+  <post
+    :title="getSinglePost.title"
+    :body="getSinglePost.body"
+    :published_on="getSinglePost.published_on"
+    :author="getSinglePost.author"
+  />
 </template>
 
 <script>
@@ -11,7 +16,7 @@ export default {
   },
   computed: {
     ...mapGetters("posts", {
-      getSingPost: "getSinglePost",
+      getSinglePost: "getSinglePost",
     }),
   },
 };

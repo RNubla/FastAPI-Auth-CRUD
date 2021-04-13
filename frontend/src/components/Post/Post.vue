@@ -1,5 +1,8 @@
 <template>
   <div>{{ title }}</div>
+  <div>{{ body }}</div>
+  <div>{{ title }}</div>
+  <div>{{ published_on }}</div>
 </template>
 
 <script>
