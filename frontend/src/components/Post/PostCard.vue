@@ -63,7 +63,7 @@ export default {
     viewSinglePost() {
       this.getASinglePost(this.post_id);
       this.$router.push({
-        name: "post",
+        name: "Post",
         params: { title: this.title },
       });
     },
