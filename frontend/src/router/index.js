@@ -43,7 +43,7 @@ const routes = [
   },
   {
     path: "/posts/:title",
-    name: "post",
+    name: "Post",
     meta: { requiredAuth: false },
     component: Post,
   },
