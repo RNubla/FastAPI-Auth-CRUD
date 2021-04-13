@@ -5,7 +5,7 @@
       class="px-10 md:px-3 my-4 py-6 rounded shadow-xl bg-white w-4/5 mx-auto min-h-full"
     >
       <div class="flex md:justify-center">
-        <span v-if="getUserId === user_id">Edit</span>
+        <span @click.prevent="editPost" v-if="getUserId === user_id">Edit</span>
         <!-- <span class="font-light text-gray-600">March 28, 2021</span> -->
         <span class="font-light text-gray-600">{{ formatedDate }}</span>
         <!-- <a
@@ -19,9 +19,6 @@
           {{ title }}
         </a>
         <p class="mt-2 text-gray-600 overflow-hidden h-6">
-          <!-- Ille enim occurrentia nescio quae comminiscebatur; Eadem nunc mea
-          adversum te oratio est. Sit sane ista voluptas. Omnes enim iucundum
-          motum, quo sensus hilaretur. -->
           <slot></slot>
         </p>
       </div>
@@ -65,12 +62,20 @@ export default {
   },
   methods: {
     ...mapActions("posts", {
-      getASinglePost: "getAPost",
+      fetchAPost: "fetchAPost",
     }),
     viewSinglePost() {
-      this.getASinglePost(this.post_id);
+      this.fetchAPost(this.post_id);
       this.$router.push({
         name: "Post",
+        params: { title: this.title },
+      });
+    },
+    editPost() {
+      console.log("fetchAPost");
+      this.fetchAPost(this.post_id);
+      this.$router.push({
+        name: "EditPost",
         params: { title: this.title },
       });
     },

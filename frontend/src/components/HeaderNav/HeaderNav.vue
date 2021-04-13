@@ -25,7 +25,7 @@
           </p></router-link
         >
         <div
-          @click="logoutUser"
+          @click="logout"
           class="m-2 bg-red-300 p-3 shadow-md hover:bg-red-400"
           to="/logout"
         >
@@ -50,6 +50,10 @@ export default {
       logoutUser: "logoutUser",
     }),
     goToHomePage() {
+      this.$router.push({ name: "Home" });
+    },
+    logout() {
+      this.logoutUser();
       this.$router.push({ name: "Home" });
     },
   },

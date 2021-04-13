@@ -31,7 +31,7 @@ const actions = {
       commit("SET_POSTS", response.data.data);
     }
   },
-  async getAPost({ commit, state }, payload) {
+  async fetchAPost({ commit, state }, payload) {
     console.log("get a single post", payload);
     commit("SET_SINGLE_POST_ID", payload);
     var response = await jwtInterceptor.get(
@@ -44,9 +44,22 @@ const actions = {
     }
   },
   // TODO:Edit post if current user matches with the post user_id
-  // async editAPost({ commit, state }, payload) {
-  //   commit("")
-  // },
+  async editAPost({ state }, payload) {
+    console.log("edit post payload: ", payload);
+    var response = await jwtInterceptor.put(
+      `http://localhost:8000/posts/${state.singlePostId}`,
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${store.getters["auth/getAuthData"].access_token}`,
+        },
+      }
+    );
+    if (response && response.data) {
+      console.log("post module: update single post", response.data);
+      // commit("SET_SINGLE_POST", response.data);
+    }
+  },
   async addPost({ commit, state }, payload) {
     console.log("addpost payload", payload);
     commit("SET_INPUT_POST", payload);

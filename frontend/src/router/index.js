@@ -4,6 +4,7 @@ import Registration from "../views/Registration";
 import Login from "../views/Login";
 import Logout from "../views/Logout";
 import NewPost from "../views/NewPost";
+import EditPost from "../views/EditPost";
 import Post from "../views/Post";
 import store from "../store/index";
 import axios from "axios";
@@ -24,6 +25,18 @@ const routes = [
     meta: { requiredAuth: true },
   },
   {
+    path: "/posts/:title",
+    name: "Post",
+    meta: { requiredAuth: false },
+    component: Post,
+  },
+  {
+    path: "/edit/posts/:title",
+    name: "EditPost",
+    component: EditPost,
+    meta: { requiredAuth: true },
+  },
+  {
     path: "/register",
     name: "Registration",
     component: Registration,
@@ -40,12 +53,6 @@ const routes = [
     name: "Logout",
     meta: { requiredAuth: false },
     component: Logout,
-  },
-  {
-    path: "/posts/:title",
-    name: "Post",
-    meta: { requiredAuth: false },
-    component: Post,
   },
 ];
 
