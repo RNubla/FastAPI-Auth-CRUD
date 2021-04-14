@@ -1,40 +1,39 @@
 <template>
-  <div>
+  <div class="flex flex-col justify-between">
     <p v-if="errors.length">
     <b>Please correct the following error(s):</b>
     <ul>
       <li v-for="error in errors" :key="error">{{ error }}</li>
     </ul>
   </p>
-    <div>
-      <h1 style="text-align: center">This is vue editor.js</h1>
+  <div>
+      <h1 class="font-bold text-2xl">Editing Post</h1>
     </div>
 
-    <div class="editorx_body">
-      <!--editorjs id-->
-      <div class id="editPost" />
-    </div>
-    <button
-      style="margin-left: 30%"
-      type="button"
-      name="button"
-      @click="submitEditPost"
-    >
-      save
-    </button>
-    <div class="editorx_body">
-      <pre>{{ fetchedData }}</pre>
+    
+    <!--editorjs id-->
+    <div class="" id="editPost" />
+    
+    <!-- Fixed to the bottom of the webpage -->
+    <div @click="submitEditPost" type='button' class="fixed h-16 w-full bottom-0 bg-yellow-400 hover:bg-yellow-500 flex items-center justify-center z-10 ">
+      <div
+      class="text-2xl font-bold"
+      >
+        Update
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import EditorJS from "@editorjs/editorjs";
-import Header from "@editorjs/header";
 import Paragraph from "editorjs-paragraph-with-alignment";
 import List from "@editorjs/list";
-import SimpleImage from "@editorjs/simple-image";
+// import SimpleImage from "@editorjs/simple-image";
+import SimpleImage from "simple-image-editorjs";
 import { mapActions, mapGetters } from "vuex";
+import { StyleInlineTool } from "editorjs-style";
+
 export default {
   data() {
     return {
@@ -66,9 +65,9 @@ export default {
         await this.editAPost(this.inputEditPost);
         // this.inputEditPost.title = null;
         // this.inputEditPost.body = null;
-        this.$router.push({
-          name: "Post",
-          params: { id: this.getSinglePost.id },
+        await this.$router.push({
+          name: "Home",
+          // params: { id: this.getSinglePost.id },
         });
       }
     },
@@ -92,21 +91,12 @@ export default {
          */
         defaultBlock: "paragraph",
         tools: {
+          style: StyleInlineTool,
           image: {
             class: SimpleImage,
             inlineToolbar: true,
           },
           // inlineToolbar: true,
-
-          heading: {
-            class: Header,
-            // inlineToolbar: true,
-            config: {
-              placeholder: "Enter a header",
-              levels: [1, 2, 3, 4, 5, 6],
-              defaultLevel: 3,
-            },
-          },
           list: {
             class: List,
             // inlineToolbar: true,
