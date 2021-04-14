@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-import Registration from "../views/Registration";
-import Login from "../views/Login";
-import Logout from "../views/Logout";
-import NewPost from "../views/NewPost";
-import EditPost from "../views/EditPost";
-import Post from "../views/Post";
+import Registration from "../views/Auth/Registration";
+import Login from "../views/Auth/Login";
+import Logout from "../views/Auth/Logout";
+import NewPost from "../views/PostEntries/NewPost";
+import EditPost from "../views/PostEntries/EditPost";
+import Post from "../views/PostEntries/Post";
 import store from "../store/index";
 import axios from "axios";
 // import { from } from "core-js/core/array";

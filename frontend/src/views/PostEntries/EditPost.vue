@@ -5,7 +5,7 @@
 
 <script>
 // import EditPost from "../components/Post/EditPost";
-import EditPostV2 from "../components/Post/EditPost-v2";
+import EditPostV2 from "../../components/Post/EditPost-v2";
 export default {
   components: {
     // EditPost,
