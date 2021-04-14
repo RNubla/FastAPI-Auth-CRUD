@@ -14,7 +14,7 @@
     <!--editorjs id-->
     <div class id="codex-editor" />
     
-    <div type='button' @click="submitPost" class="fixed h-16 w-full bottom-0 bg-green-400 hover:bg-green-500 flex items-center justify-center">
+    <div type='button' @click="submitPost" class="fixed h-16 w-full bottom-0 bg-green-400 hover:bg-green-500 flex items-center justify-center z-10">
       <div class="text-2xl font-bold">
         Post
       </div>
