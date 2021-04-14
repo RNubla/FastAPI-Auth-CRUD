@@ -82,7 +82,7 @@ async def login_user(user_data: dict, Authorize: AuthJWT) -> dict:
     # print(user_id)
     # print(user_name)
     # expiratiom of tokens
-    access_token_expire = datetime.timedelta(minutes=15)
+    access_token_expire = datetime.timedelta(seconds=5)
     refresh_token_expire = datetime.timedelta(days=1)
     if (user is None) or (not auth_handler.get_verify_password(user_data['password'], user['password'])):
         raise HTTPException(
