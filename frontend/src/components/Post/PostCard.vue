@@ -5,7 +5,7 @@
       class="px-10 md:px-3 my-4 py-6 rounded shadow-xl bg-white w-4/5 mx-auto min-h-full"
     >
       <div class="flex md:justify-center">
-        <span @click.prevent="editPost" v-if="getUserId === user_id">Edit</span>
+        <span @click="editPost" v-if="getUserId === user_id">Edit</span>
         <!-- <span class="font-light text-gray-600">March 28, 2021</span> -->
         <span class="font-light text-gray-600">{{ formatedDate }}</span>
         <!-- <a
@@ -66,15 +66,22 @@ export default {
     }),
     async viewSinglePost() {
       await this.fetchAPost(this.post_id);
-      this.$router.push({
+      await this.$router.push({
         name: "Post",
         params: { id: this.post_id },
       });
     },
-    editPost() {
+    /* THIS IS AN ASYNC BECAUSE WHEN 
+    I CLICK ON ONE POST FOR EDITING, 
+    AND THEN RETURN BACK,
+    THEN CLICK ON ANOTHER POST FOR VIEWING, 
+    THIS WILL SHOW ME THE RIGHT POST FOR VIEWING
+    RATHER THAN SHOWING THE PREVIOUS POST I
+    SELECTED */
+    async editPost() {
       console.log("fetchAPost");
-      this.fetchAPost(this.post_id);
-      this.$router.push({
+      await this.fetchAPost(this.post_id);
+      await this.$router.push({
         name: "EditPost",
         params: { id: this.post_id },
       });
