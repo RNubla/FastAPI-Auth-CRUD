@@ -48,7 +48,8 @@ const actions = {
   async editAPost({ state }, payload) {
     console.log("edit post payload: ", payload);
     const authData = store.getters["auth/getAuthData"];
-    if (authData.access_token) {
+    const tokenActive = store.getters["auth/isTokenActive"];
+    if (tokenActive == false) {
       const payload = {
         refresh_token: authData.refresh_token,
       };
@@ -85,7 +86,9 @@ const actions = {
     // console.log("addpost payload", payload);
     commit("SET_INPUT_POST", payload);
     const authData = store.getters["auth/getAuthData"];
-    if (authData.access_token) {
+    const tokenActive = store.getters["auth/isTokenActive"];
+    if (tokenActive == false) {
+      console.log("REFRESHING ACCESS TOKEN");
       const payload = {
         refresh_token: authData.refresh_token,
       };
