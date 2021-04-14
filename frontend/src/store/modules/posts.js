@@ -1,3 +1,4 @@
+import axios from "axios";
 import store from "..";
 import jwtInterceptor from "../../middleware/jwtInterceptor";
 const state = () => ({
@@ -46,6 +47,23 @@ const actions = {
   // TODO:Edit post if current user matches with the post user_id
   async editAPost({ state }, payload) {
     console.log("edit post payload: ", payload);
+    const authData = store.getters["auth/getAuthData"];
+    if (authData.access_token) {
+      const payload = {
+        refresh_token: authData.refresh_token,
+      };
+      const refreshResponse = await axios
+        .post("http://localhost:8000/auth/refresh", "", {
+          headers: {
+            Authorization: `Bearer ${payload.refresh_token}`,
+          },
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      store.commit("auth/SAVE_NEW_ACCESS_TOKEN_DATA", refreshResponse.data);
+    }
+
     var response = await jwtInterceptor.put(
       `http://localhost:8000/posts/${state.singlePostId}`,
       payload,
@@ -60,9 +78,28 @@ const actions = {
       // commit("SET_SINGLE_POST", response.data);
     }
   },
+  /*  FIXME:When user stays on the new post entry for a
+      while, the access token expires and cannot make post
+  */
   async addPost({ commit, state }, payload) {
-    console.log("addpost payload", payload);
+    // console.log("addpost payload", payload);
     commit("SET_INPUT_POST", payload);
+    const authData = store.getters["auth/getAuthData"];
+    if (authData.access_token) {
+      const payload = {
+        refresh_token: authData.refresh_token,
+      };
+      const refreshResponse = await axios
+        .post("http://localhost:8000/auth/refresh", "", {
+          headers: {
+            Authorization: `Bearer ${payload.refresh_token}`,
+          },
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      store.commit("auth/SAVE_NEW_ACCESS_TOKEN_DATA", refreshResponse.data);
+    }
     var response = await jwtInterceptor.post(
       "http://localhost:8000/posts",
       state.inputPost,
