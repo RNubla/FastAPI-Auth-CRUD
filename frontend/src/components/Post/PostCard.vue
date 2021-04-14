@@ -44,7 +44,7 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   props: {
     title: String,
-    body: String,
+    // body: String,
     author: String,
     published_on: String,
     post_id: String,
@@ -64,11 +64,11 @@ export default {
     ...mapActions("posts", {
       fetchAPost: "fetchAPost",
     }),
-    viewSinglePost() {
-      this.fetchAPost(this.post_id);
+    async viewSinglePost() {
+      await this.fetchAPost(this.post_id);
       this.$router.push({
         name: "Post",
-        params: { title: this.title },
+        params: { id: this.post_id },
       });
     },
     editPost() {
