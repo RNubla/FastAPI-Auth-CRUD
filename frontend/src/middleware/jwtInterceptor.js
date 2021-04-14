@@ -24,9 +24,12 @@ jwtInterceptor.interceptors.response.use(
         refresh_token: authData.refresh_token,
       };
       var response = await axios
-        .post("http://localhost:8000/auth/refresh", payload.access_token)
+        .post("http://localhost:8000/auth/refresh", payload.refresh_token)
+        .then((res) => {
+          console.log("res", res);
+        })
         .catch((e) => {
-          console.log(e);
+          console.log("ERROR", e);
         });
       console.log("jwtinterceptor response", response);
       await store.dispatch("auth/SAVE_TOKEN_DATA", response.data);
