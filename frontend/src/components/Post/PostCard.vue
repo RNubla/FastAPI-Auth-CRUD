@@ -76,7 +76,7 @@ export default {
       this.fetchAPost(this.post_id);
       this.$router.push({
         name: "EditPost",
-        params: { title: this.title },
+        params: { id: this.post_id },
       });
     },
     convertDate() {
