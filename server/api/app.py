@@ -8,7 +8,8 @@ from fastapi_jwt_auth.exceptions import AuthJWTException
 
 """ import router """
 from .routes.users.authentication_users_routes import router as AuthRouter
-from api.routes.posts.posts_routes import post_router as PostRouter
+# from api.routes.posts.posts_routes import post_router as PostRouter
+from api.routes.posts.posts_routes_v2 import post_router as PostRouter
 app = FastAPI()
 
 origins = [
@@ -41,6 +42,7 @@ def authjwt_exception_handler(request: Request, exc: AuthJWTException):
     )
 
 
+# app.include_router(PostRouter, tags=['Posts'], prefix='/posts')
 app.include_router(PostRouter, tags=['Posts'], prefix='/posts')
 
 
