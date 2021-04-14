@@ -30,7 +30,7 @@
         <!-- <li v-for="post in getAllPosts.slice().reverse()" :key="post"> -->
         <li v-for="post in gettersAllPosts" :key="post" class="object-contain">
           <post-card
-            :title="post.title"
+            :title="post.data.blocks[0].data.text"
             :author="post.author"
             :published_on="post.published_on"
             :post_id="post.id"

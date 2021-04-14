@@ -75,8 +75,8 @@ const actions = {
       }
     );
     if (response && response.data) {
-      console.log("post module: update single post", response.data);
-      // commit("SET_SINGLE_POST", response.data);
+      console.log("post module: update single post", response.config.data);
+      // commit("SET_SINGLE_POST", response.config.data);
     }
   },
   /*  FIXME:When user stays on the new post entry for a
