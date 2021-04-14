@@ -74,7 +74,7 @@ export default {
         await this.addPost(this.inputPost);
         this.inputPost.title = null;
         this.inputPost.body = null;
-        // this.$router.push("/");
+        this.$router.push("/");
       }
     },
     save: async function () {
@@ -96,7 +96,10 @@ export default {
          */
         defaultBlock: "paragraph",
         tools: {
-          image: SimpleImage,
+          image: {
+            class: SimpleImage,
+            inlineToolbar: true,
+          },
           // inlineToolbar: true,
 
           heading: {
