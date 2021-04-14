@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="felx flex-col justify-between">
     <p v-if="errors.length">
     <b>Please correct the following error(s):</b>
     <ul>
@@ -7,33 +7,30 @@
     </ul>
   </p>
     <div>
-      <h1 style="text-align: center">This is vue editor.js</h1>
+      <h1 class="font-bold text-2xl">Create a New Post</h1>
     </div>
 
-    <div class="editorx_body">
-      <!--editorjs id-->
-      <div class id="codex-editor" />
+    
+    <!--editorjs id-->
+    <div class id="codex-editor" />
+    
+    <div type='button' @click="submitPost" class="fixed h-16 w-full bottom-0 bg-green-400 hover:bg-green-500 flex items-center justify-center">
+      <div class="text-2xl font-bold">
+        Post
+      </div>
     </div>
-    <button
-      style="margin-left: 30%"
-      type="button"
-      name="button"
-      @click="submitPost"
-    >
-      save
-    </button>
-    <div class="editorx_body">
+    <!-- <div class="editorx_body">
       <pre>{{ inputPost.data }}</pre>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import EditorJS from "@editorjs/editorjs";
-import Header from "@editorjs/header";
 import Paragraph from "editorjs-paragraph-with-alignment";
 import List from "@editorjs/list";
-import SimpleImage from "@editorjs/simple-image";
+import SimpleImage from "simple-image-editorjs";
+import { StyleInlineTool } from "editorjs-style";
 import { mapActions } from "vuex";
 export default {
   data() {
@@ -74,7 +71,9 @@ export default {
         await this.addPost(this.inputPost);
         this.inputPost.title = null;
         this.inputPost.body = null;
-        this.$router.push("/");
+        this.$router.push({
+          name: "Home",
+        });
       }
     },
     save: async function () {
@@ -96,21 +95,15 @@ export default {
          */
         defaultBlock: "paragraph",
         tools: {
+          style: {
+            class: StyleInlineTool,
+          },
           image: {
             class: SimpleImage,
             inlineToolbar: true,
           },
           // inlineToolbar: true,
 
-          heading: {
-            class: Header,
-            // inlineToolbar: true,
-            config: {
-              placeholder: "Enter a header",
-              levels: [1, 2, 3, 4, 5, 6],
-              defaultLevel: 3,
-            },
-          },
           list: {
             class: List,
             // inlineToolbar: true,
@@ -147,22 +140,3 @@ export default {
   },
 };
 </script>
-
-<style lang="css" scoped >
-.editorx_body {
-  /* width: 62%;
-  margin-left: 15%; */
-  width: 60%;
-  margin-left: 20%;
-  border: 2px solid #f1f3f5;
-  box-sizing: border-box;
-}
-.ce-block--focused {
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(9, 9, 121, 0.5438550420168067) 35%,
-    rgba(0, 212, 255, 1) 100%
-  );
-}
-</style>
