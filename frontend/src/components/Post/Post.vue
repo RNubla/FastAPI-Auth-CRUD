@@ -6,7 +6,6 @@
 
 <script>
 import EditorJS from "@editorjs/editorjs";
-import Header from "@editorjs/header";
 import Paragraph from "editorjs-paragraph-with-alignment";
 import List from "@editorjs/list";
 import SimpleImage from "@editorjs/simple-image";
@@ -28,19 +27,20 @@ export default {
     published_on: String,
   },
   methods: {
-    myEditor() {
-      this.window.editor = new EditorJS({
-        holder: "codex-editor",
-        autofocus: true,
-        readOnly: true,
-        tools: {
-          image: SimpleImage,
-          heading: Header,
-          list: List,
-          paragraph: Paragraph,
-        },
-        data: this.data,
-      });
+    async myEditor() {
+      this.window.editor = new EditorJS(
+        await {
+          holder: "codex-editor",
+          autofocus: true,
+          readOnly: true,
+          tools: {
+            image: SimpleImage,
+            list: List,
+            paragraph: Paragraph,
+          },
+          data: this.data,
+        }
+      );
     },
   },
   async mounted() {
