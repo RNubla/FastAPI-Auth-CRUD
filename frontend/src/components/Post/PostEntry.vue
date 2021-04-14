@@ -137,7 +137,7 @@ export default {
         await this.addPost(this.inputPost);
         this.inputPost.title = null;
         this.inputPost.body = null;
-        this.$router.push('/')
+        this.$router.push("/");
       }
     },
   },

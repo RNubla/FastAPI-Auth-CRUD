@@ -1,9 +1,14 @@
 <template>
-  <post
+  <!-- <post
     :title="getSinglePost.title"
     :body="getSinglePost.body"
     :published_on="getSinglePost.published_on"
     :author="getSinglePost.author"
+  /> -->
+  <post
+    :author="getSinglePost.author"
+    :published_on="getSinglePost.published_on"
+    :data="getSinglePost.data"
   />
 </template>
 

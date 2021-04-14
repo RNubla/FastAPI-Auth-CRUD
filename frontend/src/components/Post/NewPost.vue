@@ -1,10 +1,13 @@
 <template>
   <div>
+    <p v-if="errors.length">
+    <b>Please correct the following error(s):</b>
+    <ul>
+      <li v-for="error in errors" :key="error">{{ error }}</li>
+    </ul>
+  </p>
     <div>
-      <h1 style="text-align: center">
-        This is vue editor.js
-        <a href="https://twitter.com/@code4mk" target="_blank">@code4mk</a>
-      </h1>
+      <h1 style="text-align: center">This is vue editor.js</h1>
     </div>
 
     <div class="editorx_body">
@@ -15,7 +18,7 @@
       style="margin-left: 30%"
       type="button"
       name="button"
-      @click="save()"
+      @click="submitPost"
     >
       save
     </button>
@@ -28,44 +31,101 @@
 <script>
 import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";
-import Paragraph from "@editorjs/paragraph";
+import Paragraph from "editorjs-paragraph-with-alignment";
 import List from "@editorjs/list";
+import SimpleImage from "@editorjs/simple-image";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
+      errors: [],
+      inputPost: {
+        // title: null,
+        data: null,
+        // post_img: "string",
+        published_on: new Date(),
+      },
       value: null,
-      window: null,
+      window: Object,
     };
   },
   methods: {
+    ...mapActions("posts", {
+      addPost: "addPost",
+    }),
+    async submitPost() {
+      console.log("SAVING");
+      this.save();
+      this.errors = [];
+      // if (!this.inputPost.title) {
+      //   this.errors.push("Title required.");
+      // }
+      // if (!this.inputPost.body) {
+      //   this.errors.push("Body required.");
+      // }
+      if (this.errors.length === 0) {
+        // console.log("Error is empty");
+        console.log(this.inputPost);
+        await this.addPost(this.inputPost);
+        this.inputPost.title = null;
+        this.inputPost.body = null;
+        // this.$router.push("/");
+      }
+    },
     save: function () {
-      window.editor.save().then((savedData) => {
+      this.window.editor.save().then((savedData) => {
         console.log(savedData);
         this.value = savedData;
+        this.inputPost.data = this.value;
+        // this.inputPost.title = this.value.blocks[1].data.text;
       });
     },
     myEditor: function () {
-      window.editor = new EditorJS({
+      this.window.editor = new EditorJS({
+        readOnly: false,
         holder: "codex-editor",
+        placeholder: "Let`s write an awesome story!",
         autofocus: true,
+        inlineToolbar: true,
         /**
          * This Tool will be used as default
          */
         initialBlock: "paragraph",
         tools: {
-          header: {
+          image: SimpleImage,
+          // inlineToolbar: true,
+
+          heading: {
             class: Header,
-            shortcut: "CTRL+SHIFT+H",
+            // inlineToolbar: true,
+            config: {
+              placeholder: "Enter a header",
+              levels: [1, 2, 3, 4, 5, 6],
+              defaultLevel: 3,
+            },
           },
           list: {
             class: List,
+            // inlineToolbar: true,
           },
           paragraph: {
             class: Paragraph,
-            config: {
-              placeholder: ".",
-            },
+            // inlineToolbar: true,
           },
+          fixFirstBlock: true,
+          // header: {
+          //   class: Header,
+          //   shortcut: "CTRL+SHIFT+H",
+          // },
+          // list: {
+          //   class: List,
+          // },
+          // paragraph: {
+          //   class: Paragraph,
+          //   config: {
+          //     placeholder: ".",
+          //   },
+          // },
         },
         onReady: function () {
           console.log("ready");

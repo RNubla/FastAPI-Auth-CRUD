@@ -38,7 +38,7 @@
           >
             <!-- {{ post.body.substring(0, 200) + "..." }} -->
             <!-- {{ post.id }} -->
-            {{ post.body }}
+            <!-- {{ post.body }} -->
           </post-card>
         </li>
       </ul>
@@ -66,19 +66,13 @@ export default {
   computed: {
     ...mapGetters("posts", {
       gettersAllPosts: "getAllPosts",
-      getSinglePost: "getSinglePost",
+      // getSinglePost: "getSinglePost",
       getPostID: "getPostID",
     }),
     ...mapGetters("auth", {
       getLoginStatus: "getLoginStatus",
     }),
   },
-  // computed: {
-  //   ...mapState({
-  //     posts: "posts",
-  //     isLoggedIn: "loggedIn",
-  //   }),
-  // },
   methods: {
     ...mapActions("posts", { getAllPosts: "getAllPosts" }),
     togglePost() {
