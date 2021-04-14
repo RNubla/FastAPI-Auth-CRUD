@@ -51,7 +51,7 @@ async def refresh_token(Authorize: AuthJWT = Depends()):
     Authorize.jwt_refresh_token_required()
     current_user = Authorize.get_jwt_subject()
     # print(refresh_token_)
-    access_token_expire = datetime.timedelta(seconds=5)
+    access_token_expire = datetime.timedelta(minutes=15)
 
     new_access_token = Authorize.create_access_token(
         subject=current_user, expires_time=access_token_expire)
