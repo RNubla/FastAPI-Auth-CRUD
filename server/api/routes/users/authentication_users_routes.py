@@ -2,6 +2,7 @@ from fastapi import APIRouter, Body, Depends, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi_jwt_auth import AuthJWT
 from fastapi_jwt_auth.exceptions import AuthJWTException
+import datetime
 
 from api.db.users.database import(
     register_user,
@@ -50,5 +51,8 @@ async def refresh_token(Authorize: AuthJWT = Depends()):
     Authorize.jwt_refresh_token_required()
     current_user = Authorize.get_jwt_subject()
     # print(refresh_token_)
-    new_access_token = Authorize.create_access_token(subject=current_user)
-    return TokenResponseModel(new_access_token,'Created new access token')
+    access_token_expire = datetime.timedelta(seconds=5)
+
+    new_access_token = Authorize.create_access_token(
+        subject=current_user, expires_time=access_token_expire)
+    return TokenResponseModel(new_access_token, 'Created new access token')
