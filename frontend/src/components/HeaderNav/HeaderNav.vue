@@ -55,6 +55,8 @@ export default {
     },
     logout() {
       this.logoutUser();
+      localStorage.removeItem("vuex");
+      // window.location.reload();
       this.$router.push({ name: "Home" });
     },
   },

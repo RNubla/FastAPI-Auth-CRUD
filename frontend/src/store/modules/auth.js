@@ -47,7 +47,8 @@ const actions = {
       });
   },
   logoutUser({ commit }) {
-    commit("SAVE_TOKEN_DATA", null);
+    // commit("SAVE_TOKEN_DATA", null);
+    commit("REMOVE_TOKEN_DATA");
     commit("SET_LOGIN_STATUS", false);
   },
 };
@@ -99,10 +100,14 @@ const mutations = {
   SAVE_USER_ID(state, data) {
     state.user_id = data;
   },
-  REMOVE_TOKEN_DATA() {
+  REMOVE_TOKEN_DATA(state) {
+    state.authData = {};
+    state.user_id = "";
     localStorage.removeItem("vuex");
-    // localStorage.removeItem("access_token");
-    // localStorage.removeItem("refresh_token");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("user_id");
+    localStorage.clear();
     // commit("SET_LOGIN_STATUS", false);
   },
 };
