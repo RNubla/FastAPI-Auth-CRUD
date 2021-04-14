@@ -6,7 +6,7 @@ const state = () => ({
     refresh_token: "",
     tokenExp: "",
     user_name: "",
-    user_id: "",
+    // user_id: "",
   },
   user_id: "",
   loginStatus: null,
@@ -20,7 +20,7 @@ const getters = {
     return state.authData;
   },
   getUserId(state) {
-    return state.authData.user_id;
+    return state.user_id;
   },
   isTokenActive(state) {
     if (!state.authData.tokenExp) {
@@ -36,7 +36,8 @@ const actions = {
     await axios
       .post("http://localhost:8000/auth/login", payload)
       .then((res) => {
-        // commit("SAVE_USER_ID", res.data.data._id);
+        commit("SAVE_USER_ID", res.data.data._id);
+        console.log("res.data.data", res.data.data);
         commit("SAVE_TOKEN_DATA", res.data.data);
         commit("SET_LOGIN_STATUS", true);
       })
@@ -61,11 +62,11 @@ const mutations = {
         refresh_token: "",
         tokenExp: "",
         user_name: "",
-        user_id: "",
+        // user_id: "",
       };
       state.authData = newTokenData;
     } else {
-      // localStorage.setItem("user_id", data._id);
+      localStorage.setItem("user_id", data._id);
       localStorage.setItem("access_token", data.access_token);
       localStorage.setItem("refresh_token", data.refresh_token);
 
@@ -75,7 +76,7 @@ const mutations = {
         refresh_token: data.refresh_token,
         tokenExp: decodedJWTValues.exp,
         user_name: decodedJWTValues.sub,
-        user_id: data._id,
+        // user_id: data._id,
       };
       state.authData = newTokenData;
     }

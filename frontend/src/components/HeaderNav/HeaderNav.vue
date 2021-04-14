@@ -43,6 +43,7 @@ export default {
     ...mapGetters("auth", {
       getLoginStatus: "getLoginStatus",
       getAuthData: "getAuthData",
+      getUserId: "getUserId",
     }),
   },
   methods: {
