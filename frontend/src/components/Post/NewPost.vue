@@ -23,7 +23,7 @@
       save
     </button>
     <div class="editorx_body">
-      <pre>{{ value }}</pre>
+      <pre>{{ inputPost.data }}</pre>
     </div>
   </div>
 </template>
@@ -49,13 +49,18 @@ export default {
       window: Object,
     };
   },
+  computed: {
+    getInput() {
+      return this.inputPost.data;
+    },
+  },
   methods: {
     ...mapActions("posts", {
       addPost: "addPost",
     }),
     async submitPost() {
       console.log("SAVING");
-      this.save();
+      await this.save();
       this.errors = [];
       // if (!this.inputPost.title) {
       //   this.errors.push("Title required.");
@@ -65,19 +70,18 @@ export default {
       // }
       if (this.errors.length === 0) {
         // console.log("Error is empty");
-        console.log(this.inputPost);
+        // console.log(this.inputPost);
         await this.addPost(this.inputPost);
         this.inputPost.title = null;
         this.inputPost.body = null;
         // this.$router.push("/");
       }
     },
-    save: function () {
-      this.window.editor.save().then((savedData) => {
+    save: async function () {
+      await this.window.editor.save().then((savedData) => {
         console.log(savedData);
         this.value = savedData;
         this.inputPost.data = this.value;
-        // this.inputPost.title = this.value.blocks[1].data.text;
       });
     },
     myEditor: function () {
@@ -90,7 +94,7 @@ export default {
         /**
          * This Tool will be used as default
          */
-        initialBlock: "paragraph",
+        defaultBlock: "paragraph",
         tools: {
           image: SimpleImage,
           // inlineToolbar: true,
@@ -112,7 +116,6 @@ export default {
             class: Paragraph,
             // inlineToolbar: true,
           },
-          fixFirstBlock: true,
           // header: {
           //   class: Header,
           //   shortcut: "CTRL+SHIFT+H",
@@ -136,7 +139,7 @@ export default {
       });
     },
   },
-  mounted: function () {
+  created: function () {
     this.myEditor();
   },
 };
