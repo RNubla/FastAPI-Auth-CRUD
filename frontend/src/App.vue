@@ -1,11 +1,6 @@
 <template>
   <div id="nav">
     <header-nav />
-    <!-- <router-link to="/">Home</router-link> |
-    <router-link to="/new-post">New Post</router-link> |
-    <router-link to="/register">Register</router-link> |
-    <router-link to="/login">Login</router-link> |
-    <router-link to="/logout">Logout</router-link> | -->
   </div>
   <router-view />
 </template>
@@ -45,7 +40,7 @@ export default {
     // document.addEventListener("beforeunload", this.clearLocalStorage());
   },
   beforeUnmount() {
-    clearInterval(this.timer);
+    sessionStorage.clear();
   },
 };
 </script>

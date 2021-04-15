@@ -26,7 +26,8 @@ const getters = {
 
 const actions = {
   async getAllPosts({ commit }) {
-    var response = await jwtInterceptor.get("http://localhost:8000/posts");
+    console.log("Getting All Post");
+    var response = await jwtInterceptor.get("http://localhost:8000/posts/");
     if (response && response.data) {
       console.log("post_module", response.data.data);
       commit("SET_POSTS", response.data.data);
@@ -104,7 +105,7 @@ const actions = {
       store.commit("auth/SAVE_NEW_ACCESS_TOKEN_DATA", refreshResponse.data);
     }
     var response = await jwtInterceptor.post(
-      "http://localhost:8000/posts",
+      "http://localhost:8000/posts/",
       state.inputPost,
       {
         headers: {

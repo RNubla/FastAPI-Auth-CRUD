@@ -1,26 +1,4 @@
 <template>
-  <!-- <div class="home">
-    <button
-      @click.prevent="togglePost"
-      :class="{ active: isActive }"
-      v-if="getLoginStatus"
-    >
-      Add Posts
-    </button>
-    <post-entry v-if="isActive" />
-    <ul> -->
-  <!-- <li v-for="post in getAllPosts.slice().reverse()" :key="post"> -->
-  <!-- <li v-for="post in gettersAllPosts" :key="post">
-        <post-card
-          :title="post.title"
-          :author="post.author"
-          :published_on="post.published_on"
-        >
-          {{ post.body.substring(0, 200) + "..." }}
-        </post-card>
-      </li>
-    </ul>
-  </div> -->
   <div>
     <router-link v-if="getLoginStatus == true" to="/new-post"
       >Add New Post</router-link

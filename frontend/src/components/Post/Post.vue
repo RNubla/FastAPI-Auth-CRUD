@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="codex-editor" />
+    <div id="readonly-post" />
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
   }, */
   data() {
     return {
-      window: Object,
+      window: Object(),
     };
   },
   props: {
@@ -28,22 +28,27 @@ export default {
   },
   methods: {
     async myEditor() {
-      this.window.editor = new EditorJS(
-        await {
-          holder: "codex-editor",
-          autofocus: true,
-          readOnly: true,
-          tools: {
-            image: SimpleImage,
-            list: List,
-            paragraph: Paragraph,
-          },
-          data: this.data,
-        }
-      );
+      console.log("CREATING READONLY EDITOR");
+      this.window.editor = await new EditorJS({
+        holder: "readonly-post",
+        autofocus: true,
+        readOnly: true,
+        tools: {
+          image: SimpleImage,
+          list: List,
+          paragraph: Paragraph,
+        },
+        data: this.data,
+        onReady: function () {
+          console.log("ready");
+        },
+        onChange: function () {
+          console.log("change");
+        },
+      });
     },
   },
-  async mounted() {
+  async created() {
     await this.myEditor();
   },
 };

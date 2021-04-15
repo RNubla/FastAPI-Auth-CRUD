@@ -12,7 +12,7 @@
 
     
     <!--editorjs id-->
-    <div class id="codex-editor" />
+    <div class id="newEntryPost" />
     
     <div type='button' @click="submitPost" class="fixed h-16 w-full bottom-0 bg-green-400 hover:bg-green-500 flex items-center justify-center z-10">
       <div class="text-2xl font-bold">
@@ -86,7 +86,7 @@ export default {
     myEditor: function () {
       this.window.editor = new EditorJS({
         readOnly: false,
-        holder: "codex-editor",
+        holder: "newEntryPost",
         placeholder: "Let`s write an awesome story!",
         autofocus: true,
         inlineToolbar: true,

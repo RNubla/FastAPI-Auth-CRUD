@@ -18,9 +18,7 @@
         <a class="text-md text-gray-700 font-bold hover:text-gray-600" href="#">
           {{ title }}
         </a>
-        <p class="mt-2 text-gray-600 overflow-hidden h-6">
-          <slot></slot>
-        </p>
+        <p class="mt-2 text-gray-600 overflow-hidden h-6"></p>
       </div>
       <div
         class="flex justify-between md:justify-center items-center mt-4 md:grid md:auto-rows-max md:items-center"
