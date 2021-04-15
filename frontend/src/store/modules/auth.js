@@ -56,8 +56,8 @@ const actions = {
 const mutations = {
   SAVE_TOKEN_DATA(state, data) {
     if (data == null) {
-      localStorage.setItem("access_token", "");
-      localStorage.setItem("refresh_token", "");
+      sessionStorage.setItem("access_token", "");
+      sessionStorage.setItem("refresh_token", "");
       const newTokenData = {
         access_token: "",
         refresh_token: "",
@@ -67,9 +67,9 @@ const mutations = {
       };
       state.authData = newTokenData;
     } else {
-      localStorage.setItem("user_id", data._id);
-      localStorage.setItem("access_token", data.access_token);
-      localStorage.setItem("refresh_token", data.refresh_token);
+      sessionStorage.setItem("user_id", data._id);
+      sessionStorage.setItem("access_token", data.access_token);
+      sessionStorage.setItem("refresh_token", data.refresh_token);
 
       const decodedJWTValues = jwtDecrypt(data.access_token);
       const newTokenData = {
@@ -84,11 +84,11 @@ const mutations = {
   },
   SAVE_NEW_ACCESS_TOKEN_DATA(state, data) {
     console.log(data.access_token);
-    localStorage.setItem("access_token", data.access_token);
+    sessionStorage.setItem("access_token", data.access_token);
     const decodedJWTValues = jwtDecrypt(data.access_token);
     const newTokenData = {
       access_token: data.access_token,
-      refresh_token: localStorage.getItem("refresh_token"),
+      refresh_token: sessionStorage.getItem("refresh_token"),
       tokenExp: decodedJWTValues.exp,
       user_name: decodedJWTValues.sub,
     };
@@ -103,11 +103,11 @@ const mutations = {
   REMOVE_TOKEN_DATA(state) {
     state.authData = {};
     state.user_id = "";
-    localStorage.removeItem("vuex");
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
-    localStorage.removeItem("user_id");
-    localStorage.clear();
+    sessionStorage.removeItem("vuex");
+    sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("refresh_token");
+    sessionStorage.removeItem("user_id");
+    sessionStorage.clear();
     // commit("SET_LOGIN_STATUS", false);
   },
 };

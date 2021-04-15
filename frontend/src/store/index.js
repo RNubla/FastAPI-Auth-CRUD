@@ -5,6 +5,7 @@ import registerModule from "./modules/register";
 import createPersistedState from "vuex-persistedstate";
 
 const dataState = createPersistedState({
+  storage: window.sessionStorage,
   paths: [
     "auth.authData",
     "auth.loginStatus",

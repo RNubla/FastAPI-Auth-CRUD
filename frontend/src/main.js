@@ -8,4 +8,8 @@ import "./assets/tailwind.css";
 // import * as appRouter from "./appRouter";
 
 createApp(App).use(store).use(router).mount("#app");
+// window.addEventListener("beforeunload", () => {
+//   // localStorage.removeItem("vuex");
+//   localStorage.clear();
+// });
 // createApp(App).use(appRouter.routerConfig).use(store).mount("#app");

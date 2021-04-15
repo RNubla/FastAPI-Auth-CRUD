@@ -15,7 +15,6 @@ export default {
   data() {
     return {
       timer: null,
-      // a_loggedIn: this.loggedIn,
     };
   },
   computed: {
@@ -23,24 +22,10 @@ export default {
       loginStatus: "loginStatus",
     }),
   },
-  created() {
-    //  document.addEventListener('beforeunload', this.clearLocalStorage())
-  },
   methods: {
     ...mapActions({
       refreshTokens: "refreshToken",
     }),
-    clearLocalStorage() {
-      console.log("clear local storage");
-      let storage = window.localStorage;
-      storage.clear();
-    },
-  },
-  mounted() {
-    // document.addEventListener("beforeunload", this.clearLocalStorage());
-  },
-  beforeUnmount() {
-    sessionStorage.clear();
   },
 };
 </script>

@@ -65,9 +65,9 @@ router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.requiredAuth)) {
     console.log(
       "getItem:access_token",
-      localStorage.getItem("access_token") == ""
+      sessionStorage.getItem("access_token") == ""
     );
-    // if (localStorage.getItem("access_token") == null || localStorage.getItem("access_token") == "" ) {
+    // if (sessionStorage.getItem("access_token") == null || sessionStorage.getItem("access_token") == "" ) {
     if (
       !store.getters["auth/getLoginStatus"] == null ||
       !store.getters["auth/getLoginStatus"] ||
@@ -82,8 +82,8 @@ router.beforeEach(async (to, from, next) => {
           "!store.getters[auth/getAuthData]",
           !store.getters["auth/getAuthData"].access_token
         );
-        const access_token = localStorage.getItem("access_token");
-        const refresh_token = localStorage.getItem("refresh_token");
+        const access_token = sessionStorage.getItem("access_token");
+        const refresh_token = sessionStorage.getItem("refresh_token");
         if (access_token) {
           const data = {
             access_token: access_token,
