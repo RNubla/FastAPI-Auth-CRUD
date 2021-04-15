@@ -5,7 +5,7 @@
         <button @click.prevent="goToHomePage">Website Name</button>
       </div>
     </div>
-    <div v-if="getLoginStatus == false">
+    <div v-if="getLoginStatus == false || getLoginStatus == null">
       <div class="flex justify-center items-center sm:justify-end">
         <router-link class="m-2 p-3 shadow-md hover:bg-gray-50" to="/login"
           ><p class="text-black text-center">Login</p></router-link
