@@ -1,0 +1,31 @@
+version: 3.8
+
+services:
+# Setup server container
+    server:
+        build: ./server
+        expose: 
+            -${APP_SERVER_PORT}
+        environment: 
+            API_HOST: ${API_HOST}
+            APP_SERVER_PORT: ${APP_SERVER_PORT}
+        ports: 
+            - ${APP_SERVER_PORT}:${APP_SERVER_PORT}
+        volumes: 
+            - ./server:/server
+        command: python ./main.py
+    
+    client:
+        build: ./frontend
+        environment: 
+            - VUE_APP_PORT=${VUE_APP_PORT}
+        expose: 
+            - ${VUE_APP_PORT}
+        ports: 
+            - ${VUE_APP_PORT}:${VUE_APP_PORT}
+        volumes: 
+            - ./frontend/src:/frontend/src
+            - ./frontend/public:/frontend/public
+        links: 
+            - server
+        command: npm run start
