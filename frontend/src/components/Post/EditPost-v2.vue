@@ -12,7 +12,7 @@
 
     
     <!--editorjs id-->
-    <div class="" id="editPost" />
+    <div class="" id="codex-editor" />
     
     <!-- Fixed to the bottom of the webpage -->
     <div @click="submitEditPost" type='button' class="fixed h-16 w-full bottom-0 bg-yellow-400 hover:bg-yellow-500 flex items-center justify-center z-10 ">
@@ -31,10 +31,13 @@ import Paragraph from "editorjs-paragraph-with-alignment";
 import List from "@editorjs/list";
 // import SimpleImage from "@editorjs/simple-image";
 import SimpleImage from "simple-image-editorjs";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import { StyleInlineTool } from "editorjs-style";
 
 export default {
+  props: {
+    data: Object,
+  },
   data() {
     return {
       errors: [],
@@ -42,50 +45,42 @@ export default {
       inputEditPost: {},
     };
   },
-  computed: {
+  /* computed: {
     ...mapGetters("posts", {
       getSinglePost: "getSinglePost",
     }),
-  },
+  }, */
   methods: {
     ...mapActions("posts", {
       editAPost: "editAPost",
     }),
     async submitEditPost() {
-      await this.save();
+      await this.saved();
       this.errors = [];
-      /*  if (!this.getSinglePost.title) {
-        this.errors.push("Title required.");
-      }
-      if (!this.getSinglePost.body) {
-        this.errors.push("Body required.");
-      } */
       if (this.errors.length === 0) {
         console.log("INPUT POST", this.inputEditPost);
         await this.editAPost(this.inputEditPost);
-        // this.inputEditPost.title = null;
-        // this.inputEditPost.body = null;
         await this.$router.push({
           name: "Home",
           // params: { id: this.getSinglePost.id },
         });
       }
     },
-    save: async function () {
+    async saved() {
       await this.window.editor.save().then((savedData) => {
         console.log(savedData);
         this.value = savedData;
         this.inputEditPost.data = this.value;
       });
     },
-    myEditor: function () {
+    myEditor() {
       this.window.editor = new EditorJS({
         readOnly: false,
-        holder: "editPost",
+        holder: "codex-editor",
         placeholder: "Let`s write an awesome story!",
         autofocus: true,
         inlineToolbar: true,
-        data: this.fetchedData.data,
+        data: this.fetchedData,
         /**
          * This Tool will be used as default
          */
@@ -111,12 +106,13 @@ export default {
         },
         onChange: function () {
           console.log("change");
+          // saved();
         },
       });
     },
   },
-  created: function () {
-    this.fetchedData = this.getSinglePost;
+  created() {
+    this.fetchedData = this.data;
     this.myEditor();
   },
 };
