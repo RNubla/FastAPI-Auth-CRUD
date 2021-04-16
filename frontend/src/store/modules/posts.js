@@ -114,7 +114,7 @@ const actions = {
     }
     var response = await jwtInterceptor.post(
       // "http://localhost:8000/posts/",
-      "${process.env.VUE_APP_LOCAL_HOST_SERVER}/posts/",
+      `${process.env.VUE_APP_LOCAL_HOST_SERVER}/posts/`,
       state.inputPost,
       {
         headers: {
