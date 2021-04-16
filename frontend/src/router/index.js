@@ -16,13 +16,13 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    meta: { requiredAuth: false },
+    meta: { requiredAuth: false, title: "Home" },
   },
   {
     path: "/new-post",
     name: "NewPost",
     component: NewPost,
-    meta: { requiredAuth: true },
+    meta: { requiredAuth: true, title: "New Post" },
   },
   {
     path: "/posts/:id",
@@ -40,13 +40,13 @@ const routes = [
     path: "/register",
     name: "Registration",
     component: Registration,
-    meta: { requiredAuth: false },
+    meta: { requiredAuth: false, title: "Register" },
   },
   {
     path: "/login",
     name: "Login",
     component: Login,
-    meta: { requiredAuth: false },
+    meta: { requiredAuth: false, title: "Login" },
   },
   {
     path: "/logout",

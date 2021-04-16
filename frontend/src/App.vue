@@ -12,6 +12,11 @@ export default {
   components: {
     HeaderNav,
   },
+  watch: {
+    $route(to, from) {
+      document.title = to.meta.title || "FastAPI Auth CRUD Demo";
+    },
+  },
   data() {
     return {
       timer: null,
