@@ -1,7 +1,7 @@
 from api.db.users.database import MONGO_DETAILS
 import motor.motor_asyncio
 from bson.objectid import ObjectId
-from mongodb_settings import environment as env
+# from mongodb_settings import environment as env
 import os
 # from os.path import join, dirname
 # from dotenv import load_dotenv
@@ -10,8 +10,8 @@ import os
 # load_dotenv(dotnenv_path)
 
 # MONGO_DETAILS = 'mongodb://localhost:27017'
-env
-print(os.environ.get('MONGO_DB'))
+# env
+# print(os.environ.get('MONGO_DB'))
 MONGO_DETAILS = os.environ.get('MONGO_DB')
 
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_DETAILS)

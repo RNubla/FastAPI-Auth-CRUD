@@ -1,10 +1,10 @@
 from api.db.users.database import MONGO_DETAILS
 import motor.motor_asyncio
 from bson.objectid import ObjectId
-from mongodb_settings import environment as env
+# from mongodb_settings import environment as env
 import os
 
-env
+# env
 # print('MONGO_DB ENV', os.environ.get('MONGO_DB'))
 MONGO_DETAILS = os.environ.get('MONGO_DB')
 

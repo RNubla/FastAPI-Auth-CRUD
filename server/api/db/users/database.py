@@ -5,10 +5,10 @@ from bson.objectid import ObjectId
 from fastapi import HTTPException
 from fastapi_jwt_auth import AuthJWT
 import datetime
-from mongodb_settings import environment as env
+# from mongodb_settings import environment as env
 import os
 
-env
+# env
 # print('MONGO_DB ENV', os.environ.get('MONGO_DB'))
 MONGO_DETAILS = os.environ.get('MONGO_DB')
 
