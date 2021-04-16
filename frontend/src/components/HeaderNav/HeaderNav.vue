@@ -2,7 +2,7 @@
   <div class="grid grid-flow-row sm:grid-flow-col">
     <div class="flex justify-center items-center sm:justify-start">
       <div class="m-2">
-        <button @click.prevent="goToHomePage">Website Name</button>
+        <button @click.prevent="goToHomePage">Fast API Auth CRUD Demo</button>
       </div>
     </div>
     <div v-if="getLoginStatus == false || getLoginStatus == null">
