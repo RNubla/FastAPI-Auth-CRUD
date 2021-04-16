@@ -13,7 +13,7 @@ export default {
     HeaderNav,
   },
   watch: {
-    $route(to, from) {
+    $route(to) {
       document.title = to.meta.title || "FastAPI Auth CRUD Demo";
     },
   },
