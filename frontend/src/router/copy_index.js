@@ -39,7 +39,8 @@ routeConfig.beforeEach(async (to, from, next) => {
         refresh_token: authData.refresh_token,
       };
       const refreshResponse = await axios.post(
-        "http://localhost:3000/auth/refreshtoken",
+        // "http://localhost:3000/auth/refreshtoken",
+        `${process.env.VUE_APP_LOCAL_HOST_SERVER}/auth/refreshtoken`,
         payload
       );
       store.commit("auth/saveTokenData", refreshResponse.data);

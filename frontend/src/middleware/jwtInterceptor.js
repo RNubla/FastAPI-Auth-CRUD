@@ -24,7 +24,11 @@ jwtInterceptor.interceptors.response.use(
         refresh_token: authData.refresh_token,
       };
       var response = await axios
-        .post("http://localhost:8000/auth/refresh", payload.refresh_token)
+        // .post("http://localhost:8000/auth/refresh", payload.refresh_token)
+        .post(
+          `${process.env.VUE_APP_LOCAL_HOST_SERVER}/auth/refresh`,
+          payload.refresh_token
+        )
         .then((res) => {
           console.log("res", res);
         })

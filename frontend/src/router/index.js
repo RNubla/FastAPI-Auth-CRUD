@@ -101,7 +101,8 @@ router.beforeEach(async (to, from, next) => {
             refresh_token: authData.refresh_token,
           };
           const refreshResponse = await axios
-            .post("http://localhost:8000/auth/refresh", "", {
+            // .post("http://localhost:8000/auth/refresh", "", {
+            .post(`${process.env.VUE_APP_LOCAL_HOST_SERVER}/auth/refresh`, "", {
               headers: {
                 Authorization: `Bearer ${payload.refresh_token}`,
               },

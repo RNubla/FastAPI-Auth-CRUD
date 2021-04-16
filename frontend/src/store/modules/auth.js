@@ -34,7 +34,8 @@ const getters = {
 const actions = {
   async loginUser({ commit }, payload) {
     await axios
-      .post("http://localhost:8000/auth/login", payload)
+      // .post("http://localhost:8000/auth/login", payload)
+      .post(`${process.env.VUE_APP_LOCAL_HOST_SERVER}/auth/login`, payload)
       .then((res) => {
         commit("SAVE_USER_ID", res.data.data._id);
         console.log("res.data.data", res.data.data);

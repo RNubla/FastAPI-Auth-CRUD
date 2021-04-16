@@ -27,7 +27,10 @@ const getters = {
 const actions = {
   async getAllPosts({ commit }) {
     console.log("Getting All Post");
-    var response = await jwtInterceptor.get("http://localhost:8000/posts/");
+    // var response = await jwtInterceptor.get("http://localhost:8000/posts/");
+    var response = await jwtInterceptor.get(
+      `${process.env.VUE_APP_LOCAL_HOST_SERVER}/posts`
+    );
     console.log(process.env.VUE_APP_LOCAL_HOST_SERVER);
     if (response && response.data) {
       console.log("post_module", response.data.data);
@@ -38,7 +41,8 @@ const actions = {
     console.log("get a single post", payload);
     commit("SET_SINGLE_POST_ID", payload);
     var response = await jwtInterceptor.get(
-      `http://localhost:8000/posts/${state.singlePostId}`
+      // `http://localhost:8000/posts/${state.singlePostId}`
+      `${process.env.VUE_APP_LOCAL_HOST_SERVER}/posts/${state.singlePostId}`
       // state.singlePostId
     );
     if (response && response.data) {
@@ -56,7 +60,8 @@ const actions = {
         refresh_token: authData.refresh_token,
       };
       const refreshResponse = await axios
-        .post("http://localhost:8000/auth/refresh", "", {
+        // .post("http://localhost:8000/auth/refresh", "", {
+        .post(`${process.env.VUE_APP_LOCAL_HOST_SERVER}/auth/refresh`, "", {
           headers: {
             Authorization: `Bearer ${payload.refresh_token}`,
           },
@@ -68,7 +73,8 @@ const actions = {
     }
 
     var response = await jwtInterceptor.put(
-      `http://localhost:8000/posts/${state.singlePostId}`,
+      // `http://localhost:8000/posts/${state.singlePostId}`,
+      `${process.env.VUE_APP_LOCAL_HOST_SERVER}/posts/${state.singlePostId}`,
       payload,
       {
         headers: {
@@ -95,7 +101,8 @@ const actions = {
         refresh_token: authData.refresh_token,
       };
       const refreshResponse = await axios
-        .post("http://localhost:8000/auth/refresh", "", {
+        // .post("http://localhost:8000/auth/refresh", "", {
+        .post(`${process.env.VUE_APP_LOCAL_HOST_SERVER}/auth/refresh`, "", {
           headers: {
             Authorization: `Bearer ${payload.refresh_token}`,
           },
@@ -106,7 +113,8 @@ const actions = {
       store.commit("auth/SAVE_NEW_ACCESS_TOKEN_DATA", refreshResponse.data);
     }
     var response = await jwtInterceptor.post(
-      "http://localhost:8000/posts/",
+      // "http://localhost:8000/posts/",
+      "${process.env.VUE_APP_LOCAL_HOST_SERVER}/posts/",
       state.inputPost,
       {
         headers: {
