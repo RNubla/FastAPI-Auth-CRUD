@@ -15,8 +15,9 @@ app = FastAPI()
 origins = [
     # "http://localhost.tiangolo.com",
     # "https://localhost.tiangolo.com",
-    '*',
-    # "http://localhost:8000",
+    'https://rnubla.github.io/FastAPI-Auth-CRUD/',
+    # '*',
+    "http://localhost:8000",
     # "http://localhost:8081",
     # "http://localhost:8080",
     # 'http://192.168.1.233:8080/'
