@@ -26,7 +26,9 @@ origins = [
     # "http://localhost:8080",
     # 'http://192.168.1.233:8080/'
 ]
-middleware = [Middleware(CORSMiddleware, allow_origin=origins)]
+middleware = [
+    Middleware(CORSMiddleware, allow_origins=origins)
+]
 # app.add_middleware(GZipMiddleware)
 # app.add_middleware(
 #     CORSMiddleware,
