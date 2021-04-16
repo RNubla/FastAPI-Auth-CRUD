@@ -16,7 +16,7 @@
       </div>
       <div class="mt-2">
         <a class="text-md text-gray-700 font-bold hover:text-gray-600" href="#">
-          {{ title }}
+          {{ removeTitleTag(title) }}
         </a>
         <p class="mt-2 text-gray-600 overflow-hidden h-6"></p>
       </div>
@@ -57,6 +57,11 @@ export default {
     ...mapGetters("auth", {
       getUserId: "getUserId",
     }),
+    // formatTitle() {
+    //   const og = this.title;
+    //   const nr = /<editorjs-style>(.*?)<\/editorjs-style>/g.exec(og);
+    //   return nr;
+    // },
   },
   methods: {
     ...mapActions("posts", {
@@ -68,6 +73,15 @@ export default {
         name: "Post",
         params: { id: this.post_id },
       });
+    },
+    removeTitleTag(str) {
+      if (str === null || str === "") return false;
+      else str = str.toString();
+
+      // Regular expression to identify HTML tags in
+      // the input string. Replacing the identified
+      // HTML tag with a null string.
+      return str.replace(/(<([^>]+)>)/gi, "");
     },
     /* THIS IS AN ASYNC BECAUSE WHEN 
     I CLICK ON ONE POST FOR EDITING, 
@@ -90,6 +104,9 @@ export default {
       this.formatedDate = date.toDateString();
       //   return date;
     },
+  },
+  mounted() {
+    // console.log(this.removeTitleTag(this.title));
   },
   created() {
     this.convertDate();
