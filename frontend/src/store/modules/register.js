@@ -12,7 +12,8 @@ const state = () => ({
 const actions = {
   async registerUser({ commit }, payload) {
     await axios
-      .post("http://localhost:8000/auth/register", payload)
+      // .post("http://localhost:8000/auth/register", payload)
+      .post(`${process.env.VUE_APP_LOCAL_HOST_SERVER}/auth/register`, payload)
       .then((res) => {
         console.log(res);
         commit("SET_NEW_USER", payload);
