@@ -28,6 +28,7 @@ const actions = {
   async getAllPosts({ commit }) {
     console.log("Getting All Post");
     var response = await jwtInterceptor.get("http://localhost:8000/posts/");
+    console.log(process.env.VUE_APP_LOCAL_HOST_SERVER);
     if (response && response.data) {
       console.log("post_module", response.data.data);
       commit("SET_POSTS", response.data.data);
