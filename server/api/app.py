@@ -16,6 +16,7 @@ origins = [
     # "http://localhost.tiangolo.com",
     # "https://localhost.tiangolo.com",
     'https://rnubla.github.io/FastAPI-Auth-CRUD/',
+    'https://rnubla.github.io/',
     # '*',
     "http://localhost:8000",
     # "http://localhost:8081",
