@@ -30,6 +30,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 app.include_router(AuthRouter, tags=['Authentication'], prefix='/auth')
 
 
@@ -49,3 +50,8 @@ app.include_router(PostRouter, tags=['Posts'], prefix='/posts')
 @app.get('/protected')
 async def protected(username=Depends(auth_handler.auth_wrapper)):
     return {'user_data': username}
+
+
+@app.get('/')
+async def root():
+    return{'message': 'Hello fastapi-auth-crud'}
