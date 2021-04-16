@@ -5,8 +5,14 @@ from bson.objectid import ObjectId
 from fastapi import HTTPException
 from fastapi_jwt_auth import AuthJWT
 import datetime
+from mongodb_settings import environment as env
+import os
 
-MONGO_DETAILS = 'mongodb://localhost:27017'
+env
+# print('MONGO_DB ENV', os.environ.get('MONGO_DB'))
+MONGO_DETAILS = os.environ.get('MONGO_DB')
+
+# MONGO_DETAILS = 'mongodb://localhost:27017'
 
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
 

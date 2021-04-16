@@ -8,3 +8,7 @@ docker rmi $(docker images -f "dangling=true" -q) ---- Deletes docker images tha
 
 docker build --rm -t frontend .
 docker run -it -p 8080:8080 --rm --name frontend-app frontend
+
+depoly to heroku
+heroku git:remote -a {your-project-name}
+git push heroku main or git subtree push --prefix server heroku main
