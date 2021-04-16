@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
+# from fastapi.middleware.gzip import GZipMiddleware
 from api.db.users.database import auth_handler
 
 from fastapi_jwt_auth import AuthJWT
@@ -15,15 +16,15 @@ app = FastAPI()
 origins = [
     # "http://localhost.tiangolo.com",
     # "https://localhost.tiangolo.com",
-    'https://rnubla.github.io/FastAPI-Auth-CRUD/',
-    'https://rnubla.github.io/',
-    # '*',
-    "http://localhost:8000",
+    # 'https://rnubla.github.io/FastAPI-Auth-CRUD/',
+    # 'https://rnubla.github.io/',
+    '*',
+    # "http://localhost:8000",
     # "http://localhost:8081",
-    "http://localhost:8080",
+    # "http://localhost:8080",
     # 'http://192.168.1.233:8080/'
 ]
-
+# app.add_middleware(GZipMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
