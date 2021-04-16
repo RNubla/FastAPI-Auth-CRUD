@@ -18,9 +18,9 @@ from api.routes.posts.posts_routes_v2 import post_router as PostRouter
 origins = [
     # "http://localhost.tiangolo.com",
     # "https://localhost.tiangolo.com",
-    'https://rnubla.github.io/FastAPI-Auth-CRUD/',
-    'https://rnubla.github.io/',
-    # '*',
+    # 'https://rnubla.github.io/FastAPI-Auth-CRUD/',
+    # 'https://rnubla.github.io/',
+    '*',
     # "http://localhost:8000",
     # "http://localhost:8081",
     # "http://localhost:8080",
