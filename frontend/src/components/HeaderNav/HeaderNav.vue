@@ -34,11 +34,13 @@
       </div>
     </div>
   </div>
+  <!-- <hero /> -->
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
+  components: {},
   computed: {
     ...mapGetters("auth", {
       getLoginStatus: "getLoginStatus",

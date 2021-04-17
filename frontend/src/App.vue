@@ -2,18 +2,18 @@
   <div id="nav">
     <header-nav class="bg-yellow-100 p-3" />
   </div>
-  <hero />
+  <!-- <hero /> -->
   <router-view />
 </template>
 
 <script>
 import HeaderNav from "./components/HeaderNav/HeaderNav";
-import Hero from "./components/Hero/Hero";
+// import Hero from "./components/Hero/Hero";
 import { mapActions, mapState } from "vuex";
 export default {
   components: {
     HeaderNav,
-    Hero,
+    // Hero,
   },
   watch: {
     $route(to) {
