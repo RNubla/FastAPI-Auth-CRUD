@@ -1,16 +1,19 @@
 <template>
   <div id="nav">
-    <header-nav />
+    <header-nav class="bg-yellow-100 p-3" />
   </div>
+  <hero />
   <router-view />
 </template>
 
 <script>
 import HeaderNav from "./components/HeaderNav/HeaderNav";
+import Hero from "./components/Hero/Hero";
 import { mapActions, mapState } from "vuex";
 export default {
   components: {
     HeaderNav,
+    Hero,
   },
   watch: {
     $route(to) {
@@ -44,8 +47,6 @@ export default {
 }
 
 #nav {
-  padding: 30px;
-
   a {
     font-weight: bold;
     color: #2c3e50;
