@@ -10,7 +10,7 @@
       <!-- Post cards -->
       <div class="mx-2 my-10 border-t-2">
         <!-- <ul class="grid md:grid-cols-3"> -->
-        <ul class="mt-10 flex flex-row">
+        <ul class="mt-10 flex flex-row overflow-auto">
           <!-- <li v-for="post in getAllPosts.slice().reverse()" :key="post"> -->
           <li v-for="post in gettersAllPosts" :key="post" class="mx-8">
             <post-card
