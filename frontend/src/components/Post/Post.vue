@@ -1,5 +1,5 @@
 <template>
-  <div id="codex-editor" />
+  <div class="px-10" id="codex-editor" />
 </template>
 
 <script>
