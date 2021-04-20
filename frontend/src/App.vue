@@ -1,6 +1,6 @@
 <template>
   <div id="nav">
-    <header-nav class="bg-yellow-100 p-3" />
+    <header-nav class="p-3" />
   </div>
   <!-- <hero /> -->
   <router-view />
