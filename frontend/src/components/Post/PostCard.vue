@@ -1,8 +1,17 @@
 <template>
   <div>
+    <!-- image -->
+    <div class="h-full">
+      <img
+        :src="post_image ? post_image : default_post_image"
+        alt=""
+        srcset=""
+        class="object-cover h-52 w-full"
+      />
+    </div>
     <!-- component -->
     <div
-      class="px-10 md:px-3 my-4 py-6 rounded shadow-xl bg-white w-4/5 mx-auto min-h-full"
+      class="px-10 md:px-3 py-6 rounded shadow-xl bg-white min-w-full mx-auto"
     >
       <div class="flex md:justify-center">
         <span @click="editPost" v-if="getUserId === user_id">Edit</span>
@@ -15,9 +24,12 @@
         > -->
       </div>
       <div class="mt-2">
-        <a class="text-md text-gray-700 font-bold hover:text-gray-600" href="#">
+        <button
+          @click="viewSinglePost"
+          class="text-md text-gray-700 font-bold hover:text-gray-600 text-lg"
+        >
           {{ removeTitleTag(title) }}
-        </a>
+        </button>
         <p class="mt-2 text-gray-600 overflow-hidden h-6"></p>
       </div>
       <div
@@ -39,6 +51,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import jsonpath from "jsonpath";
 export default {
   props: {
     title: String,
@@ -47,16 +60,21 @@ export default {
     published_on: String,
     post_id: String,
     user_id: String,
+    post_data: {},
   },
   data() {
     return {
       formatedDate: null,
+      post_image: String,
+      default_post_image:
+        "https://images.unsplash.com/photo-1604964432806-254d07c11f32?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
     };
   },
   computed: {
     ...mapGetters("auth", {
       getUserId: "getUserId",
     }),
+
     // formatTitle() {
     //   const og = this.title;
     //   const nr = /<editorjs-style>(.*?)<\/editorjs-style>/g.exec(og);
@@ -104,12 +122,49 @@ export default {
       this.formatedDate = date.toDateString();
       //   return date;
     },
+    async getFirstImage() {
+      let image = await jsonpath.query(this.post_data, "$[?(@.type=='image')]");
+      // console.log("json", JSON.stringify(firstImage));
+      // console.log("FIRST IMAGE", jsonpath.query(image, "$[0].data.url"));
+      let firstImage = await jsonpath.query(image, "$[0].data.url")[0];
+      // console.log("FIRST IMAGE", firstImage);
+      // console.log("EMPTY IMAGE", firstImage.length === 0);
+      // var exist = Boolean;
+      this.post_image = firstImage;
+      /* if (firstImage === 0) {
+        console.log("FIRST IMAGE US EMPTY");
+        // exist = false;
+        this.post_image_exists = false;
+      } else {
+        this.post_image = firstImage;
+        // this.exist = true;
+        this.post_image_exists = true;
+      }
+      console.log(this.post_image_exists);
+      return this.post_image_exists; */
+    },
   },
-  mounted() {
-    // console.log(this.removeTitleTag(this.title));
-  },
-  created() {
+
+  beforeMount() {
     this.convertDate();
+    this.getFirstImage();
+    // console.log("POST_DATA", this.post_data[?(@.type=='image')]);
+    // console.log(
+    //   "POST_DATA FROM CARD",
+    //   jsonpath.query(this.post_data, "$[?(@.type=='image')]")
+    // );
+    // let image = jsonpath.query(this.post_data, "$[?(@.type=='image')]");
+    // console.log("json", JSON.stringify(firstImage));
+    // console.log("FIRST IMAGE", jsonpath.query(image, "$[0].data.url"));
+    // let firstImage = jsonpath.query(image, "$[0].data.url");
+    // console.log("FIRST IMAGE", firstImage);
+    // console.log("EMPTY IMAGE", firstImage.length === 0);
+    // if (firstImage === 0) {
+    // this.post_image_exists = false;
+    // } else {
+    // this.post_image = firstImage;
+    // this.post_image_exists = true;
+    // }
   },
 };
 </script>
