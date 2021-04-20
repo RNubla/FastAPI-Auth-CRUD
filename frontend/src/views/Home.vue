@@ -8,7 +8,7 @@
         >Add New Post</router-link
       >
       <!-- Post cards -->
-      <div class="mx-2 my-10 border-t-2">
+      <div class="mx-2">
         <!-- <ul class="grid md:grid-cols-3"> -->
         <ul class="mt-10 flex flex-row overflow-auto">
           <!-- <li v-for="post in getAllPosts.slice().reverse()" :key="post"> -->
