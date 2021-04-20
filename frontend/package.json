@@ -20,6 +20,7 @@
     "core-js": "^3.6.5",
     "editorjs-paragraph-with-alignment": "^3.0.0",
     "editorjs-style": "^3.0.2",
+    "jsonpath": "^1.1.1",
     "postcss": "^7.0.35",
     "register-service-worker": "^1.7.1",
     "simple-image-editorjs": "^1.4.0",
