@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import NewPost from "../../components/Post/NewPost.vue";
+import NewPost from "../../components/PostV2/NewPost";
+// import NewPost from "../../components/Post/NewPost.vue";
 // import TipTapPostEntry from "../../components/Post/TipTapPostEntry.vue";
 // import PostEntry from "../components/Post/PostEntry.vue";
 export default {
