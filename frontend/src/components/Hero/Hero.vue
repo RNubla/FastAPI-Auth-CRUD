@@ -1,17 +1,8 @@
 <template>
-  <div class="sm:h-auto md:h-auto">
-    <div
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 h-full px-5 my-5"
-    >
-      <div
-        v-for="box in carousel"
-        :key="box"
-        class="inset-0 shadow-md text-white flex items-center justify-center text-5xl"
-      >
-        <img
-          :src="box.img"
-          class="flex rounded-md items-center object-cover w-full h-44 sm:object-cover sm:h-32 md:h-full"
-        />
+  <div class="">
+    <div class="hero">
+      <div v-for="box in carousel" :key="box" class="">
+        <img :src="box.img" class="" />
         <p class="absolute">{{ box.title }}</p>
       </div>
     </div>
@@ -50,5 +41,24 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style lang="scss" scoped>
+.hero {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 1em;
+}
+div > img {
+  display: flex;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+p {
+  position: relative;
+  bottom: 50%;
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  font-size: 1.9rem;
+}
+</style>>
