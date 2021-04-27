@@ -1,37 +1,30 @@
 <template>
-  <div class="grid grid-flow-row sm:grid-flow-col">
-    <div class="flex justify-center items-center sm:justify-start">
-      <div class="m-2">
-        <button class="font-bold text-lg" @click.prevent="goToHomePage">
-          FastAPI Auth CRUD Demo
-        </button>
+  <div class="navbar">
+    <div>
+      <div>
+        <button @click.prevent="goToHomePage">FastAPI Auth CRUD Demo</button>
       </div>
     </div>
-    <div v-if="getLoginStatus == false || getLoginStatus == null">
-      <div class="flex justify-center items-center sm:justify-end">
-        <router-link class="m-2 p-3 shadow-md hover:bg-gray-50" to="/login"
-          ><p class="text-black text-center">Login</p></router-link
-        >
-        <router-link
-          class="m-2 bg-green-300 p-3 shadow-md hover:bg-green-400"
-          to="/register"
-          ><p class="text-black text-center">Sign Up</p></router-link
+    <div
+      class="loginRegisterContainer"
+      v-if="getLoginStatus == false || getLoginStatus == null"
+    >
+      <div class="loginRegisterGrid">
+        <router-link class="loginBtn" to="/login"><p>Login</p></router-link>
+        <router-link class="registerBtn" to="/register"
+          ><p>Sign Up</p></router-link
         >
       </div>
     </div>
     <div v-else>
-      <div class="flex justify-center items-center sm:justify-end">
-        <router-link class="m-2 p-3 shadow-md hover:bg-gray-50" to="/login"
-          ><p class="text-black text-center">
+      <div>
+        <router-link to="/login"
+          ><p>
             {{ getAuthData.user_name }}
           </p></router-link
         >
-        <div
-          @click="logout"
-          class="m-2 bg-red-300 p-3 shadow-md hover:bg-red-400"
-          to="/logout"
-        >
-          <p class="text-black text-center font-bold">Logout</p>
+        <div @click="logout" to="/logout">
+          <p>Logout</p>
         </div>
       </div>
     </div>
@@ -67,5 +60,24 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style lang="scss" scoped>
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr 10em;
+  place-items: center;
+  justify-items: start;
+}
+.loginRegisterContainer {
+  margin: 1fr 1fr 1fr;
+}
+.loginRegisterGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  place-items: center;
+}
+.loginBtn {
+  background-color: aqua;
+  margin: 0rem 1rem 0rem 1rem;
+  padding: 0rem 1rem 0rem 1rem;
+}
+</style>>

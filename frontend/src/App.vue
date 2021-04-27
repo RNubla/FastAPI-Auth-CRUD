@@ -1,6 +1,6 @@
 <template>
   <div id="nav">
-    <header-nav class="p-3" />
+    <header-nav />
   </div>
   <!-- <hero /> -->
   <router-view />
@@ -38,6 +38,9 @@ export default {
 };
 </script>
 <style lang="scss">
+a {
+  text-decoration: none;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
