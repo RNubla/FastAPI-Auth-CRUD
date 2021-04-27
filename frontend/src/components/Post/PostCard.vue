@@ -1,51 +1,71 @@
 <template>
-  <div>
+  <div class="cardGridLayout">
     <!-- image -->
-    <div class="h-full">
+
+    <div class="container">
       <img
         :src="post_image ? post_image : default_post_image"
         alt=""
         srcset=""
-        class="object-cover h-52 w-full"
+        class="postCardThumb"
       />
     </div>
+
     <!-- component -->
-    <div
-      class="px-10 md:px-3 py-6 rounded shadow-xl bg-white min-w-full mx-auto"
+    <div class="">
+      <span @click="editPost" v-if="getUserId === user_id">Edit</span>
+      <span class="font-light text-gray-600">{{ formatedDate }}</span>
+    </div>
+    <button
+      @click="viewSinglePost"
+      class="text-md text-gray-700 font-bold hover:text-gray-600 text-lg"
     >
-      <div class="flex md:justify-center">
-        <span @click="editPost" v-if="getUserId === user_id">Edit</span>
-        <!-- <span class="font-light text-gray-600">March 28, 2021</span> -->
-        <span class="font-light text-gray-600">{{ formatedDate }}</span>
-        <!-- <a
+      {{ removeTitleTag(title) }}
+    </button>
+    <button
+      @click.prevent="viewSinglePost"
+      class="text-blue-600 hover:underline"
+      href="#"
+    >
+      Visit Article
+    </button>
+    <a class="px-2 py-1" href=""> {{ author }}</a>
+    <!-- <div
+      class="px-10 md:px-3 py-6 rounded shadow-xl bg-white min-w-full mx-auto"
+    > -->
+    <!-- <div class="flex md:justify-center"> -->
+    <!-- <span @click="editPost" v-if="getUserId === user_id">Edit</span> -->
+    <!-- <span class="font-light text-gray-600">March 28, 2021</span> -->
+    <!-- <span class="font-light text-gray-600">{{ formatedDate }}</span> -->
+    <!-- <a
           class="px-2 py-1 bg-blue-600 text-gray-100 font-bold rounded hover:bg-gray-500"
           href="#"
           >Announcement</a
         > -->
-      </div>
-      <div class="mt-2">
-        <button
+    <!-- </div> -->
+    <!-- <div class="mt-2"> -->
+    <!-- <button
           @click="viewSinglePost"
           class="text-md text-gray-700 font-bold hover:text-gray-600 text-lg"
         >
           {{ removeTitleTag(title) }}
-        </button>
-        <p class="mt-2 text-gray-600 overflow-hidden h-6"></p>
-      </div>
-      <div
+        </button> -->
+    <!-- <p class="mt-2 text-gray-600 overflow-hidden h-6"></p> -->
+    <!-- </div> -->
+    <!-- <div
         class="flex justify-between md:justify-center items-center mt-4 md:grid md:auto-rows-max md:items-center"
-      >
-        <button
+      > -->
+    <!-- <button
           @click.prevent="viewSinglePost"
           class="text-blue-600 hover:underline"
           href="#"
         >
           Visit Article
-        </button>
-        <a class="px-2 py-1" href=""> {{ author }}</a>
-      </div>
-      <!-- <div class="flex justify-between items-center mt-4"></div> -->
-    </div>
+        </button> -->
+    <!-- <a class="px-2 py-1" href=""> {{ author }}</a> -->
+    <!-- </div> -->
+    <!-- <div class="flex justify-between items-center mt-4"></div> -->
+    <!-- </div> -->
   </div>
 </template>
 
@@ -169,4 +189,22 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.container {
+  width: 100%;
+}
+div > img {
+  display: flex;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.cardGridLayout {
+  /* width: 100%; */
+  box-shadow: 5px 5px 10px gray;
+  border-color: hsl(150, 2.33%, 16.86%);
+  display: grid;
+  grid-template-rows: 100% repeat(4, minmax(0, 1fr));
+  grid-gap: 0.5rem;
+}
+</style>>

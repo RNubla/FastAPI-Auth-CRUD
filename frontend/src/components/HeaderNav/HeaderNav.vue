@@ -1,30 +1,32 @@
 <template>
-  <div class="navbar">
-    <div>
+  <div class="container">
+    <div class="navbar">
       <div>
-        <button @click.prevent="goToHomePage">FastAPI Auth CRUD Demo</button>
+        <div>
+          <button @click.prevent="goToHomePage">FastAPI Auth CRUD Demo</button>
+        </div>
       </div>
-    </div>
-    <div
-      class="loginRegisterContainer"
-      v-if="getLoginStatus == false || getLoginStatus == null"
-    >
-      <div class="loginRegisterGrid">
-        <router-link class="loginBtn" to="/login"><p>Login</p></router-link>
-        <router-link class="registerBtn" to="/register"
-          ><p>Register</p></router-link
-        >
+      <div
+        class="loginRegisterContainer"
+        v-if="getLoginStatus == false || getLoginStatus == null"
+      >
+        <div class="loginRegisterGrid">
+          <router-link class="loginBtn" to="/login"><p>Login</p></router-link>
+          <router-link class="registerBtn" to="/register"
+            ><p>Register</p></router-link
+          >
+        </div>
       </div>
-    </div>
-    <div v-else>
-      <div>
-        <router-link to="/login"
-          ><p>
-            {{ getAuthData.user_name }}
-          </p></router-link
-        >
-        <div @click="logout" to="/logout">
-          <p>Logout</p>
+      <div v-else>
+        <div>
+          <router-link to="/login"
+            ><p>
+              {{ getAuthData.user_name }}
+            </p></router-link
+          >
+          <div @click="logout" to="/logout">
+            <p>Logout</p>
+          </div>
         </div>
       </div>
     </div>
@@ -61,11 +63,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+  width: 100%;
+}
 .navbar {
   display: grid;
-  grid-template-columns: 1fr 10em;
+  grid-template-columns: 1fr 10em 2em;
   place-items: center;
   justify-items: start;
+  grid-gap: 1rem;
 }
 .loginRegisterContainer {
   margin: 1fr 1fr 1fr;

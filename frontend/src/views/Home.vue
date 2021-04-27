@@ -8,13 +8,12 @@
         >Add New Post</router-link
       >
       <!-- Post cards -->
-      <div class="mx-2">
+      <div>
         <!-- <ul class="grid md:grid-cols-3"> -->
-        <ul class="mt-10 flex flex-row overflow-auto">
+        <ul class="postCardGrid">
           <!-- <li v-for="post in getAllPosts.slice().reverse()" :key="post"> -->
-          <li v-for="post in gettersAllPosts" :key="post" class="mx-8">
+          <li v-for="post in gettersAllPosts" :key="post">
             <post-card
-              class="w-72 border-2 border-gray-100"
               :title="post.data.blocks[0].data.text"
               :author="post.author"
               :published_on="post.published_on"
@@ -72,4 +71,12 @@ export default {
 </script>
 
 <style scoped>
+ul {
+  list-style: none;
+}
+.postCardGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 2fr));
+  grid-gap: 1rem;
+}
 </style>
