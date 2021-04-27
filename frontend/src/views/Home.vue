@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col">
+  <div class="hero">
     <div>
       <hero />
     </div>
@@ -70,3 +70,6 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+</style>
