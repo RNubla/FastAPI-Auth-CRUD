@@ -12,7 +12,7 @@
       <div class="loginRegisterGrid">
         <router-link class="loginBtn" to="/login"><p>Login</p></router-link>
         <router-link class="registerBtn" to="/register"
-          ><p>Sign Up</p></router-link
+          ><p>Register</p></router-link
         >
       </div>
     </div>
@@ -72,12 +72,21 @@ export default {
 }
 .loginRegisterGrid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 2fr));
+  column-gap: 5em;
   place-items: center;
 }
 .loginBtn {
-  background-color: aqua;
+  // background-color: aqua;
   margin: 0rem 1rem 0rem 1rem;
   padding: 0rem 1rem 0rem 1rem;
+}
+.registerBtn {
+  background-color: hsl(112.2, 73.53%, 73.33%);
+  border-radius: 10px;
+}
+.registerBtn,
+a {
+  padding: 0 2em 0 2em;
 }
 </style>>
