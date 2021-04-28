@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="container">
     <div class="hero">
       <div v-for="box in carousel" :key="box" class="">
         <img :src="box.img" class="" />
@@ -7,7 +7,7 @@
       </div>
     </div>
   </div>
-  <div class="my-10 font-bold text-3xl mx-auto border-b-2">Recent Posts</div>
+  <div class="post">Posts</div>
 </template>
 
 <script>
@@ -42,16 +42,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+  padding: 1.5em;
+  box-shadow: inset 0 0 20px hsl(0, 1%, 85%);
+  border-radius: 1em;
+  margin: 0 0 1em 0;
+}
 .hero {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   column-gap: 1em;
+  // margin: 0 0 2em 0;
 }
 div > img {
   display: flex;
   object-fit: cover;
   width: 100%;
   height: 100%;
+  border-radius: 0.5em;
+}
+.post {
+  font-weight: bold;
+  font-size: 1.5rem;
+  // margin: 1rem 0 2rem 0;
+  // border-bottom: 0.1em dotted;
 }
 p {
   position: relative;
