@@ -142,9 +142,9 @@ export default {
     },
     async getFirstImage() {
       let image = await jsonpath.query(this.post_data, "$[?(@.type=='image')]");
-      // console.log("json", JSON.stringify(firstImage));
+      // console.log("json", JSON.stringify(image));
       // console.log("FIRST IMAGE", jsonpath.query(image, "$[0].data.url"));
-      let firstImage = await jsonpath.query(image, "$[0].data.url")[0];
+      let firstImage = await jsonpath.query(image, "$[0].attrs.src")[0];
       // console.log("FIRST IMAGE", firstImage);
       // console.log("EMPTY IMAGE", firstImage.length === 0);
       // var exist = Boolean;
