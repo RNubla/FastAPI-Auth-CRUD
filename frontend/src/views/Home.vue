@@ -13,12 +13,12 @@
         <!-- <li v-for="post in getAllPosts.slice().reverse()" :key="post"> -->
         <li v-for="post in gettersAllPosts" :key="post">
           <post-card
-            :title="post.data.blocks[0].data.text"
+            :title="post.data.content[0].content[0].text"
             :author="post.author"
             :published_on="post.published_on"
             :post_id="post.id"
             :user_id="post.user_id"
-            :post_data="post.data.blocks"
+            :post_data="post.data.content"
           >
           </post-card>
         </li>
@@ -64,6 +64,7 @@ export default {
   },
   created() {
     this.getAllPosts();
+    // console.log("JSON", JSON.stringify(this.gettersAllPosts()));
   },
 };
 </script>
