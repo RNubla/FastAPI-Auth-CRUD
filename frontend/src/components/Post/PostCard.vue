@@ -2,14 +2,12 @@
   <div class="cardGridLayout">
     <!-- image -->
 
-    <div class="container">
-      <img
-        :src="post_image ? post_image : default_post_image"
-        alt=""
-        srcset=""
-        class="postCardThumb"
-      />
-    </div>
+    <img
+      :src="post_image ? post_image : default_post_image"
+      alt=""
+      srcset=""
+      class="postCardThumb"
+    />
 
     <!-- component -->
     <div class="">
@@ -22,14 +20,14 @@
     >
       {{ removeTitleTag(title) }}
     </button>
-    <button
+    <!-- <button
       @click.prevent="viewSinglePost"
       class="text-blue-600 hover:underline"
       href="#"
     >
       Visit Article
-    </button>
-    <a class="px-2 py-1" href=""> {{ author }}</a>
+    </button> -->
+    <p class="px-2 py-1" href="">{{ author }}</p>
     <!-- <div
       class="px-10 md:px-3 py-6 rounded shadow-xl bg-white min-w-full mx-auto"
     > -->
@@ -193,18 +191,28 @@ export default {
 .container {
   width: 100%;
 }
+button {
+  background-color: white;
+  border: none;
+  font-weight: bold;
+  font-size: 1em;
+}
 div > img {
-  display: flex;
+  /* display: flex; */
   object-fit: cover;
+  /* position: relative; */
   width: 100%;
   height: 100%;
+  /* border-radius: 0.5em; */
 }
 .cardGridLayout {
   /* width: 100%; */
-  box-shadow: 5px 5px 10px gray;
-  border-color: hsl(150, 2.33%, 16.86%);
+  border-radius: 0.5em;
+  box-shadow: 5px 5px 10px hsl(0, 1%, 85%);
+  /* border-color: hsl(150, 2.33%, 16.86%); */
   display: grid;
-  grid-template-rows: 100% repeat(4, minmax(0, 1fr));
+  /* grid-template-rows: 100% repeat(4, minmax(0, 2em)); */
+  grid-template-rows: 12em repeat(4, minmax(0, 2em));
   grid-gap: 0.5rem;
 }
 </style>>
