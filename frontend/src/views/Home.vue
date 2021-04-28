@@ -1,30 +1,28 @@
 <template>
-  <div class="hero">
+  <div>
+    <hero />
+  </div>
+  <div>
+    <router-link v-if="getLoginStatus == true" to="/new-post"
+      >Add New Post</router-link
+    >
+    <!-- Post cards -->
     <div>
-      <hero />
-    </div>
-    <div>
-      <router-link v-if="getLoginStatus == true" to="/new-post"
-        >Add New Post</router-link
-      >
-      <!-- Post cards -->
-      <div>
-        <!-- <ul class="grid md:grid-cols-3"> -->
-        <ul class="postCardGrid">
-          <!-- <li v-for="post in getAllPosts.slice().reverse()" :key="post"> -->
-          <li v-for="post in gettersAllPosts" :key="post">
-            <post-card
-              :title="post.data.blocks[0].data.text"
-              :author="post.author"
-              :published_on="post.published_on"
-              :post_id="post.id"
-              :user_id="post.user_id"
-              :post_data="post.data.blocks"
-            >
-            </post-card>
-          </li>
-        </ul>
-      </div>
+      <!-- <ul class="grid md:grid-cols-3"> -->
+      <ul class="postCardGrid">
+        <!-- <li v-for="post in getAllPosts.slice().reverse()" :key="post"> -->
+        <li v-for="post in gettersAllPosts" :key="post">
+          <post-card
+            :title="post.data.blocks[0].data.text"
+            :author="post.author"
+            :published_on="post.published_on"
+            :post_id="post.id"
+            :user_id="post.user_id"
+            :post_data="post.data.blocks"
+          >
+          </post-card>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -71,12 +69,16 @@ export default {
 </script>
 
 <style scoped>
+.heroclass {
+  padding: 1.5em;
+}
 ul {
   list-style: none;
 }
 .postCardGrid {
+  padding: 0;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 2fr));
-  grid-gap: 1rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-gap: 0.8rem;
 }
 </style>
