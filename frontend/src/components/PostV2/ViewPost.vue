@@ -2,7 +2,10 @@
   <div>
     <div v-if="getUserId === body.user_id">
       <input type="checkbox" v-model="editable" />
-      <label for="editable">Edit</label>
+      <label for="editable">Edit</label><br />
+      <button v-if="getUserId === body.user_id && editable" @click="DeletePost">
+        Delete Post
+      </button>
       <tools
         :editor="editor"
         v-if="getUserId === body.user_id && editable"
@@ -91,7 +94,14 @@ export default {
   methods: {
     ...mapActions("posts", {
       editAPost: "editAPost",
+      deleteCurrentPost: "deleteCurrentPost",
     }),
+    async DeletePost() {
+      await this.deleteCurrentPost(this.body.id);
+      await this.$router.push({
+        name: "Home",
+      });
+    },
     async submitEditPost() {
       console.log("edit post submit");
       this.inputPost.data = this.json;

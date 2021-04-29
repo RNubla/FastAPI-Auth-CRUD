@@ -128,6 +128,41 @@ const actions = {
       commit("ADD_POST", response.data.data);
     }
   },
+  async deleteCurrentPost(payload) {
+    const authData = store.getters["auth/getAuthData"];
+    const tokenActive = store.getters["auth/isTokenActive"];
+    if (tokenActive == false) {
+      console.log("REFRESHING ACCESS TOKEN");
+      const payload = {
+        refresh_token: authData.refresh_token,
+      };
+      const refreshResponse = await axios
+        // .post("http://localhost:8000/auth/refresh", "", {
+        .post(`${process.env.VUE_APP_LOCAL_HOST_SERVER}/auth/refresh`, "", {
+          headers: {
+            Authorization: `Bearer ${payload.refresh_token}`,
+          },
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      store.commit("auth/SAVE_NEW_ACCESS_TOKEN_DATA", refreshResponse.data);
+    }
+    var response = await jwtInterceptor.delete(
+      // "http://localhost:8000/posts/",
+      `${process.env.VUE_APP_LOCAL_HOST_SERVER}/posts/`,
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${store.getters["auth/getAuthData"].access_token}`,
+        },
+      }
+    );
+    if (response && response.data) {
+      console.log("post_module, deletePost:", response.data.data);
+      // commit("ADD_POST", response.data.data);
+    }
+  },
 };
 
 const mutations = {
