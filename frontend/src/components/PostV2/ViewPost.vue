@@ -58,6 +58,9 @@ export default {
     ...mapGetters("auth", {
       getUserId: "getUserId",
     }),
+    ...mapGetters("posts", {
+      getPostID: "getPostID",
+    }),
   },
   watch: {
     editable() {
@@ -94,10 +97,14 @@ export default {
   methods: {
     ...mapActions("posts", {
       editAPost: "editAPost",
+    }),
+    ...mapActions("posts", {
       deleteCurrentPost: "deleteCurrentPost",
     }),
     async DeletePost() {
-      await this.deleteCurrentPost(this.body.id);
+      // let id = this.body.id;
+      // console.log("deletePost id", id);
+      this.deleteCurrentPost(this.body.id);
       await this.$router.push({
         name: "Home",
       });

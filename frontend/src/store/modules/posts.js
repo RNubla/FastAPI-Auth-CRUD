@@ -4,6 +4,7 @@ import jwtInterceptor from "../../middleware/jwtInterceptor";
 const state = () => ({
   posts: [],
   singlePostId: "",
+  postIdDelete: "",
   singlePost: {},
   inputPost: {
     title: null,
@@ -128,7 +129,10 @@ const actions = {
       commit("ADD_POST", response.data.data);
     }
   },
-  async deleteCurrentPost(payload) {
+  async deleteCurrentPost({ commit, state }, post_id) {
+    // console.log("payload", post_id.getters.getSinglePost.id);
+    // let id = post_id.getters.getSinglePost.id;
+    commit("SET_POST_ID_DELETE", post_id);
     const authData = store.getters["auth/getAuthData"];
     const tokenActive = store.getters["auth/isTokenActive"];
     if (tokenActive == false) {
@@ -148,12 +152,14 @@ const actions = {
         });
       store.commit("auth/SAVE_NEW_ACCESS_TOKEN_DATA", refreshResponse.data);
     }
+    // console.log(state.postIdDelete);
     var response = await jwtInterceptor.delete(
       // "http://localhost:8000/posts/",
-      `${process.env.VUE_APP_LOCAL_HOST_SERVER}/posts/`,
-      payload,
+      `${process.env.VUE_APP_LOCAL_HOST_SERVER}/posts/${state.postIdDelete}`,
+
       {
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${store.getters["auth/getAuthData"].access_token}`,
         },
       }
@@ -180,6 +186,9 @@ const mutations = {
   },
   SET_SINGLE_POST(state, payload) {
     state.singlePost = payload;
+  },
+  SET_POST_ID_DELETE(state, payload) {
+    state.postIdDelete = payload;
   },
 };
 
