@@ -83,7 +83,8 @@ const actions = {
       }
     );
     if (response && response.data) {
-      console.log("post module: update single post", response.config.data);
+      // console.log("post module: update single post", response.config.data);
+      console.log("post module: update single post");
       // commit("SET_SINGLE_POST", response.config.data);
     }
   },
