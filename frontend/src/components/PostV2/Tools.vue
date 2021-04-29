@@ -213,10 +213,21 @@
       </button>
       <button @click="addImage">Image</button>
     </div>
-
-    <editor-content :editor="editor" />
-    <div type="button" @click="submitPost" class="">
-      <div class="text-2xl font-bold">Submit</div>
-    </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    editor: null,
+  },
+  methods: {
+    addImage() {
+      const url = window.prompt("URL");
+      if (url) {
+        this.editor.chain().focus().setImage({ src: url }).run();
+      }
+    },
+  },
+};
+</script>
