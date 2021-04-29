@@ -237,4 +237,10 @@ button {
   border: none;
   align-items: center;
 }
+.is-active {
+  background-color: hsl(0, 0%, 15%);
+}
+svg {
+  fill: hsl(0, 0%, 57%);
+}
 </style>
