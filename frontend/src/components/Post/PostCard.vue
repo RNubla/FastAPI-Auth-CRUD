@@ -93,14 +93,14 @@ export default {
     THIS WILL SHOW ME THE RIGHT POST FOR VIEWING
     RATHER THAN SHOWING THE PREVIOUS POST I
     SELECTED */
-    async editPost() {
-      console.log("fetchAPost");
-      await this.fetchAPost(this.post_id);
-      await this.$router.push({
-        name: "EditPost",
-        params: { id: this.post_id },
-      });
-    },
+    // async editPost() {
+    //   console.log("fetchAPost");
+    //   await this.fetchAPost(this.post_id);
+    //   await this.$router.push({
+    //     name: "EditPost",
+    //     params: { id: this.post_id },
+    //   });
+    // },
   },
 };
 </script>
