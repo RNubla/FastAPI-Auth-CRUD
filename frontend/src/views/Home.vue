@@ -11,7 +11,7 @@
       <!-- <ul class="grid md:grid-cols-3"> -->
       <ul class="postCardGrid">
         <!-- <li v-for="post in getAllPosts.slice().reverse()" :key="post"> -->
-        <li v-for="post in gettersAllPosts" :key="post">
+        <li v-for="post in getAllPosts" :key="post">
           <post-card
             :title="post.data.content[0].content[0].text"
             :author="post.author"
@@ -28,10 +28,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { computed, onMounted } from "vue";
+// import { mapActions, mapGetters } from "vuex";
+import { useStore } from "vuex";
 import Hero from "../components/Hero/Hero.vue";
 import PostCard from "../components/Post/PostCard.vue";
-// import PostEntry from "../components/PostEntry.vue";
 export default {
   name: "Home",
   components: {
@@ -40,31 +41,25 @@ export default {
     Hero,
     PostCard,
   },
-
   data() {
     return {
       isActive: false,
     };
   },
-  computed: {
-    ...mapGetters("posts", {
-      gettersAllPosts: "getAllPosts",
-      // getSinglePost: "getSinglePost",
-      getPostID: "getPostID",
-    }),
-    ...mapGetters("auth", {
-      getLoginStatus: "getLoginStatus",
-    }),
-  },
-  methods: {
-    ...mapActions("posts", { getAllPosts: "getAllPosts" }),
-    togglePost() {
-      this.isActive = !this.isActive;
-    },
-  },
-  created() {
-    this.getAllPosts();
-    // console.log("JSON", JSON.stringify(this.gettersAllPosts()));
+  setup() {
+    const store = useStore();
+    const getAllPosts = computed(() => store.getters["posts/getAllPosts"]);
+    const getPostId = computed(() => store.getters["posts/getPostID"]);
+    const getLoginStatus = computed(() => store.getters["auth/getLoginStatus"]);
+    const getAllPostsAction = store.dispatch("posts/getAllPosts");
+    onMounted(() => {
+      getAllPostsAction;
+    });
+    return {
+      getAllPosts,
+      getPostId,
+      getLoginStatus,
+    };
   },
 };
 </script>
