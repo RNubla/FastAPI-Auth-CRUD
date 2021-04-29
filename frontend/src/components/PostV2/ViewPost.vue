@@ -3,6 +3,11 @@
     <div v-if="getUserId === body.user_id">
       <input type="checkbox" v-model="editable" />
       <label for="editable">Edit</label>
+      <tools
+        :editor="editor"
+        v-if="getUserId === body.user_id && editable"
+        v-model="editable"
+      />
     </div>
 
     <editor-content :editor="editor" />
@@ -27,10 +32,13 @@ import CodeBlock from "@tiptap/extension-code-block";
 import Dropcursor from "@tiptap/extension-dropcursor";
 import Image from "@tiptap/extension-image";
 import { mapActions, mapGetters } from "vuex";
+import Tools from "./Tools.vue";
 export default {
   components: {
     EditorContent,
+    Tools,
   },
+
   props: {
     body: {},
   },
