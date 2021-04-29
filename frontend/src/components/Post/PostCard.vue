@@ -9,7 +9,7 @@
     />
     <!-- component -->
     <div class="">
-      <span class="font-light text-gray-600">{{ formatedDate }}</span>
+      <span class="font-light text-gray-600">{{ convertDate }}</span>
     </div>
     <button
       @click="viewSinglePost"
@@ -22,49 +22,42 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import jsonpath from "jsonpath";
+import { computed, onBeforeMount } from "vue";
 export default {
   props: {
     title: String,
-    // body: String,
     author: String,
     published_on: String,
     post_id: String,
     user_id: String,
     post_data: {},
   },
-  data() {
-    return {
-      formatedDate: null,
-      post_image: String,
-      default_post_image:
-        "https://images.unsplash.com/photo-1604964432806-254d07c11f32?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    };
-  },
-  computed: {
-    ...mapGetters("auth", {
-      getUserId: "getUserId",
-    }),
+  setup(props) {
+    const store = useStore();
+    const router = useRouter();
 
-    // formatTitle() {
-    //   const og = this.title;
-    //   const nr = /<editorjs-style>(.*?)<\/editorjs-style>/g.exec(og);
-    //   return nr;
-    // },
-  },
-  methods: {
-    ...mapActions("posts", {
-      fetchAPost: "fetchAPost",
-    }),
-    async viewSinglePost() {
-      await this.fetchAPost(this.post_id);
-      await this.$router.push({
-        name: "Post",
-        params: { id: this.post_id },
-      });
-    },
-    removeTitleTag(str) {
+    const getFirstImage = () => {
+      let image = jsonpath.query(props.post_data, "$[?(@.type=='image')]");
+      // console.log("json", JSON.stringify(image));
+      // console.log("FIRST IMAGE", jsonpath.query(image, "$[0].data.url"));
+      image = jsonpath.query(image, "$[0].attrs.src")[0];
+      // console.log("first image", image);
+      return image;
+    };
+    onBeforeMount(async () => await getFirstImage());
+    var post_image = getFirstImage();
+    const default_post_image =
+      "https://images.unsplash.com/photo-1604964432806-254d07c11f32?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80";
+
+    // VUEX functions
+    const convertDate = new Date(props.published_on).toDateString();
+    const getUserId = computed(() => store.getters["auth/getUserId"]);
+    const fetchAPost = () => store.dispatch("posts/fetchAPost", props.post_id);
+
+    function removeTitleTag(str) {
       if (str === null || str === "") return false;
       else str = str.toString();
 
@@ -72,7 +65,27 @@ export default {
       // the input string. Replacing the identified
       // HTML tag with a null string.
       return str.replace(/(<([^>]+)>)/gi, "");
-    },
+    }
+
+    async function viewSinglePost() {
+      await fetchAPost();
+      await router.push({
+        name: "Post",
+        params: { id: props.title },
+      });
+    }
+
+    return {
+      getUserId,
+      viewSinglePost,
+      removeTitleTag,
+      convertDate,
+      post_image,
+      default_post_image,
+    };
+  },
+
+  methods: {
     /* THIS IS AN ASYNC BECAUSE WHEN 
     I CLICK ON ONE POST FOR EDITING, 
     AND THEN RETURN BACK,
@@ -88,24 +101,6 @@ export default {
         params: { id: this.post_id },
       });
     },
-    convertDate() {
-      let date = new Date(this.published_on);
-      //   console.log(date.toDateString());
-      this.formatedDate = date.toDateString();
-      //   return date;
-    },
-    async getFirstImage() {
-      let image = await jsonpath.query(this.post_data, "$[?(@.type=='image')]");
-      // console.log("json", JSON.stringify(image));
-      // console.log("FIRST IMAGE", jsonpath.query(image, "$[0].data.url"));
-      let firstImage = await jsonpath.query(image, "$[0].attrs.src")[0];
-      this.post_image = firstImage;
-    },
-  },
-
-  beforeMount() {
-    this.convertDate();
-    this.getFirstImage();
   },
 };
 </script>
