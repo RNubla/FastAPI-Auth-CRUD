@@ -71,8 +71,8 @@ async def update_post(id: str, user: str, data: dict):
     return False
 
 
-async def delete_post(id: str):
+async def delete_post(id: str, user: str):
     post = await posts_collection.find_one({'_id': ObjectId(id)})
-    if post:
+    if post and post['user_id'] == user:
         await posts_collection.delete_one({'_id': ObjectId(id)})
         return True

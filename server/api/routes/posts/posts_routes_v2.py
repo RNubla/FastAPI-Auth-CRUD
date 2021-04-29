@@ -101,8 +101,12 @@ async def update_post_data(id: str, Authorize: AuthJWT = Depends(), req: UpdateP
 
 
 @post_router.delete('/{id}', response_description='Delete Post from Database')
-async def delete_posts_data(id: str, user=Depends(auth_handler.auth_wrapper)):
-    deleted_post = await delete_post(id)
+# async def delete_posts_data(id: str, user=Depends(auth_handler.auth_wrapper)):
+async def delete_post_data(id: str, Authorize: AuthJWT = Depends()):
+    Authorize.jwt_required()
+    current_user = Authorize.get_jwt_subject()
+    user = await get_user_data(current_user)
+    deleted_post = await delete_post(id, user=user['_id'])
     if deleted_post:
         return ResponseModel(
             f'Post with ID:{id} removed',
