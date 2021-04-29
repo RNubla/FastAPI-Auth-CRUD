@@ -1,14 +1,12 @@
 <template>
   <div class="cardGridLayout">
     <!-- image -->
-
     <img
       :src="post_image ? post_image : default_post_image"
       alt=""
       srcset=""
       class="postCardThumb"
     />
-
     <!-- component -->
     <div class="">
       <span class="font-light text-gray-600">{{ formatedDate }}</span>
@@ -19,50 +17,7 @@
     >
       {{ removeTitleTag(title) }}
     </button>
-    <!-- <button
-      @click.prevent="viewSinglePost"
-      class="text-blue-600 hover:underline"
-      href="#"
-    >
-      Visit Article
-    </button> -->
     <p class="px-2 py-1" href="">{{ author }}</p>
-    <!-- <div
-      class="px-10 md:px-3 py-6 rounded shadow-xl bg-white min-w-full mx-auto"
-    > -->
-    <!-- <div class="flex md:justify-center"> -->
-    <!-- <span @click="editPost" v-if="getUserId === user_id">Edit</span> -->
-    <!-- <span class="font-light text-gray-600">March 28, 2021</span> -->
-    <!-- <span class="font-light text-gray-600">{{ formatedDate }}</span> -->
-    <!-- <a
-          class="px-2 py-1 bg-blue-600 text-gray-100 font-bold rounded hover:bg-gray-500"
-          href="#"
-          >Announcement</a
-        > -->
-    <!-- </div> -->
-    <!-- <div class="mt-2"> -->
-    <!-- <button
-          @click="viewSinglePost"
-          class="text-md text-gray-700 font-bold hover:text-gray-600 text-lg"
-        >
-          {{ removeTitleTag(title) }}
-        </button> -->
-    <!-- <p class="mt-2 text-gray-600 overflow-hidden h-6"></p> -->
-    <!-- </div> -->
-    <!-- <div
-        class="flex justify-between md:justify-center items-center mt-4 md:grid md:auto-rows-max md:items-center"
-      > -->
-    <!-- <button
-          @click.prevent="viewSinglePost"
-          class="text-blue-600 hover:underline"
-          href="#"
-        >
-          Visit Article
-        </button> -->
-    <!-- <a class="px-2 py-1" href=""> {{ author }}</a> -->
-    <!-- </div> -->
-    <!-- <div class="flex justify-between items-center mt-4"></div> -->
-    <!-- </div> -->
   </div>
 </template>
 
@@ -144,44 +99,13 @@ export default {
       // console.log("json", JSON.stringify(image));
       // console.log("FIRST IMAGE", jsonpath.query(image, "$[0].data.url"));
       let firstImage = await jsonpath.query(image, "$[0].attrs.src")[0];
-      // console.log("FIRST IMAGE", firstImage);
-      // console.log("EMPTY IMAGE", firstImage.length === 0);
-      // var exist = Boolean;
       this.post_image = firstImage;
-      /* if (firstImage === 0) {
-        console.log("FIRST IMAGE US EMPTY");
-        // exist = false;
-        this.post_image_exists = false;
-      } else {
-        this.post_image = firstImage;
-        // this.exist = true;
-        this.post_image_exists = true;
-      }
-      console.log(this.post_image_exists);
-      return this.post_image_exists; */
     },
   },
 
   beforeMount() {
     this.convertDate();
     this.getFirstImage();
-    // console.log("POST_DATA", this.post_data[?(@.type=='image')]);
-    // console.log(
-    //   "POST_DATA FROM CARD",
-    //   jsonpath.query(this.post_data, "$[?(@.type=='image')]")
-    // );
-    // let image = jsonpath.query(this.post_data, "$[?(@.type=='image')]");
-    // console.log("json", JSON.stringify(firstImage));
-    // console.log("FIRST IMAGE", jsonpath.query(image, "$[0].data.url"));
-    // let firstImage = jsonpath.query(image, "$[0].data.url");
-    // console.log("FIRST IMAGE", firstImage);
-    // console.log("EMPTY IMAGE", firstImage.length === 0);
-    // if (firstImage === 0) {
-    // this.post_image_exists = false;
-    // } else {
-    // this.post_image = firstImage;
-    // this.post_image_exists = true;
-    // }
   },
 };
 </script>
