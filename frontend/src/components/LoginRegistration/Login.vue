@@ -1,6 +1,6 @@
 <template>
-  <div class="grid grid-flow-row shadow-lg sm:grid-flow-col">
-      <div class="grid grid-flow-row">
+  <div class="container">
+      <div class="">
           <div class="m-4 pt-8">
               <p class="text-center font-extrabold text-3xl ">Login</p>
             </div>
