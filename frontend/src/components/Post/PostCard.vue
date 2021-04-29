@@ -11,7 +11,6 @@
 
     <!-- component -->
     <div class="">
-      <span @click="editPost" v-if="getUserId === user_id">Edit</span>
       <span class="font-light text-gray-600">{{ formatedDate }}</span>
     </div>
     <button
