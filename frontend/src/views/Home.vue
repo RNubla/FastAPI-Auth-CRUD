@@ -29,22 +29,14 @@
 
 <script>
 import { computed, onMounted } from "vue";
-// import { mapActions, mapGetters } from "vuex";
 import { useStore } from "vuex";
 import Hero from "../components/Hero/Hero.vue";
 import PostCard from "../components/Post/PostCard.vue";
 export default {
   name: "Home",
   components: {
-    // HelloWorld,
-    // PostEntry,
     Hero,
     PostCard,
-  },
-  data() {
-    return {
-      isActive: false,
-    };
   },
   setup() {
     const store = useStore();
