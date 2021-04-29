@@ -234,11 +234,12 @@ export default {
 <style scoped>
 button {
   background-color: white;
-  border: none;
+  /* border: none; */
+  border-color: hsl(210, 2%, 56%);
   align-items: center;
 }
 .is-active {
-  background-color: hsl(0, 0%, 15%);
+  background-color: hsl(0, 0%, 27%);
 }
 svg {
   fill: hsl(0, 0%, 57%);
