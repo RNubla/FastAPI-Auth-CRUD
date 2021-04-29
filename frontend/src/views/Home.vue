@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="heroclass">
     <hero />
   </div>
   <div>
@@ -7,7 +7,7 @@
       >Add New Post</router-link
     >
     <!-- Post cards -->
-    <div>
+    <div class="cardClass">
       <!-- <ul class="grid md:grid-cols-3"> -->
       <ul class="postCardGrid">
         <!-- <li v-for="post in getAllPosts.slice().reverse()" :key="post"> -->
@@ -58,7 +58,10 @@ export default {
 
 <style scoped>
 .heroclass {
-  padding: 1.5em;
+  padding: 1.5em 25em;
+}
+.cardClass {
+  padding: 0 25em;
 }
 ul {
   list-style: none;
