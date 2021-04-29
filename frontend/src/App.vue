@@ -2,38 +2,28 @@
   <div id="nav" class="nav">
     <header-nav />
   </div>
-  <!-- <hero /> -->
   <router-view />
 </template>
 
 <script>
 import HeaderNav from "./components/HeaderNav/HeaderNav";
-// import Hero from "./components/Hero/Hero";
-import { mapActions, mapState } from "vuex";
+import { computed } from "vue";
+import { useStore } from "vuex";
 export default {
   components: {
     HeaderNav,
-    // Hero,
+  },
+  setup() {
+    const store = useStore();
+    const loginStatus = computed(() => store.getters["auth/loginStatus"]);
+    return {
+      loginStatus,
+    };
   },
   watch: {
     $route(to) {
       document.title = to.meta.title || "FastAPI Auth CRUD Demo";
     },
-  },
-  data() {
-    return {
-      timer: null,
-    };
-  },
-  computed: {
-    ...mapState("auth", {
-      loginStatus: "loginStatus",
-    }),
-  },
-  methods: {
-    ...mapActions({
-      refreshTokens: "refreshToken",
-    }),
   },
 };
 </script>
