@@ -71,7 +71,7 @@ export default {
       await fetchAPost();
       await router.push({
         name: "Post",
-        params: { id: props.title },
+        params: { id: props.post_id },
       });
     }
 
