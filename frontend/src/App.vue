@@ -1,8 +1,10 @@
 <template>
-  <div id="nav" class="nav">
-    <header-nav />
+  <div id="app">
+    <div id="nav" class="nav">
+      <header-nav />
+    </div>
+    <router-view />
   </div>
-  <router-view />
 </template>
 
 <script>
@@ -38,7 +40,8 @@ a {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  padding: 0 1em 0 1em;
+  // background-color: hsl(30, 33%, 93%);
+  // padding: 0 1em 0 1em;
 }
 
 #nav {
