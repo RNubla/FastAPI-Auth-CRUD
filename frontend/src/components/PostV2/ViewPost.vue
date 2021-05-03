@@ -141,6 +141,9 @@ export default {
 
 <style lang="scss">
 /* Style the export */
+.ProseMirror {
+  padding: 0 clamp(1ch, 16vw, 48ch);
+}
 .export {
   padding: 1rem 0 0;
 
