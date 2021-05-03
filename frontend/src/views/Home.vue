@@ -2,6 +2,7 @@
   <div class="heroclass">
     <hero />
   </div>
+
   <div>
     <router-link v-if="getLoginStatus == true" to="/new-post"
       >Add New Post</router-link
@@ -58,10 +59,15 @@ export default {
 
 <style scoped>
 .heroclass {
-  padding: 1.5em 25em;
+  /* padding: 1.5em 6em; */
+  margin: auto;
+  padding: 0 clamp(1ch, 16vw, 48ch);
 }
+/* .heroclass-parent {
+  width: clamp(120px, 2vw, 480px);
+} */
 .cardClass {
-  padding: 0 25em;
+  padding: 0 clamp(1ch, 16vw, 48ch);
 }
 ul {
   list-style: none;
