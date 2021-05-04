@@ -47,7 +47,10 @@ const actions = {
       // state.singlePostId
     );
     if (response && response.data) {
-      console.log("post module: get single post", response.data.data);
+      console.log(
+        "post module: get single post",
+        JSON.stringify(response.data.data)
+      );
       commit("SET_SINGLE_POST", response.data.data);
     }
   },
