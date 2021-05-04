@@ -33,11 +33,6 @@ export default {
 a {
   text-decoration: none;
 }
-* {
-  // -webkit-appearance: none;
-  // overflow-y: hidden;
-  // overflow-x: hidden;
-}
 #app {
   // font-family: Avenir, Helvetica, Arial, sans-serif;
   font-family: "Courier New", Courier, monospace;
