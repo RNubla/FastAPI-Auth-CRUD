@@ -1,17 +1,20 @@
 <template>
-  <div>
+  <div class="mb-5">
     <header-nav class="w-100" />
     <router-view />
   </div>
+  <v-footer />
 </template>
 
 <script>
 import HeaderNav from "./components/HeaderNav/HeaderNav";
 import { computed } from "vue";
 import { useStore } from "vuex";
+import VFooter from "./components/Footer/V-Footer.vue";
 export default {
   components: {
     HeaderNav,
+    VFooter,
   },
   setup() {
     const store = useStore();
