@@ -1,5 +1,5 @@
 <template>
-  <div class="footer mt-auto py-3 bg-light">
+  <footer>
     <div class="container py-4">
       <div class="d-flex justify-content-center">
         <p>FastAPI Auth CRUD</p>
@@ -21,7 +21,7 @@
         >
       </div>
     </div>
-  </div>
+  </footer>
 </template>
 
 <script>

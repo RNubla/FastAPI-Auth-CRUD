@@ -1,9 +1,11 @@
 <template>
-  <div class="mb-5">
-    <header-nav class="w-100" />
-    <router-view />
-  </div>
-  <v-footer />
+  <body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+      <header-nav class="w-100 mb-5" />
+      <router-view />
+    </main>
+    <v-footer class="footer mt-auto py-3 bg-light" />
+  </body>
 </template>
 
 <script>

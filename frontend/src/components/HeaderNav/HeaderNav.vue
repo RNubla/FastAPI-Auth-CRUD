@@ -59,39 +59,6 @@
       </div>
     </nav>
   </div>
-  <!-- <div class="container">
-    <div class="navbar">
-      <div class="homeBtnContainer">
-        <button class="homeBtn" @click.prevent="goToHomePage">
-          FastAPI Auth CRUD Demo
-        </button>
-      </div>
-      <div
-        class="loginRegisterContainer"
-        v-if="getLoginStatus == false || getLoginStatus == null"
-      >
-        <div class="loginRegisterGrid">
-          <router-link class="loginBtn" to="/login"><p>Login</p></router-link>
-          <router-link class="registerBtn" to="/register"
-            ><p>Register</p></router-link
-          >
-        </div>
-      </div>
-      <div class="loginRegisterContainer" v-else>
-        <div class="loginRegisterGrid">
-          <router-link to="/" class="loginBtn"
-            ><p>
-              {{ getAuthData.user_name }}
-            </p></router-link
-          >
-          <div class="logoutBtn" @click="logout" to="/logout">
-            <p>Logout</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
-  <!-- <hero /> -->
 </template>
 
 <script>
