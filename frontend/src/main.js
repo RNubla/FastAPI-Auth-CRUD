@@ -3,6 +3,8 @@ import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap";
 // import "./assets/tailwind.css";
 // import "./assets/tailwind.css";
 // import * as appRouter from "./appRouter";
