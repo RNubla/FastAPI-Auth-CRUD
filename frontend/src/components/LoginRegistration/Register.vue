@@ -1,5 +1,67 @@
 <template>
-  <div class="container">
+  <div class="container bg-light mt-5 pt-5 pb-5">
+    <p class="fw-bold fs-4">Sign Up</p>
+    <form class="container needs-validation" @submit.prevent="checkForm">
+      <div class="input-group flex-nowrap mb-3">
+        <!-- <label for="username" class="form-label">Username</label> -->
+
+        <input
+          type="text"
+          class="form-control"
+          id="validationFullname"
+          aria-label="Fullname"
+          placeholder="John Smith"
+          aria-describedby="fullnameHelp"
+          v-model="newUser.user_fullname"
+          required
+        />
+        <div class="invalid-feedback">Please enter Fullname</div>
+      </div>
+      <div class="input-group flex-nowrap mb-3">
+        <!-- <label for="username" class="form-label">Username</label> -->
+        <span class="input-group-text" id="addon-usernameHelp">@</span>
+        <input
+          type="text"
+          class="form-control"
+          id="validationUsername"
+          aria-label="Username"
+          placeholder="Username"
+          aria-describedby="usernameHelp"
+          v-model="newUser.user_name"
+          required
+        />
+        <div class="invalid-feedback">Please enter a username</div>
+      </div>
+      <div class="input-group flex-nowrap mb-3">
+        <!-- <label for="username" class="form-label">Username</label> -->
+
+        <input
+          type="email"
+          class="form-control"
+          id="validationEmail"
+          aria-label="Email"
+          placeholder="johnsmith@example.com"
+          aria-describedby="emailHelp"
+          v-model="newUser.email"
+          required
+        />
+        <div class="invalid-feedback">Please enter an email</div>
+      </div>
+      <div class="input-group flex-nowrap mb-3">
+        <input
+          type="password"
+          placeholder="Password"
+          class="form-control"
+          id="newUserPassword"
+          v-model="newUser.password"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Register Now</button>
+    </form>
+  </div>
+  <!-- <div class="container">
       <div class="">
           <div class="m-4 pt-8">
               <p class="text-center font-extrabold text-3xl ">Register</p>
@@ -14,19 +76,15 @@
                     </ul>
                 </p>
                 <p class="m-4">
-                    <!-- <input type="text" v-model="loginUserInputs.user_name" /> -->
                     <input class="pl-2 h-10 shadow-md inline-block align-baseline placeholder-gray-500 text-left text-lg bg-gray-100 border border-transparent focus:ouylin-none focus:ring-2 focus:ring-green-200 rounded-md focus:border-transparent" type="text" placeholder="John Smith" v-model="newUser.user_fullname" />
                 </p>
                 <p class="m-4">
-                    <!-- <input type="text" v-model="loginUserInputs.user_name" /> -->
                     <input class="pl-2 h-10 shadow-md inline-block align-baseline placeholder-gray-500 text-left text-lg bg-gray-100 border border-transparent focus:ouylin-none focus:ring-2 focus:ring-green-200 rounded-md focus:border-transparent" type="text" placeholder="Username" v-model="newUser.user_name" />
                 </p>
                 <p class="m-4">
-                    <!-- <input type="text" v-model="loginUserInputs.user_name" /> -->
                     <input class="pl-2 h-10 shadow-md inline-block align-baseline placeholder-gray-500 text-left text-lg bg-gray-100 border border-transparent focus:ouylin-none focus:ring-2 focus:ring-green-200 rounded-md focus:border-transparent" type="text" placeholder="john@example.com" v-model="newUser.email" />
                 </p>
                 <p class="m-4">
-                    <!-- <input type="password" minlength="3" v-model="loginUserInputs.password" /> -->
                     <input class="pl-2 h-10 shadow-md inline-block align-baseline placeholder-gray-500 text-left text-lg bg-gray-100 border border-transparent focus:ouylin-none focus:ring-2 focus:ring-green-200 rounded-md focus:border-transparent" type="password" placeholder="Password" minlength="3" v-model="newUser.password" />
                 </p>
                 <p class="m-8">
@@ -43,7 +101,7 @@
             </div>
         </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -60,34 +118,12 @@ export default {
       },
     };
   },
-  computed: {
-    // ...mapState("register", {
-    //   newUser: "newUser",
-    // }),
-  },
   methods: {
     ...mapActions("register", {
       registerUser: "registerUser",
     }),
     checkForm() {
-      if (this.name && this.age) {
-        return true;
-      }
-
       this.errors = [];
-
-      if (!this.newUser.user_name) {
-        this.errors.push("Username required.");
-      }
-      if (!this.newUser.user_fullname) {
-        this.errors.push("Fullname required.");
-      }
-      if (!this.newUser.password) {
-        this.errors.push("password required.");
-      }
-      if (!this.newUser.email) {
-        this.errors.push("Email required.");
-      }
       if (this.errors.length === 0) {
         // console.log("Error is empty");
         this.registerUser(this.newUser);
