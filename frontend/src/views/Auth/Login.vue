@@ -1,9 +1,5 @@
 <template>
-  <div class="flex mx-auto px-24 mt-1 rounded-lg justify-center">
-    <div class="flex items-center">
-      <login />
-    </div>
-  </div>
+  <login />
 </template>
 
 <script>
