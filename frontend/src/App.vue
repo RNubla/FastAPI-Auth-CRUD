@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <div id="nav" class="nav">
+  <div id="mainApp">
+    <div id="" class="">
       <header-nav />
     </div>
     <router-view />
@@ -32,6 +32,11 @@ export default {
 <style lang="scss">
 a {
   text-decoration: none;
+}
+* {
+  // -webkit-appearance: none;
+  // overflow-y: hidden;
+  // overflow-x: hidden;
 }
 #app {
   // font-family: Avenir, Helvetica, Arial, sans-serif;
