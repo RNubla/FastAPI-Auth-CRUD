@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <nav class="p-4 navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
+  <div class="">
+    <nav class="pb-4 pt-4 w-100 navbar  navbar-light bg-light" style="width: -webkit-fill-available;">
+      <div class="container">
         <a class="navbar-brand user-select-none " type="" @click="goToHomePage">FastAPI Auth CRUD</a>
         <!-- Navbar toggler -->
         <button
