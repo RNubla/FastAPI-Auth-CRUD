@@ -25,13 +25,11 @@
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import Hero from "../components/Hero/Hero.vue";
-// import PostCard from "../components/Post/PostCard.vue";
 import Card from "../components/PostV2/Card";
 export default {
   name: "Home",
   components: {
     Hero,
-    // PostCard,
     Card,
   },
   setup() {
