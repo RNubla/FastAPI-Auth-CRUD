@@ -6,13 +6,14 @@
           :src="post_image ? post_image : default_post_image"
           class="card-img-top img-thumbnail"
           alt="..."
-          style="height: 12rem"
+          style="height: 12rem; object-fit: cover"
         />
       </div>
       <div class="card-body">
         <h5 type="" @click="viewSinglePost" class="card-title fw-bold">
           <div class="user-select-none">{{ title }}</div>
         </h5>
+        <h6>{{ convertDate }}</h6>
         <p class="card-text d-block text-truncate" style="max-width: 18rem">
           {{ paragraph }}
         </p>
