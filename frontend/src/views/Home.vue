@@ -6,7 +6,7 @@
       >Add New Post</router-link
     >
   </div>
-  <div class="row row-cols-1 row-cols-md-3 g-4 w-100 px-4">
+  <div class="row row-cols-1 row-cols-md-3 g-4 w-100 px-4 m-auto">
     <card
       :title="post.data.content[0].content[0].text"
       :paragraph="post.data.content[1].content[0].text"
