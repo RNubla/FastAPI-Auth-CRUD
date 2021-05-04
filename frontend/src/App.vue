@@ -1,8 +1,6 @@
 <template>
-  <div id="mainApp">
-    <div id="" class="">
-      <header-nav />
-    </div>
+  <div>
+    <header-nav class="w-100" />
     <router-view />
   </div>
 </template>
@@ -40,6 +38,7 @@ a {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  // padding: 0 0.8rem;
   // background-color: hsl(30, 33%, 93%);
   // padding: 0 1em 0 1em;
 }
