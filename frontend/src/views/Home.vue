@@ -1,30 +1,23 @@
 <template>
-  <div class="heroclass">
-    <hero />
-  </div>
+  <hero />
 
   <div>
     <router-link v-if="getLoginStatus == true" to="/new-post"
       >Add New Post</router-link
     >
-    <!-- Post cards -->
-    <div class="cardClass">
-      <!-- <ul class="grid md:grid-cols-3"> -->
-      <ul class="postCardGrid">
-        <!-- <li v-for="post in getAllPosts.slice().reverse()" :key="post"> -->
-        <li v-for="post in getAllPosts" :key="post">
-          <post-card
-            :title="post.data.content[0].content[0].text"
-            :author="post.author"
-            :published_on="post.published_on"
-            :post_id="post.id"
-            :user_id="post.user_id"
-            :post_data="post.data.content"
-          >
-          </post-card>
-        </li>
-      </ul>
-    </div>
+  </div>
+  <div class="row row-cols-1 row-cols-md-3 g-4 px-3">
+    <card
+      :title="post.data.content[0].content[0].text"
+      :paragraph="post.data.content[1].content[0].text"
+      :author="post.author"
+      :published_on="post.published_on"
+      :post_id="post.id"
+      :user_id="post.user_id"
+      :post_data="post.data.content"
+      v-for="post in getAllPosts"
+      :key="post"
+    />
   </div>
 </template>
 
@@ -32,12 +25,14 @@
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import Hero from "../components/Hero/Hero.vue";
-import PostCard from "../components/Post/PostCard.vue";
+// import PostCard from "../components/Post/PostCard.vue";
+import Card from "../components/PostV2/Card";
 export default {
   name: "Home",
   components: {
     Hero,
-    PostCard,
+    // PostCard,
+    Card,
   },
   setup() {
     const store = useStore();
@@ -58,18 +53,18 @@ export default {
 </script>
 
 <style scoped>
-.heroclass {
-  /* padding: 1.5em 6em; */
-  margin: auto;
-  padding: 0 clamp(1ch, 16vw, 48ch);
-}
+/* .heroclass { */
+/* padding: 1.5em 6em; */
+/* margin: auto; */
+/* padding: 0 clamp(1ch, 16vw, 48ch); */
+/* } */
 /* .heroclass-parent {
   width: clamp(120px, 2vw, 480px);
 } */
-.cardClass {
+/* .cardClass {
   padding: 0 clamp(1ch, 16vw, 48ch);
-}
-ul {
+} */
+/* ul {
   list-style: none;
 }
 .postCardGrid {
@@ -77,5 +72,5 @@ ul {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-gap: 0.8rem;
-}
+} */
 </style>
