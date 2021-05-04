@@ -1,13 +1,35 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
+    <div class="jumbotron">
+      <h1 class="display-4">Hello, world!</h1>
+      <p class="lead">
+        This is a simple CRUD application written in VueJS for the front-end and
+        FastAPI(Python) for the backend. Users can register and post articles
+        once they have logged in. The authentication for this application uses
+        FastAPI-JWT-Auth which allows the server to send the user an access
+        token and a refresh token.
+      </p>
+      <hr class="my-4" />
+      <p>Source code is linked below if you want to dabble with it.</p>
+      <p class="lead">
+        <a
+          class="btn btn-success btn-lg"
+          href="https://github.com/RNubla/FastAPI-Auth-CRUD"
+          role="button"
+          >Source Code</a
+        >
+      </p>
+    </div>
+  </div>
+  <!-- <div class="container">
     <div class="hero">
       <div v-for="box in carousel" :key="box" class="">
         <img :src="box.img" class="" />
         <p class="absolute">{{ box.title }}</p>
       </div>
     </div>
-  </div>
-  <div class="post">Posts</div>
+  </div> -->
+  <div class="fw-bold fs-2">Posts</div>
 </template>
 
 <script>
@@ -42,37 +64,43 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  padding: 1.5em;
-  box-shadow: inset 0 0 20px hsl(0, 1%, 85%);
-  border-radius: 1em;
-  margin: 0 0 1em 0;
+.jumbotron {
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  background-color: #e9ecef;
+  border-radius: 0.3rem;
 }
-.hero {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: 1em;
-  // margin: 0 0 2em 0;
-}
-div > img {
-  display: flex;
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  border-radius: 0.5em;
-}
-.post {
-  font-weight: bold;
-  font-size: 1.5rem;
-  // margin: 1rem 0 2rem 0;
-  // border-bottom: 0.1em dotted;
-}
-p {
-  position: relative;
-  bottom: 50%;
-  color: white;
-  font-family: "Courier New", Courier, monospace;
-  font-weight: bold;
-  font-size: 1.9rem;
-}
+// .container {
+//   padding: 1.5em;
+//   box-shadow: inset 0 0 20px hsl(0, 1%, 85%);
+//   border-radius: 1em;
+//   margin: 0 0 1em 0;
+// }
+// .hero {
+//   display: grid;
+//   grid-template-columns: repeat(4, minmax(0, 1fr));
+//   column-gap: 1em;
+//   // margin: 0 0 2em 0;
+// }
+// div > img {
+//   display: flex;
+//   object-fit: cover;
+//   width: 100%;
+//   height: 100%;
+//   border-radius: 0.5em;
+// }
+// .post {
+//   font-weight: bold;
+//   font-size: 1.5rem;
+//   // margin: 1rem 0 2rem 0;
+//   // border-bottom: 0.1em dotted;
+// }
+// p {
+//   position: relative;
+//   bottom: 50%;
+//   color: white;
+//   font-family: "Courier New", Courier, monospace;
+//   font-weight: bold;
+//   font-size: 1.9rem;
+// }
 </style>>
