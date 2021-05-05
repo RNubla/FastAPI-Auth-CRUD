@@ -1,35 +1,36 @@
 <template>
-  <div class="container bg-light mt-5 pt-5 pb-5">
-    <p class="fw-bold fs-4">Login</p>
-    <form class="container needs-validation" @submit.prevent="login">
-      <div class="input-group flex-nowrap mb-3">
-        <!-- <label for="username" class="form-label">Username</label> -->
-        <span class="input-group-text" id="addon-usernameHelp">@</span>
-        <input
-          type="text"
-          class="form-control"
-          id="validationUsername"
-          aria-label="Username"
-          placeholder="Username"
-          aria-describedby="usernameHelp"
-          v-model="loginInputs.user_name"
-          required
-        />
-        <div class="invalid-feedback">Please enter a username</div>
-      </div>
-      <div class="input-group flex-nowrap mb-3">
-        <input
-          type="password"
-          placeholder="Password"
-          class="form-control"
-          id="exampleInputPassword1"
-          v-model="loginInputs.password"
-          required
-        />
-      </div>
-
-      <button type="submit" class="btn btn-primary">Log In</button>
-    </form>
+  <div :style="{ height: variantHeight }">
+    <div class="container bg-light mt-5 pt-5 pb-5">
+      <p class="fw-bold fs-4">Login</p>
+      <form class="container needs-validation" @submit.prevent="login">
+        <div class="input-group flex-nowrap mb-3">
+          <!-- <label for="username" class="form-label">Username</label> -->
+          <span class="input-group-text" id="addon-usernameHelp">@</span>
+          <input
+            type="text"
+            class="form-control"
+            id="validationUsername"
+            aria-label="Username"
+            placeholder="Username"
+            aria-describedby="usernameHelp"
+            v-model="loginInputs.user_name"
+            required
+          />
+          <div class="invalid-feedback">Please enter a username</div>
+        </div>
+        <div class="input-group flex-nowrap mb-3">
+          <input
+            type="password"
+            placeholder="Password"
+            class="form-control"
+            id="exampleInputPassword1"
+            v-model="loginInputs.password"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Log In</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -38,6 +39,7 @@ import { mapActions, mapGetters, mapState } from "vuex";
 export default {
   data() {
     return {
+      variantHeight: "100vh",
       errors: [],
       forms: document.querySelectorAll(".needs-validation"),
       storedUser: null,

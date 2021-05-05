@@ -1,65 +1,64 @@
 <template>
-  <div class="container bg-light mt-5 pt-5 pb-5">
-    <p class="fw-bold fs-4">Sign Up</p>
-    <form class="container needs-validation" @submit.prevent="checkForm">
-      <div class="input-group flex-nowrap mb-3">
-        <!-- <label for="username" class="form-label">Username</label> -->
-
-        <input
-          type="text"
-          class="form-control"
-          id="validationFullname"
-          aria-label="Fullname"
-          placeholder="John Smith"
-          aria-describedby="fullnameHelp"
-          v-model="newUser.user_fullname"
-          required
-        />
-        <div class="invalid-feedback">Please enter Fullname</div>
-      </div>
-      <div class="input-group flex-nowrap mb-3">
-        <!-- <label for="username" class="form-label">Username</label> -->
-        <span class="input-group-text" id="addon-usernameHelp">@</span>
-        <input
-          type="text"
-          class="form-control"
-          id="validationUsername"
-          aria-label="Username"
-          placeholder="Username"
-          aria-describedby="usernameHelp"
-          v-model="newUser.user_name"
-          required
-        />
-        <div class="invalid-feedback">Please enter a username</div>
-      </div>
-      <div class="input-group flex-nowrap mb-3">
-        <!-- <label for="username" class="form-label">Username</label> -->
-
-        <input
-          type="email"
-          class="form-control"
-          id="validationEmail"
-          aria-label="Email"
-          placeholder="johnsmith@example.com"
-          aria-describedby="emailHelp"
-          v-model="newUser.email"
-          required
-        />
-        <div class="invalid-feedback">Please enter an email</div>
-      </div>
-      <div class="input-group flex-nowrap mb-3">
-        <input
-          type="password"
-          placeholder="Password"
-          class="form-control"
-          id="newUserPassword"
-          v-model="newUser.password"
-          required
-        />
-      </div>
-
-      <button type="submit" class="btn btn-primary">Register Now</button>
-    </form>
+  <div :style="{ height: variantHeight }">
+    <div class="container bg-light mt-5 pt-5 pb-5">
+      <p class="fw-bold fs-4">Sign Up</p>
+      <form class="container needs-validation" @submit.prevent="checkForm">
+        <div class="input-group flex-nowrap mb-3">
+          <!-- <label for="username" class="form-label">Username</label> -->
+          <input
+            type="text"
+            class="form-control"
+            id="validationFullname"
+            aria-label="Fullname"
+            placeholder="John Smith"
+            aria-describedby="fullnameHelp"
+            v-model="newUser.user_fullname"
+            required
+          />
+          <div class="invalid-feedback">Please enter Fullname</div>
+        </div>
+        <div class="input-group flex-nowrap mb-3">
+          <!-- <label for="username" class="form-label">Username</label> -->
+          <span class="input-group-text" id="addon-usernameHelp">@</span>
+          <input
+            type="text"
+            class="form-control"
+            id="validationUsername"
+            aria-label="Username"
+            placeholder="Username"
+            aria-describedby="usernameHelp"
+            v-model="newUser.user_name"
+            required
+          />
+          <div class="invalid-feedback">Please enter a username</div>
+        </div>
+        <div class="input-group flex-nowrap mb-3">
+          <!-- <label for="username" class="form-label">Username</label> -->
+          <input
+            type="email"
+            class="form-control"
+            id="validationEmail"
+            aria-label="Email"
+            placeholder="johnsmith@example.com"
+            aria-describedby="emailHelp"
+            v-model="newUser.email"
+            required
+          />
+          <div class="invalid-feedback">Please enter an email</div>
+        </div>
+        <div class="input-group flex-nowrap mb-3">
+          <input
+            type="password"
+            placeholder="Password"
+            class="form-control"
+            id="newUserPassword"
+            v-model="newUser.password"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Register Now</button>
+      </form>
+    </div>
   </div>
   <!-- <div class="container">
       <div class="">
@@ -110,6 +109,8 @@ export default {
   data() {
     return {
       errors: [],
+      variantHeight: "100vh",
+
       newUser: {
         user_name: null,
         email: null,
