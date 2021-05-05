@@ -13,5 +13,8 @@ depoly to heroku
 heroku git:remote -a {your-project-name}
 git push heroku main or git subtree push --prefix server heroku main
 
+Deployment link
+https://github.com/RNubla/FastAPI-Auth-CRUD/deployments/activity_log?environment=github-pages
+
 Redirection for github pages
 https://github.com/rafgraph/spa-github-pages
