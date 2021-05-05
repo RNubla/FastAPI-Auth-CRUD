@@ -72,9 +72,12 @@ export default {
       this.editor.setEditable(this.editable);
     },
   },
-  mounted() {
+  beforeMount() {
+    this.windowWidth = window.innerWidth;
+    this.variantHeight = this.windowWidth <= 415 ? "auto" : "100vh";
     window.onresize = () => {
       this.windowWidth = window.innerWidth;
+      this.variantHeight = this.windowWidth <= 415 ? "auto" : "100vh";
       if (this.windowWidth <= 415) {
         this.variantHeight = "auto";
       } else if (this.windowWidth >= 360) {
