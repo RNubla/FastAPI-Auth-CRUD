@@ -12,7 +12,7 @@
         v-model="editable"
       />
     </div>
-    <div>{{ windowWidth }}</div>
+    <!-- <div>{{ windowWidth }}</div> -->
     <editor-content :editor="editor" />
     <div
       type="button"
