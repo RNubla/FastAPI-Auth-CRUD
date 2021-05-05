@@ -77,7 +77,7 @@ export default {
     this.windowWidth = window.innerWidth;
     this.windowHeight = window.innerHeight;
     this.variantHeight =
-      this.windowWidth < this.windowHeight ? "100vh" : "auto";
+      this.windowWidth > this.windowHeight ? "100vh" : "auto";
     window.onresize = () => {
       this.windowWidth = window.innerWidth;
       this.windowHeight = window.innerHeight;
