@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :style="{ height: variantHeight }">
     <div v-if="getUserId === body.user_id">
       <input type="checkbox" v-model="editable" />
       <label for="editable">Edit</label><br />
@@ -12,7 +12,7 @@
         v-model="editable"
       />
     </div>
-
+    <div>{{ windowWidth }}</div>
     <editor-content :editor="editor" />
     <div
       type="button"
@@ -47,12 +47,17 @@ export default {
   },
   data() {
     return {
+      windowWidth: window.innerWidth,
+      variantHeight: "",
       user_id: null,
       editor: null,
       json: null,
       editable: false,
       inputPost: { data: null, published_on: new Date() },
     };
+  },
+  unmounted() {
+    window.removeEventListener("resize", window.onresize);
   },
   computed: {
     ...mapGetters("auth", {
@@ -68,6 +73,14 @@ export default {
     },
   },
   mounted() {
+    window.onresize = () => {
+      this.windowWidth = window.innerWidth;
+      if (this.windowWidth <= 415) {
+        this.variantHeight = "auto";
+      } else if (this.windowWidth >= 360) {
+        this.variantHeight = "100vh";
+      }
+    };
     this.editor = new Editor({
       editable: this.editable,
       extensions: [
