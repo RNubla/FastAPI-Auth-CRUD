@@ -76,6 +76,8 @@ export default {
   beforeMount() {
     this.windowWidth = window.innerWidth;
     this.windowHeight = window.innerHeight;
+    this.variantHeight =
+      this.windowWidth < this.windowHeight ? "100vh" : "auto";
     window.onresize = () => {
       this.windowWidth = window.innerWidth;
       this.windowHeight = window.innerHeight;
@@ -89,7 +91,11 @@ export default {
       }
       if (this.windowWidth > this.windowHeight) {
         console.log("We are in landscape mode");
-        this.variantHeight = "auto";
+        // this.variantHeight = "auto";
+        if (this.windowHeight > 1024) {
+          this.variantHeight = "100vh";
+        }
+        // this.variantHeight = "auto";
       }
     };
 
