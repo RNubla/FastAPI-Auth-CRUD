@@ -34,7 +34,10 @@ const actions = {
     );
     console.log(process.env.VUE_APP_LOCAL_HOST_SERVER);
     if (response && response.data) {
-      // console.log("post_module", JSON.stringify(response.data.data));
+      // console.log(
+      //   "post_module, getAllPosts",
+      //   JSON.stringify(response.data.data)
+      // );
       commit("SET_POSTS", response.data.data);
     }
   },

@@ -1,5 +1,5 @@
 <template>
-  <div :style="{ height: variantHeight }">
+  <div>
     <div v-if="getUserId === body.user_id">
       <input type="checkbox" v-model="editable" />
       <label for="editable">Edit</label><br />

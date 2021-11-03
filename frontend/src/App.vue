@@ -1,10 +1,11 @@
 <template>
-  <body class="d-flex flex-column h-100">
-    <main class="flex-shrink-0">
+  <!-- <body class="d-flex flex-column h-100 bg-light" id="page-container"> -->
+  <body id="page-container">
+    <div class="flex-shrink-0" id="content-wrap">
       <header-nav class="w-100 mb-5" />
-      <router-view />
-    </main>
-    <v-footer class="footer mt-auto py-3 bg-light" />
+      <router-view class="container" />
+    </div>
+    <v-footer class="footer mt-auto bg-light" id="foot" />
   </body>
 </template>
 
@@ -57,5 +58,28 @@ a {
       color: #42b983;
     }
   }
+}
+#page-container {
+  min-height: 100vh;
+  position: relative;
+  margin: 0;
+  padding-bottom: 200px;
+  box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+}
+// #content-wrap {
+//   padding-bottom: 2.5rem;
+// }
+#foot {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 150px;
+  /* height: 50px;
+  // position: absolute;
+  // bottom: 0;
+  // width: 100%;
+  // height: 2.5rem; /* Footer height */
 }
 </style>

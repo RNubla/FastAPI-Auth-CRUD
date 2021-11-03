@@ -49,7 +49,7 @@ export default {
       // console.log("json", JSON.stringify(image));
       // console.log("FIRST IMAGE", jsonpath.query(image, "$[0].data.url"));
       image = jsonpath.query(image, "$[0].attrs.src")[0];
-      // console.log("first image", image);
+      console.log("first image", image);
       return image;
     };
     onBeforeMount(async () => await getFirstImage());

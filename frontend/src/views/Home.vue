@@ -1,23 +1,29 @@
 <template>
-  <hero />
-
   <div>
-    <router-link v-if="getLoginStatus == true" to="/new-post"
-      >Add New Post</router-link
-    >
-  </div>
-  <div class="row row-cols-1 row-cols-md-3 g-4 w-100 px-4 m-auto">
-    <card
-      :title="post.data.content[0].content[0].text"
-      :paragraph="post.data.content[1].content[0].text"
-      :author="post.author"
-      :published_on="post.published_on"
-      :post_id="post.id"
-      :user_id="post.user_id"
-      :post_data="post.data.content"
-      v-for="post in getAllPosts"
-      :key="post"
-    />
+    <hero />
+    <div class="">
+      <!-- <span class="">Search Articles</span> -->
+      <input type="text" v-model="search" placeholder="Search titles" />
+      <!-- <label>Search article:</label> -->
+    </div>
+    <div>
+      <router-link v-if="getLoginStatus == true" to="/new-post"
+        >Add New Post</router-link
+      >
+    </div>
+    <div class="row row-cols-1 row-cols-md-3 g-4 w-100 px-4 m-auto">
+      <card
+        v-for="post in filteredList"
+        :key="post"
+        :title="post.data.content[0].content[0].text"
+        :paragraph="post.data.content[1].content[0].text"
+        :author="post.author"
+        :published_on="post.published_on"
+        :post_id="post.id"
+        :user_id="post.user_id"
+        :post_data="post.data.content"
+      />
+    </div>
   </div>
 </template>
 
@@ -31,6 +37,20 @@ export default {
   components: {
     Hero,
     Card,
+  },
+  data() {
+    return {
+      search: "",
+    };
+  },
+  computed: {
+    filteredList() {
+      return this.getAllPosts.filter((post) => {
+        return post.data.content[0].content[0].text
+          .toLowerCase()
+          .includes(this.search.toLowerCase());
+      });
+    },
   },
   setup() {
     const store = useStore();

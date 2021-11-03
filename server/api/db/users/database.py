@@ -1,4 +1,5 @@
 # from api.routes.users.authentication_users_routes import refresh_token
+import mongodb_settings
 from api.auth.auth import AuthHandler
 import motor.motor_asyncio
 from bson.objectid import ObjectId
@@ -10,7 +11,9 @@ import os
 
 # env
 # print('MONGO_DB ENV', os.environ.get('MONGO_DB'))
-MONGO_DETAILS = os.environ.get('MONGO_DB')
+# MONGO_DETAILS = os.environ.get('MONGO_DB')
+MONGO_DETAILS = mongodb_settings.mongo_db_env
+print(MONGO_DETAILS)
 
 # MONGO_DETAILS = 'mongodb://localhost:27017'
 

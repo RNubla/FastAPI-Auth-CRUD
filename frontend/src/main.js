@@ -5,6 +5,7 @@ import router from "./router";
 import store from "./store";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
+import "remixicon/fonts/remixicon.css";
 // import "./assets/tailwind.css";
 // import "./assets/tailwind.css";
 // import * as appRouter from "./appRouter";

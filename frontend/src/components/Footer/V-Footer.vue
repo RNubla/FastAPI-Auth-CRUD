@@ -1,8 +1,8 @@
 <template>
-  <footer>
-    <div class="container py-4">
+  <footer class="bg-dark">
+    <div class="container">
       <div class="d-flex justify-content-center">
-        <p>FastAPI Auth CRUD</p>
+        <p>The Programmer Posts</p>
       </div>
       <div class="d-flex justify-content-evenly">
         <div class="container">

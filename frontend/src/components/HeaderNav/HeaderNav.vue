@@ -1,8 +1,8 @@
 <template>
   <div class="">
-    <nav class="pb-4 pt-4 w-100 navbar navbar-expand-md navbar-light bg-light" style="width: -webkit-fill-available;">
+    <nav class="pb-4 pt-4 w-100 navbar navbar-expand-md navbar-dark bg-dark" style="width: -webkit-fill-available;">
       <div class="container">
-        <a class="navbar-brand user-select-none " type="" @click="goToHomePage">FastAPI Auth CRUD</a>
+        <a class="navbar-brand user-select-none " type="" @click="goToHomePage">The Programmer Posts</a>
         <!-- Navbar toggler -->
         <button
           class="navbar-toggler"
